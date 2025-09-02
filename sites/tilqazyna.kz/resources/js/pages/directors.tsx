@@ -35,7 +35,7 @@ const members: BoardMember[] = [
             '2023 жылдың 27 наурыз айынан бастап Қазақстан Республикасы Ғылым және жоғары білім министрлігі Тіл саясаты комитетінің төрағасы лауазымын атқарады.'
         ],
         profileUrl: 'https://tilqazyna.kz/directors',
-        photoUrl: 'https://tilqazyna.kz/img/directors/Tleshov.jpg',
+        photoUrl: '/img/directors/Tleshov.jpg',
     },
     {
         name: 'Асанғазы Оразкүл Асанғазықызы',
@@ -47,7 +47,7 @@ const members: BoardMember[] = [
             '«Құрмет» орденімен, «Еңбектегі Ерлігі үшін», «Белсенді қызметі үшін», «Қазақстан Республикасының тәуелсіздігіне 10 жыл», «Қазақстан Республикасының тәуелсіздігіне 20 жыл» мерекелік медальдарымен марапатталған, «Қазақ КСР оқу ісінің үздігі» белгісі, Астана қаласы әкімінің Алғыс хаты, Оңтүстік Қазақстан облысы Сарыағаш және Бәйдібек аудандарының және Жамбыл облысы Шу ауданының «Құрметті азаматы» атақтары бар.'
         ],
         profileUrl: 'https://tilqazyna.kz/directors',
-        photoUrl: 'https://tilqazyna.kz/img/directors/Asangazy.jpg',
+        photoUrl: '/img/directors/Asangazy.jpg',
     },
     {
         name: 'Құрманәлиев Кәрімбек Арыстанбекұлы',
@@ -60,7 +60,7 @@ const members: BoardMember[] = [
             '80-нен астам ғылыми жарияланымның, 4 монографияның авторы.'
         ],
         profileUrl: 'https://tilqazyna.kz/directors',
-        photoUrl: 'https://tilqazyna.kz/img/directors/Kurmangaliev.jpg',
+        photoUrl: '/img/directors/Kurmangaliev.jpg',
     },
     {
         name: 'Жақып Жантас Алтайұлы',
@@ -72,7 +72,7 @@ const members: BoardMember[] = [
             '«Қазақстан Республикасының тәуелсіздігіне 20 жыл» медалімен марапатталған.'
         ],
         profileUrl: 'https://tilqazyna.kz/directors',
-        photoUrl: 'https://tilqazyna.kz/img/directors/Zhakupov.jpg',
+        photoUrl: '/img/directors/Zhakupov.jpg',
     },
     {
         name: 'Есен Қазыбек Мәлікұлы',

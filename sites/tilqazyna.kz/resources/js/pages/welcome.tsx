@@ -120,22 +120,22 @@ export default function Welcome() {
                         <CardContent className="p-6">
                             <div className="grid grid-cols-2 items-center gap-6 sm:grid-cols-3 md:grid-cols-6">
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/Adm.jpg" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/Adm.jpg" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/GJBM.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/GJBM.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/MSM.jpg" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/MSM.jpg" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/TIL.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/TIL.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/Tbi.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/Tbi.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                                 <div className="flex items-center justify-center">
-                                    <img src="https://tilqazyna.kz/img/carousel/AltynsarinAkademiasy.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+                                    <img src="/img/carousel/AltynsarinAkademiasy.png" alt="Партнёр" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
                                 </div>
                             </div>
                         </CardContent>

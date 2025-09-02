@@ -8,7 +8,7 @@ export default function Structure() {
             <AppHeaderLayout>
                 <div className="mx-auto w-full max-w-5xl px-4 py-8 md:px-0">
                     <img
-                        src="https://tilqazyna.kz/img/schema5.png"
+                        src="/img/schema5.png"
                         alt="Ұйымның құрылымдық сызбасы"
                         className="w-full h-auto rounded-lg shadow"
                     />
