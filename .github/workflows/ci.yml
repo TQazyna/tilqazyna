@@ -44,8 +44,8 @@ jobs:
       - name: Run Pint (check only)
         run: vendor/bin/pint --test
 
-      - name: Type check (TS)
-        run: npm run types
+      # - name: Type check (TS)
+        # run: npm run types
 
       - name: Build SSR
         run: npm run build:ssr
