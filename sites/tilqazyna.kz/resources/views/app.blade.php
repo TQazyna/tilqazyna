@@ -40,8 +40,41 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+        @if (app()->environment('local') && file_exists(public_path('hot')))
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        @else
+        <?php
+            $manifestPath = public_path('build/manifest.json');
+            if (file_exists($manifestPath)) {
+                $manifest = json_decode(file_get_contents($manifestPath), true);
+
+                $entries = [
+                    'resources/js/app.tsx',
+                    "resources/js/pages/{$page['component']}.tsx",
+                    'resources/css/app.css',
+                ];
+
+                foreach ($entries as $entry) {
+                    if (!isset($manifest[$entry])) {
+                        continue;
+                    }
+
+                    $item = $manifest[$entry];
+
+                    if (isset($item['file'])) {
+                        echo '<script type="module" src="./build/' . $item['file'] . '"></script>' . "\n";
+                    }
+
+                    if (isset($item['css'])) {
+                        foreach ($item['css'] as $cssFile) {
+                            echo '<link rel="stylesheet" href="./build/' . $cssFile . '">' . "\n";
+                        }
+                    }
+                }
+            }
+        ?>
+        @endif
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
