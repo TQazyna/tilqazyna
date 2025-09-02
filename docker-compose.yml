@@ -11,7 +11,7 @@ services:
       - "8080:8080"
     command: >
       sh -lc "
-      [ -f .env ] || { [ -f .env.example ] && cp .env.example .env || printf 'APP_ENV=local\nAPP_DEBUG=true\nAPP_KEY=\nAPP_URL=http://localhost:8080\nDB_CONNECTION=sqlite\nDB_DATABASE=/var/www/html/sites/tilqazyna.kz/database/database.sqlite\n' > .env; };
+      [ -f .env ] || { [ -f .env.example ] && cp .env.example .env || printf 'APP_ENV=production\nAPP_DEBUG=false\nAPP_KEY=\nAPP_URL=https://tilqazyna.kz\nDB_CONNECTION=sqlite\nDB_DATABASE=/var/www/html/sites/tilqazyna.kz/database/database.sqlite\n' > .env; };
       mkdir -p database && touch database/database.sqlite;
       composer install --no-dev --no-interaction --prefer-dist;
       php artisan key:generate --force || true;
