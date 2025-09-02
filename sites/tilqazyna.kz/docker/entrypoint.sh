@@ -21,6 +21,7 @@ if [ ! -f .env ]; then
     cat > .env <<'EOF'
 APP_NAME="Tilqazyna"
 APP_ENV=local
+APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost:8080
 
@@ -41,6 +42,10 @@ fi
 
 # Generate key if not set
 php artisan key:generate --force || true
+
+# Clear caches so new APP_KEY is picked up
+php artisan config:clear || true
+php artisan optimize:clear || true
 
 # Ensure sqlite database file exists
 mkdir -p database
