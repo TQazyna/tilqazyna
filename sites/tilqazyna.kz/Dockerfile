@@ -29,11 +29,8 @@ RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 COPY ./sites/tilqazyna.kz ./
 RUN npm run build
 
-# Entrypoint to prepare the app when the container starts
-COPY ./sites/tilqazyna.kz/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
 EXPOSE 8080
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# No custom entrypoint; runtime handled by docker-compose command
 CMD ["php", "-v"]
+
