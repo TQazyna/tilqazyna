@@ -8,9 +8,9 @@ mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache || true
 chmod -R ug+rw storage bootstrap/cache || true
 
-# Install PHP deps if vendor is missing
+# Install PHP deps if vendor is missing (skip dev to avoid PHP 8.3-only dev deps)
 if [ ! -d vendor ]; then
-  composer install --no-interaction --prefer-dist --no-progress
+  composer install --no-dev --no-interaction --prefer-dist --no-progress
 fi
 
 # Ensure .env exists; copy from .env.docker if present, else generate minimal one
