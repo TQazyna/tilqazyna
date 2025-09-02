@@ -27,7 +27,6 @@ WORKDIR /var/www/html/sites/tilqazyna.kz
 COPY ./sites/tilqazyna.kz/package.json ./sites/tilqazyna.kz/package-lock.json* ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 COPY ./sites/tilqazyna.kz ./
-RUN npm run build
 
 EXPOSE 8080
 
