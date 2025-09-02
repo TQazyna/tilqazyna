@@ -8,6 +8,8 @@ RUN apk add --no-cache \
     oniguruma-dev \
     sqlite \
     sqlite-dev \
+    nodejs \
+    npm \
     $PHPIZE_DEPS
 
 # PHP extensions
@@ -21,6 +23,12 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html/sites/tilqazyna.kz
 
+# Install Node dependencies and build assets
+COPY ./sites/tilqazyna.kz/package.json ./sites/tilqazyna.kz/package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+COPY ./sites/tilqazyna.kz ./
+RUN npm run build
+
 # Entrypoint to prepare the app when the container starts
 COPY ./sites/tilqazyna.kz/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -29,4 +37,3 @@ EXPOSE 8080
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php", "-v"]
-
