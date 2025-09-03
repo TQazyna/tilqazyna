@@ -1,0 +1,9 @@
+<?if($banner['type'] !== 'flash'){?>
+    <a target="_blank" href="<?=$banner['link']?>"><img width="270" height="526" src="<?=$banner['img']?>"></a>
+<?}elseif($banner['type'] == 'flash'){?>
+    <object width="270" height="526">
+        <param name="movie" value="<?=$banner['img']?>">
+        <embed src="<?=$banner['img']?>" width="270" height="526">
+        </embed>
+    </object>
+<?}?>

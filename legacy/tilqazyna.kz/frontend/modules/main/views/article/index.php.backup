@@ -1,0 +1,59 @@
+<?php
+
+
+$servername = "192.168.0.2";
+$username = "tilalemi";
+$password = "Til23serv";
+$dbname = "tilalemi";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_set_charset($conn, "utf8"); /* Procedural approach */
+$conn->set_charset("utf8");        /* Object-oriented approach */
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+
+
+$id = intval($_GET['id']);
+$sql = 'SELECT `id`, `title`, `prev`,`preview`, `text`, `img` FROM `articles` WHERE `id` = ' . $id;
+$result = mysqli_query($conn, $sql) or die('Query failed: ' . mysqli_error($conn));
+
+
+?>
+<div class="news-page">
+    <div class="news-page__in floated">
+        <div class="main-page__left">
+            <?php if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) { ?>
+                    <div class="news-item">
+                        <div class="news-item__title-b">
+                            <h2 class="news-item__title"><?php echo $row['title'] ?></h2>
+                        </div>
+                        <div class="news-item__views-b">
+                        </div>
+                        <div class="news-item__body">
+                            <img src="https://tilalemi.kz/<?php echo $row['img'] ?>" alt="<?php echo $row['title'] ?>" style="display: block; margin: 0 auto; max-width: 45%; float: left; padding-right: 10px;">
+
+                            <div class="news-item__text">
+                                <div class="news-item__text" style="font-size:17px;font-style:italic; font-weight:600; padding-bottom:25px;">
+                                    <p><?php echo $row['prev'] ?></p>
+                                </div>
+                                <?php echo $row['preview']; ?><?php echo $row['text']; ?>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+        </div>
+    </div>
+</div>
+
+
+<?php }
+            }
+            $conn->close(); ?>

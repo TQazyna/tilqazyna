@@ -1,0 +1,40 @@
+<?php
+
+namespace app\modules\main\controllers;
+
+use common\models\User;
+use frontend\models\SignupForm;
+use frontend\models\ContactForm;
+use common\models\LoginForm;
+use yii\base\Response;
+use yii\helpers\Url;
+use yii\web\Controller;
+use yii\web\UrlManager;
+use yii\widgets\ActiveForm;
+use frontend\components\Common;
+
+class DirectorController extends Controller
+{
+    public $layout = "bootstrap";
+
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+    public function actionBasdirector()
+    {
+        return $this->render('basdirector');
+    }
+    public function actionAtkdirector()
+    {
+        return $this->render('atkdirector');
+    }
+    public function actionObdirector()
+    {
+        return $this->render('obdirector');
+    }
+    public function actionOddirector()
+    {
+        return $this->render('oddirector');
+    }
+}

@@ -1,0 +1,71 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "banners".
+ *
+ * @property integer $id
+ * @property string $title
+ * @property string $img
+ * @property string $pos
+ * @property string $link
+ * @property integer $type
+ */
+class Banners extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public $file;
+    public static function tableName()
+    {
+        return 'banners';
+    }
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if($this->pos == 'main_top'){
+                $this->posname = "Главная сверху";
+            }elseif($this->pos == 'main_bottom'){
+                $this->posname = "Главная снизу";
+            }elseif($this->pos == 'enter_top'){
+                $this->posname = "Внутренная справа";
+            }elseif($this->pos == 'enter_bottom'){
+                $this->posname = "Внутренная внизу";
+            }
+
+
+            return true;
+        }
+        return false;
+    }
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['title'], 'required'],
+            [['views'], 'integer'],
+            [['title','posname','type', 'img', 'pos', 'link'], 'string', 'max' => 255]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Название',
+            'img' => 'Файл',
+            'posname' => 'Позиция',
+            'link' => 'Ссылка на сайт',
+            'type' => 'Тип',
+        ];
+    }
+}

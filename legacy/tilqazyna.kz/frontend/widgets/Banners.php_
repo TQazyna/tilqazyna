@@ -1,0 +1,42 @@
+﻿<?php
+
+namespace frontend\widgets;
+
+use common\models\Articles;
+use common\models\Category;
+use yii\bootstrap\Widget;
+
+class Banners extends  Widget{
+
+    public $pos;
+
+    public function init()
+    {
+        parent::init();
+        if ($this->pos === null) {
+            $this->pos = 'main_top';
+        }
+    }
+    public function run(){
+
+        $pos = $this->pos;
+        $banners = \common\models\Banners::find()->where(["pos"=>$pos])
+		->andWhere(["published"=>1])
+		->orderBy("order asc")
+		//->orderBy("views asc")
+		//->one()
+		->all()
+		;
+        /* for one banner
+		if(!empty($banners)){
+            $model = \common\models\Banners::findOne($banners['id']);
+            $model->views ++;
+            $model->save();
+			//$banners->views++;
+			//$banners->save(); // почему инкрементируется 2 раза (оба варианта)?
+        }*/
+		$count = count($banners);
+
+        return $count ? $this->render($count>1 ? "banners_".$pos : "banner_".$pos ,['banners'=>$banners]) : '';
+    }
+}

@@ -1,0 +1,62 @@
+<?php
+ // Авторы: Өркен Мұсабекұлы, руқсатсыз пайдалануға болмайды
+session_start();
+header('Cache-control: private'); // IE 6 FIX
+if(isSet($_GET['sait']))
+{
+$lang = $_GET['sait'];
+// register the session and set the cookie
+$_SESSION['sait'] = $lang;
+
+setcookie("lang", $lang, time() + (3600 * 24 * 30));
+}
+else if(isSet($_SESSION['sait']))
+{
+$lang = $_SESSION['sait'];
+}
+else if(isSet($_COOKIE['sait']))
+{
+$lang = $_COOKIE['sait'];
+}
+else
+{
+$lang = 'kk';
+}
+switch ($lang) {
+  case 'kk':
+  $lang_file = 'kk.php';
+  break;
+
+  case 'lat':
+  $lang_file = 'lat.php';
+  break;
+   case 'ar':
+  $lang_file = 'ar.php';
+  break;
+  default:
+  $lang_file = 'kk.php';
+}
+include_once 'ln/'.$lang_file;
+
+?><?php
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+require(__DIR__ . '/../../vendor/autoload.php');
+require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
+require(__DIR__ . '/../../common/config/bootstrap.php');
+require(__DIR__ . '/../config/bootstrap.php');
+
+$config = yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/../../common/config/main.php'),
+    require(__DIR__ . '/../../common/config/main-local.php'),
+    require(__DIR__ . '/../config/main.php'),
+    require(__DIR__ . '/../config/main-local.php')
+);
+
+$service = new \yii\di\ServiceLocator();
+$service->set("cache",'yii\caching\FileCache');
+
+$application = new yii\web\Application($config);
+$application->set('locator',$service);
+$application->run();

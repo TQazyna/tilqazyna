@@ -1,0 +1,41 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\Banners */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="banners-form">
+
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?if(!empty($model->img)){?>
+
+    <?if($model['type'] !== 'flash'){?>
+        <img width="240" height="400" src="<?=$model->img?>">
+    <?}elseif($model['type'] == 'flash'){?>
+        <object width="240" height="400">
+            <param name="movie" value="<?=$model->img?>">
+            <embed src="<?=$model->img?>" width="240" height="400">
+            </embed>
+        </object>
+    <?}?>
+    <?}?>
+    <?= $form->field($model, 'file')->fileInput(['class'=>'btn btn-primary']) ?>
+
+    <?= $form->field($model, 'pos')->dropDownList(['main_top'=>'Главная сверху','main_bottom'=>'Главная снизу','enter_top'=>'Внутренная справа','enter_bottom'=>'Внутренная внизу']) ?>
+
+    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

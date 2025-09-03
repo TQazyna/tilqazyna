@@ -1,0 +1,66 @@
+
+<?php $this->title = 'Тіл-Қазына жаңалықтар' ?>
+<div class="container">
+<?php
+        if (isset($_GET['pageno'])) {
+            $pageno = $_GET['pageno'];
+        } else {
+            $pageno = 1;
+        }
+        $no_of_records_per_page = 6;
+        $offset = ($pageno-1) * $no_of_records_per_page;
+
+        $conn=mysqli_connect("192.168.0.2","tilalemi","Til23serv","tilalemi");
+        mysqli_set_charset($conn, "utf8"); /* Procedural approach */
+        // Check connection
+        if (mysqli_connect_errno()){
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            die();
+        }
+
+        $total_pages_sql = "SELECT COUNT(*) FROM articles WHERE 'online' = '1'";
+        $result = mysqli_query($conn,$total_pages_sql);
+        $total_rows = mysqli_fetch_array($result)[0];
+        $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+        $sql = "SELECT * FROM articles  ORDER BY id DESC LIMIT $offset, $no_of_records_per_page";
+        $res_data = mysqli_query($conn,$sql);
+        while($row = mysqli_fetch_array($res_data)){
+            ?> 
+
+            
+                <div class="col-md-4">
+                    <a href="//tilalemi.kz/article/<?php echo $row['id'] ?>">
+                        <div class="adis-img"><img src="//tilalemi.kz/<?php echo $row['img'] ?>" alt=""></div>
+                    </a>
+                    <div class="card-body card-title"><a href="//tilalemi.kz/article/<?php echo $row['id'] ?>"><?php echo $row['title'] ?></a></div>
+                </div>
+            
+            
+            <?php
+        }
+        mysqli_close($conn);
+    ?>
+    
+    <ul class="pagination">
+        <li><a href="?pageno=1">Бірінші</a></li>
+        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>"> Алдыңғы </a>
+        </li>
+        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>"> Келесі  </a>
+        </li>
+        
+        <li><a href="?pageno=<?php echo $total_pages; ?>">Соңғы</a></li>
+    </ul>
+</div>
+<style>
+    .col-md-4 { 
+        padding-right: 15px!important;
+        padding-left: 15px!important;
+        width: 29.333333%;
+        background: #fff;
+        margin: 5px;
+        height: 450px;
+    }
+</style>
