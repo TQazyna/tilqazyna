@@ -1,0 +1,511 @@
+fileFormatVersion: 2
+guid: 1f8c55d2c3480ad478780bf5698e1241
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1693926011764561964
+    second: animation_fire_375x375_sprite-min_0
+  - first:
+      213: -209207736732281341
+    second: animation_fire_375x375_sprite-min_1
+  - first:
+      213: 8167496204700102817
+    second: animation_fire_375x375_sprite-min_2
+  - first:
+      213: -2680318121105697464
+    second: animation_fire_375x375_sprite-min_3
+  - first:
+      213: 2812067278663773231
+    second: animation_fire_375x375_sprite-min_4
+  - first:
+      213: 3189544618701853914
+    second: animation_fire_375x375_sprite-min_5
+  - first:
+      213: 5108501031997374915
+    second: animation_fire_375x375_sprite-min_6
+  - first:
+      213: -4498391762213229942
+    second: animation_fire_375x375_sprite-min_7
+  - first:
+      213: 6893433608571501231
+    second: animation_fire_375x375_sprite-min_8
+  - first:
+      213: -2471982970699757185
+    second: animation_fire_375x375_sprite-min_9
+  - first:
+      213: -3059076564263768826
+    second: animation_fire_375x375_sprite-min_10
+  - first:
+      213: -4198027602363031796
+    second: animation_fire_375x375_sprite-min_11
+  - first:
+      213: -2800439884602637575
+    second: animation_fire_375x375_sprite-min_12
+  - first:
+      213: -4087323105260256672
+    second: animation_fire_375x375_sprite-min_13
+  - first:
+      213: -4838048433197432172
+    second: animation_fire_375x375_sprite-min_14
+  - first:
+      213: -3841881600736490763
+    second: animation_fire_375x375_sprite-min_15
+  - first:
+      213: -2387615062425384476
+    second: animation_fire_375x375_sprite-min_16
+  - first:
+      213: -5610103796578901795
+    second: animation_fire_375x375_sprite-min_17
+  - first:
+      213: -7799622321931223743
+    second: animation_fire_375x375_sprite-min_18
+  - first:
+      213: 8642844099135296907
+    second: animation_fire_375x375_sprite-min_19
+  - first:
+      213: 7568539225850878789
+    second: animation_fire_375x375_sprite-min_20
+  - first:
+      213: -5680385969484823151
+    second: animation_fire_375x375_sprite-min_21
+  - first:
+      213: 6357278587522619424
+    second: animation_fire_375x375_sprite-min_22
+  - first:
+      213: -4187152556739434969
+    second: animation_fire_375x375_sprite-min_23
+  - first:
+      213: 4744718236934788932
+    second: animation_fire_375x375_sprite-min_24
+  - first:
+      213: 1625080972773523743
+    second: animation_fire_375x375_sprite-min_25
+  - first:
+      213: 5289515652399037810
+    second: animation_fire_375x375_sprite-min_26
+  - first:
+      213: 1269726793424602214
+    second: animation_fire_375x375_sprite-min_27
+  - first:
+      213: 7044664512678373005
+    second: animation_fire_375x375_sprite-min_28
+  - first:
+      213: 4969079703574254779
+    second: animation_fire_375x375_sprite-min_29
+  - first:
+      213: -120868127694134737
+    second: animation_fire_375x375_sprite-min_30
+  - first:
+      213: -2617036248463969078
+    second: animation_fire_375x375_sprite-min_31
+  - first:
+      213: 5510179462963174227
+    second: animation_fire_375x375_sprite-min_32
+  - first:
+      213: -4687435053722551421
+    second: animation_fire_375x375_sprite-min_33
+  - first:
+      213: -2760675894438953808
+    second: animation_fire_375x375_sprite-min_34
+  - first:
+      213: -3610229467426430526
+    second: animation_fire_375x375_sprite-min_35
+  - first:
+      213: -4146154039272900481
+    second: animation_fire_375x375_sprite-min_36
+  - first:
+      213: 8382113109172027992
+    second: animation_fire_375x375_sprite-min_37
+  - first:
+      213: 4401147901022150009
+    second: animation_fire_375x375_sprite-min_38
+  - first:
+      213: 1801383106187885777
+    second: animation_fire_375x375_sprite-min_39
+  - first:
+      213: 5347931267801609943
+    second: animation_fire_375x375_sprite-min_40
+  - first:
+      213: -978845255299778350
+    second: animation_fire_375x375_sprite-min_41
+  - first:
+      213: 6910996550349457077
+    second: animation_fire_375x375_sprite-min_42
+  - first:
+      213: 3737289493739761096
+    second: animation_fire_375x375_sprite-min_43
+  - first:
+      213: 752328814486183091
+    second: animation_fire_375x375_sprite-min_44
+  - first:
+      213: -7393542818106513694
+    second: animation_fire_375x375_sprite-min_45
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 1202
+        width: 342
+        height: 257
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a030816686c85170800000000000000
+      internalID: 8167496204700102817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 1198
+        width: 361
+        height: 249
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 845d37aaed89dcad0800000000000000
+      internalID: -2680318121105697464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_11
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1197
+        width: 317
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0fddd3432c9db5c0800000000000000
+      internalID: -4198027602363031796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_19
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 830
+        width: 309
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b855a0a9aec81f770800000000000000
+      internalID: 8642844099135296907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_22
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 833
+        width: 324
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0289b7b6137993850800000000000000
+      internalID: 6357278587522619424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_24
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 833
+        width: 344
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 447d0df0910a8d140800000000000000
+      internalID: 4744718236934788932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_37
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 454
+        width: 331
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8520853667f335470800000000000000
+      internalID: 8382113109172027992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_39
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 453
+        width: 335
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dcf7b4146ccff810800000000000000
+      internalID: 1801383106187885777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_40
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 459
+        width: 352
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d6f48c472ba73a40800000000000000
+      internalID: 5347931267801609943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_fire_375x375_sprite-min_45
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 77
+        width: 351
+        height: 273
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6ee17cafbd46990800000000000000
+      internalID: -7393542818106513694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e4db177e2ee1f9f41b4ec2a266730722
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_fire_375x375_sprite-min_11: -4198027602363031796
+      animation_fire_375x375_sprite-min_19: 8642844099135296907
+      animation_fire_375x375_sprite-min_2: 8167496204700102817
+      animation_fire_375x375_sprite-min_22: 6357278587522619424
+      animation_fire_375x375_sprite-min_24: 4744718236934788932
+      animation_fire_375x375_sprite-min_3: -2680318121105697464
+      animation_fire_375x375_sprite-min_37: 8382113109172027992
+      animation_fire_375x375_sprite-min_39: 1801383106187885777
+      animation_fire_375x375_sprite-min_40: 5347931267801609943
+      animation_fire_375x375_sprite-min_45: -7393542818106513694
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

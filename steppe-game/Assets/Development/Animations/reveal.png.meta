@@ -1,0 +1,734 @@
+fileFormatVersion: 2
+guid: e78fffe3fdb73a549917c9eecea8e87d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 552668921513448944
+    second: reveal_0
+  - first:
+      213: -8733559511785325587
+    second: reveal_1
+  - first:
+      213: 7794548680112511540
+    second: reveal_2
+  - first:
+      213: 3257261192068338391
+    second: reveal_3
+  - first:
+      213: -8954769331493019391
+    second: reveal_4
+  - first:
+      213: 2900140954292351084
+    second: reveal_5
+  - first:
+      213: 8815272825130143590
+    second: reveal_6
+  - first:
+      213: -3460498914422076236
+    second: reveal_7
+  - first:
+      213: -3395768447456460476
+    second: reveal_8
+  - first:
+      213: -1723481430692589453
+    second: reveal_9
+  - first:
+      213: 1998257184231151430
+    second: reveal_10
+  - first:
+      213: -3026385333912257686
+    second: reveal_11
+  - first:
+      213: -8049789505985195152
+    second: reveal_12
+  - first:
+      213: 3967407696877732242
+    second: reveal_13
+  - first:
+      213: 1157389518103696098
+    second: reveal_14
+  - first:
+      213: 2946597360690344619
+    second: reveal_15
+  - first:
+      213: 7608015631001135898
+    second: reveal_16
+  - first:
+      213: -2080930452311647310
+    second: reveal_17
+  - first:
+      213: -2520977709603596265
+    second: reveal_18
+  - first:
+      213: 252390403345581617
+    second: reveal_19
+  - first:
+      213: 8978003072793106669
+    second: reveal_20
+  - first:
+      213: 2978484934233362977
+    second: reveal_21
+  - first:
+      213: 9003516676888163319
+    second: reveal_22
+  - first:
+      213: 5478350948359714437
+    second: reveal_23
+  - first:
+      213: -4327530579715746598
+    second: reveal_24
+  - first:
+      213: -2216507966643852643
+    second: reveal_25
+  - first:
+      213: 3572238454991770260
+    second: reveal_26
+  - first:
+      213: -8064646889572271920
+    second: reveal_27
+  - first:
+      213: -6607160658068262715
+    second: reveal_28
+  - first:
+      213: 5563815613518434663
+    second: reveal_29
+  - first:
+      213: 1585057494279963475
+    second: reveal_30
+  - first:
+      213: 8247955303881261213
+    second: reveal_31
+  - first:
+      213: 7789684318351024824
+    second: reveal_32
+  - first:
+      213: -5616721048483994494
+    second: reveal_33
+  - first:
+      213: -1482084541448751246
+    second: reveal_34
+  - first:
+      213: 2119114157499533687
+    second: reveal_35
+  - first:
+      213: 3251437968095659453
+    second: reveal_36
+  - first:
+      213: 4156718361749107205
+    second: reveal_37
+  - first:
+      213: -7729137624926657823
+    second: reveal_38
+  - first:
+      213: -5007124099674736424
+    second: reveal_39
+  - first:
+      213: -5012832537900269806
+    second: reveal_40
+  - first:
+      213: 6201961674212740320
+    second: reveal_41
+  - first:
+      213: 6304751404982687272
+    second: reveal_42
+  - first:
+      213: -9127153549374300984
+    second: reveal_43
+  - first:
+      213: -2290799273743301779
+    second: reveal_44
+  - first:
+      213: -3394088139765369783
+    second: reveal_45
+  - first:
+      213: 2300315477928030185
+    second: reveal_46
+  - first:
+      213: -5783066846206372355
+    second: reveal_47
+  - first:
+      213: -1601115842241302988
+    second: reveal_48
+  - first:
+      213: -4227562034946858429
+    second: reveal_49
+  - first:
+      213: 7825014023527384554
+    second: reveal_50
+  - first:
+      213: -5405116269892020119
+    second: reveal_51
+  - first:
+      213: 8219821370919150554
+    second: reveal_52
+  - first:
+      213: -9099863248313335624
+    second: reveal_53
+  - first:
+      213: 1811531998508959717
+    second: reveal_54
+  - first:
+      213: 6645817237287626671
+    second: reveal_55
+  - first:
+      213: 6354345468599219361
+    second: reveal_56
+  - first:
+      213: -1602519786123043639
+    second: reveal_57
+  - first:
+      213: 6150834454408077584
+    second: reveal_58
+  - first:
+      213: -2296829425660395778
+    second: reveal_59
+  - first:
+      213: 8236862123151314613
+    second: reveal_60
+  - first:
+      213: 139914639276552865
+    second: reveal_61
+  - first:
+      213: -2013858255398016319
+    second: reveal_62
+  - first:
+      213: 7078133194212860486
+    second: reveal_63
+  - first:
+      213: -168721736258984654
+    second: reveal_64
+  - first:
+      213: -8389366439219351554
+    second: reveal_65
+  - first:
+      213: -8172903658640860197
+    second: reveal_66
+  - first:
+      213: -8207020604302859052
+    second: reveal_67
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: reveal_4
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1197
+        width: 302
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101ebc6ccb44ab380800000000000000
+      internalID: -8954769331493019391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_5
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1191
+        width: 312
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c60782315de5f3820800000000000000
+      internalID: 2900140954292351084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_6
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 1184
+        width: 316
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66f490cdde3265a70800000000000000
+      internalID: 8815272825130143590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_7
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 1184
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc4f346296d9ffc0800000000000000
+      internalID: -3460498914422076236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_0
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1540
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86104ca867ac5424f8daf5a2e7a02d4f
+      internalID: -363593365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_1
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 1540
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 164a6cd817682a149a673d71b7ba3821
+      internalID: -1969691142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_2
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 1540
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c65241c91da83b46971395204ef0ffe
+      internalID: 954068202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_3
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 1540
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a58c436b91d5c60408fe980d1fd7a094
+      internalID: -100971342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_8
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1197
+        width: 302
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af4e5539e2b0e144f9594640945f3735
+      internalID: 1747660574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_9
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 800
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1316c21e2c4a3ac4fb3891be3bcd7f5c
+      internalID: -213789649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_10
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 800
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d00ce67f9866ee24bbe939ee7141a9ac
+      internalID: 444975176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_11
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 800
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e317cb42510122642864e08f555312d9
+      internalID: -1910130620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_12
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 800
+        width: 328
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0664d108c2c752d48afec933f299bf9d
+      internalID: 2095356491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_13
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 370
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a80df8333c9c544b5a884771e180d7
+      internalID: 609321665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_14
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 370
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50d977a44bed0b46af47b01e7131b77
+      internalID: -1529909402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_15
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 370
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23eee7a16c39e149b953acae1ad1cef
+      internalID: 175219160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reveal_16
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 370
+        width: 317
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68045dcc44f431a4aa6717dbcd47e557
+      internalID: 1208127572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 717d3736d8960bd4e85b9bc516a893e9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      reveal_0: -363593365
+      reveal_1: -1969691142
+      reveal_10: 444975176
+      reveal_11: -1910130620
+      reveal_12: 2095356491
+      reveal_13: 609321665
+      reveal_14: -1529909402
+      reveal_15: 175219160
+      reveal_16: 1208127572
+      reveal_2: 954068202
+      reveal_3: -100971342
+      reveal_8: 1747660574
+      reveal_9: -213789649
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5164433543867574324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3620294412378768512}
+  - component: {fileID: -6145762628094729695}
+  m_Layer: 0
+  m_Name: QuizController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3620294412378768512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5164433543867574324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1230402, y: 0.02699709, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6145762628094729695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5164433543867574324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd52ce9048e5d42028556f81a8f6ee73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionTitleText: {fileID: 0}
+  questionDescriptionText: {fileID: 0}
+  quizTitleText: {fileID: 0}
+  questionButton1: {fileID: 0}
+  questionButton2: {fileID: 0}
+  questionButton3: {fileID: 0}
+  questionButton4: {fileID: 0}
+  removeAnswers: {fileID: 0}
+  questionButton1Image: {fileID: 0}
+  questionButton2Image: {fileID: 0}
+  questionButton3Image: {fileID: 0}
+  questionButton4Image: {fileID: 0}
+  bayterekImage: {fileID: 0}
+  shatyrImage: {fileID: 0}
+  acordaImage: {fileID: 0}
+  expoImage: {fileID: 0}
+  kekImage: {fileID: 0}
+  medeyImage: {fileID: 0}
+  konakImage: {fileID: 0}
+  sarayImage: {fileID: 0}
+  quizCurrentBack: {fileID: 0}
+  tower: {fileID: 0}
+  questionButton1Text: {fileID: 0}
+  questionButton2Text: {fileID: 0}
+  questionButton3Text: {fileID: 0}
+  questionButton4Text: {fileID: 0}
+  correctAnswerBack: {fileID: 0}
+  wrongAnswerBack: {fileID: 0}
+  regularAnwserBack: {fileID: 0}
+  wrongAnwserPanelBack: {fileID: 0}
+  rightAnwserPanelBack: {fileID: 0}
+  rightWrongAnswerCanvas: {fileID: 0}
+  answerRightContextText: {fileID: 0}
+  answerWrongContextText: {fileID: 0}
+  arrowObject: {fileID: 0}
+  energyBarCanvas: {fileID: 0}
+  questionCanvas: {fileID: 0}
+  endGameLevelName: {fileID: 0}
+  endGamePanel: {fileID: 0}
+  endLevelCanvas: {fileID: 0}
+  endLevelTitle: {fileID: 0}
+  starGroupOne: {fileID: 0}
+  starGroupTwo: {fileID: 0}
+  starGroupThree: {fileID: 0}
+  coins: {fileID: 0}
+  points: {fileID: 0}
+  bayterekInfo: {fileID: 11400000, guid: ca06ebc06455d42e19f220ea074afd43, type: 2}
+  shatyrInfo: {fileID: 11400000, guid: f4c06ed1e53394d378c65db18889214f, type: 2}
+  acordaInfo: {fileID: 11400000, guid: 32d6870969a59406f9aa7e81fcaf1f7d, type: 2}
+  expoInfo: {fileID: 11400000, guid: 5a5be06a2eca34daeb9ebec92e1ea210, type: 2}
+  sarayInfo: {fileID: 11400000, guid: 3137d25c6ad624aefb78780a8e29cb32, type: 2}
+  kokInfo: {fileID: 11400000, guid: 05ab27b4cc4f34eaca1e8b4393ecdefe, type: 2}
+  medeyInfo: {fileID: 11400000, guid: 5d6ef5565e7e24d7fa9a917ca7ce926b, type: 2}
+  konakInfo: {fileID: 11400000, guid: 2a91fd11a0a7e4628ab3e2b1ba2a7698, type: 2}

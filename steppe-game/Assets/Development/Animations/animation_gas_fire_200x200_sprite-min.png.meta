@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: 54f5bfa5c78170a4ba193af1bf95e4a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4703960910066725855
+    second: animation_gas_fire_200x200_sprite-min_0
+  - first:
+      213: -404952734537924641
+    second: animation_gas_fire_200x200_sprite-min_1
+  - first:
+      213: 8118808977932146767
+    second: animation_gas_fire_200x200_sprite-min_2
+  - first:
+      213: 4106635279614161999
+    second: animation_gas_fire_200x200_sprite-min_3
+  - first:
+      213: 424619793603707352
+    second: animation_gas_fire_200x200_sprite-min_4
+  - first:
+      213: -2952761339471489267
+    second: animation_gas_fire_200x200_sprite-min_5
+  - first:
+      213: -1705417234567424620
+    second: animation_gas_fire_200x200_sprite-min_6
+  - first:
+      213: -4767692458986480645
+    second: animation_gas_fire_200x200_sprite-min_7
+  - first:
+      213: 4437487415852507039
+    second: animation_gas_fire_200x200_sprite-min_8
+  - first:
+      213: -4863417408673116991
+    second: animation_gas_fire_200x200_sprite-min_9
+  - first:
+      213: -5355850533442904898
+    second: animation_gas_fire_200x200_sprite-min_10
+  - first:
+      213: 59920972092866265
+    second: animation_gas_fire_200x200_sprite-min_11
+  - first:
+      213: 7754749726143643892
+    second: animation_gas_fire_200x200_sprite-min_12
+  - first:
+      213: 2202540590140254781
+    second: animation_gas_fire_200x200_sprite-min_13
+  - first:
+      213: -5147264897845682999
+    second: animation_gas_fire_200x200_sprite-min_14
+  - first:
+      213: 2514898926036457521
+    second: animation_gas_fire_200x200_sprite-min_15
+  - first:
+      213: 6538261268731973206
+    second: animation_gas_fire_200x200_sprite-min_16
+  - first:
+      213: 1652771984638728535
+    second: animation_gas_fire_200x200_sprite-min_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 435
+        width: 181
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3b9d96683d74140800000000000000
+      internalID: 4703960910066725855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_1
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 435
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdf3b0b22a1516af0800000000000000
+      internalID: -404952734537924641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 435
+        width: 181
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f48d5e800cdcba070800000000000000
+      internalID: 8118808977932146767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 435
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f443d776703bdf830800000000000000
+      internalID: 4106635279614161999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_4
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 435
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d1495ad37d84e500800000000000000
+      internalID: 424619793603707352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_5
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 435
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d079b46c43fa507d0800000000000000
+      internalID: -2952761339471489267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_6
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 235
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49597c39f042558e0800000000000000
+      internalID: -1705417234567424620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_7
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 235
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfb5dc708f0c5ddb0800000000000000
+      internalID: -4767692458986480645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_8
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 235
+        width: 180
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9f972d3b4f159d30800000000000000
+      internalID: 4437487415852507039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_9
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 235
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cc869162aba18cb0800000000000000
+      internalID: -4863417408673116991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_10
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 235
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebc9c0cf0523ca5b0800000000000000
+      internalID: -5355850533442904898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_11
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 235
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9def0308ec1e4d000800000000000000
+      internalID: 59920972092866265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_12
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f089dc1ac76e9b60800000000000000
+      internalID: 7754749726143643892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_13
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3a60b64ffef09e10800000000000000
+      internalID: 2202540590140254781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_14
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cc1217c8dd3198b0800000000000000
+      internalID: -5147264897845682999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_15
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1381a6caf37b6e220800000000000000
+      internalID: 2514898926036457521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_16
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65ec6739bf19cba50800000000000000
+      internalID: 6538261268731973206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_gas_fire_200x200_sprite-min_17
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 35
+        width: 181
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 759db1ffc53dfe610800000000000000
+      internalID: 1652771984638728535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_gas_fire_200x200_sprite-min_0: 4703960910066725855
+      animation_gas_fire_200x200_sprite-min_1: -404952734537924641
+      animation_gas_fire_200x200_sprite-min_10: -5355850533442904898
+      animation_gas_fire_200x200_sprite-min_11: 59920972092866265
+      animation_gas_fire_200x200_sprite-min_12: 7754749726143643892
+      animation_gas_fire_200x200_sprite-min_13: 2202540590140254781
+      animation_gas_fire_200x200_sprite-min_14: -5147264897845682999
+      animation_gas_fire_200x200_sprite-min_15: 2514898926036457521
+      animation_gas_fire_200x200_sprite-min_16: 6538261268731973206
+      animation_gas_fire_200x200_sprite-min_17: 1652771984638728535
+      animation_gas_fire_200x200_sprite-min_2: 8118808977932146767
+      animation_gas_fire_200x200_sprite-min_3: 4106635279614161999
+      animation_gas_fire_200x200_sprite-min_4: 424619793603707352
+      animation_gas_fire_200x200_sprite-min_5: -2952761339471489267
+      animation_gas_fire_200x200_sprite-min_6: -1705417234567424620
+      animation_gas_fire_200x200_sprite-min_7: -4767692458986480645
+      animation_gas_fire_200x200_sprite-min_8: 4437487415852507039
+      animation_gas_fire_200x200_sprite-min_9: -4863417408673116991
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

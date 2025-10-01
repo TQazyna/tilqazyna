@@ -1,0 +1,1312 @@
+fileFormatVersion: 2
+guid: c7dcea53be2adad44a62a4380b6d264c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2605090237364369190
+    second: animation_salt_200x200_sprite-min_0
+  - first:
+      213: 1032980892836398807
+    second: animation_salt_200x200_sprite-min_1
+  - first:
+      213: 2801681508591728177
+    second: animation_salt_200x200_sprite-min_2
+  - first:
+      213: 6450806038360914913
+    second: animation_salt_200x200_sprite-min_3
+  - first:
+      213: -797140752339503605
+    second: animation_salt_200x200_sprite-min_4
+  - first:
+      213: 6178206553531448958
+    second: animation_salt_200x200_sprite-min_5
+  - first:
+      213: -7881961732578470290
+    second: animation_salt_200x200_sprite-min_6
+  - first:
+      213: 7015821473864952887
+    second: animation_salt_200x200_sprite-min_7
+  - first:
+      213: -203350717444395142
+    second: animation_salt_200x200_sprite-min_8
+  - first:
+      213: -3877653889289372631
+    second: animation_salt_200x200_sprite-min_9
+  - first:
+      213: -2747006620826332439
+    second: animation_salt_200x200_sprite-min_10
+  - first:
+      213: -8641890882057133364
+    second: animation_salt_200x200_sprite-min_11
+  - first:
+      213: 4823758977299741845
+    second: animation_salt_200x200_sprite-min_12
+  - first:
+      213: 3972793105838791970
+    second: animation_salt_200x200_sprite-min_13
+  - first:
+      213: 2943410741852214544
+    second: animation_salt_200x200_sprite-min_14
+  - first:
+      213: 2869653319172628162
+    second: animation_salt_200x200_sprite-min_15
+  - first:
+      213: -3979897771163922623
+    second: animation_salt_200x200_sprite-min_16
+  - first:
+      213: 5833644062643473600
+    second: animation_salt_200x200_sprite-min_17
+  - first:
+      213: -3393935497523258629
+    second: animation_salt_200x200_sprite-min_18
+  - first:
+      213: -5420512367447349585
+    second: animation_salt_200x200_sprite-min_19
+  - first:
+      213: 6082223763429912393
+    second: animation_salt_200x200_sprite-min_20
+  - first:
+      213: -4609840122658929013
+    second: animation_salt_200x200_sprite-min_21
+  - first:
+      213: -1999049674969440729
+    second: animation_salt_200x200_sprite-min_22
+  - first:
+      213: 5505263236586601837
+    second: animation_salt_200x200_sprite-min_23
+  - first:
+      213: -1459255553493756236
+    second: animation_salt_200x200_sprite-min_24
+  - first:
+      213: -1431347691124585545
+    second: animation_salt_200x200_sprite-min_25
+  - first:
+      213: -8163688022396774273
+    second: animation_salt_200x200_sprite-min_26
+  - first:
+      213: 6047310495837884510
+    second: animation_salt_200x200_sprite-min_27
+  - first:
+      213: 7659603485190852857
+    second: animation_salt_200x200_sprite-min_28
+  - first:
+      213: 7996456262977341238
+    second: animation_salt_200x200_sprite-min_29
+  - first:
+      213: -3992826010562137414
+    second: animation_salt_200x200_sprite-min_30
+  - first:
+      213: 3081517575664167196
+    second: animation_salt_200x200_sprite-min_31
+  - first:
+      213: -7773396564282951152
+    second: animation_salt_200x200_sprite-min_32
+  - first:
+      213: -327350473069247335
+    second: animation_salt_200x200_sprite-min_33
+  - first:
+      213: -6167826502793271442
+    second: animation_salt_200x200_sprite-min_34
+  - first:
+      213: 6141428063756781627
+    second: animation_salt_200x200_sprite-min_35
+  - first:
+      213: 647231779280518113
+    second: animation_salt_200x200_sprite-min_36
+  - first:
+      213: -5620969825306805997
+    second: animation_salt_200x200_sprite-min_37
+  - first:
+      213: 722216460800200475
+    second: animation_salt_200x200_sprite-min_38
+  - first:
+      213: -1419915970845836758
+    second: animation_salt_200x200_sprite-min_39
+  - first:
+      213: -3226213254786944302
+    second: animation_salt_200x200_sprite-min_40
+  - first:
+      213: -190371751658860727
+    second: animation_salt_200x200_sprite-min_41
+  - first:
+      213: -8346236490330642030
+    second: animation_salt_200x200_sprite-min_42
+  - first:
+      213: 6297148327040465276
+    second: animation_salt_200x200_sprite-min_43
+  - first:
+      213: -8709651717330853766
+    second: animation_salt_200x200_sprite-min_44
+  - first:
+      213: 8281919851006170714
+    second: animation_salt_200x200_sprite-min_45
+  - first:
+      213: 6786740710804629906
+    second: animation_salt_200x200_sprite-min_46
+  - first:
+      213: 643881681388555127
+    second: animation_salt_200x200_sprite-min_47
+  - first:
+      213: -406792109467317145
+    second: animation_salt_200x200_sprite-min_48
+  - first:
+      213: -7092163665904027053
+    second: animation_salt_200x200_sprite-min_49
+  - first:
+      213: -4162643434656576100
+    second: animation_salt_200x200_sprite-min_50
+  - first:
+      213: 5479164005134301051
+    second: animation_salt_200x200_sprite-min_51
+  - first:
+      213: 7968259932055711784
+    second: animation_salt_200x200_sprite-min_52
+  - first:
+      213: -9013714901024878006
+    second: animation_salt_200x200_sprite-min_53
+  - first:
+      213: 8122174447264064329
+    second: animation_salt_200x200_sprite-min_54
+  - first:
+      213: -5615422095499333782
+    second: animation_salt_200x200_sprite-min_55
+  - first:
+      213: 5560006309908882885
+    second: animation_salt_200x200_sprite-min_56
+  - first:
+      213: 6059035400907801659
+    second: animation_salt_200x200_sprite-min_57
+  - first:
+      213: 7075675858872780891
+    second: animation_salt_200x200_sprite-min_58
+  - first:
+      213: -6781757770439526673
+    second: animation_salt_200x200_sprite-min_59
+  - first:
+      213: 5431047445887317135
+    second: animation_salt_200x200_sprite-min_60
+  - first:
+      213: -5794968416237459822
+    second: animation_salt_200x200_sprite-min_61
+  - first:
+      213: -8003021028634548016
+    second: animation_salt_200x200_sprite-min_62
+  - first:
+      213: -7194975850467312628
+    second: animation_salt_200x200_sprite-min_63
+  - first:
+      213: 6997132580763056989
+    second: animation_salt_200x200_sprite-min_64
+  - first:
+      213: -2782517898365171991
+    second: animation_salt_200x200_sprite-min_65
+  - first:
+      213: 1521927431884533761
+    second: animation_salt_200x200_sprite-min_66
+  - first:
+      213: -5839153729066196371
+    second: animation_salt_200x200_sprite-min_67
+  - first:
+      213: -9016704542371673732
+    second: animation_salt_200x200_sprite-min_68
+  - first:
+      213: -5316244408581894904
+    second: animation_salt_200x200_sprite-min_69
+  - first:
+      213: 2510341582533692105
+    second: animation_salt_200x200_sprite-min_70
+  - first:
+      213: -2016605156172846738
+    second: animation_salt_200x200_sprite-min_71
+  - first:
+      213: -7915296446629049719
+    second: animation_salt_200x200_sprite-min_72
+  - first:
+      213: -6278705026724069980
+    second: animation_salt_200x200_sprite-min_73
+  - first:
+      213: 1927969126282721478
+    second: animation_salt_200x200_sprite-min_74
+  - first:
+      213: -7877497107994537690
+    second: animation_salt_200x200_sprite-min_75
+  - first:
+      213: 467103140796481857
+    second: animation_salt_200x200_sprite-min_76
+  - first:
+      213: 6061726248028033008
+    second: animation_salt_200x200_sprite-min_77
+  - first:
+      213: -7058899879702915246
+    second: animation_salt_200x200_sprite-min_78
+  - first:
+      213: -8195491958308582527
+    second: animation_salt_200x200_sprite-min_79
+  - first:
+      213: 7278664422639339433
+    second: animation_salt_200x200_sprite-min_80
+  - first:
+      213: -4876112112503246645
+    second: animation_salt_200x200_sprite-min_81
+  - first:
+      213: -5233194100413077963
+    second: animation_salt_200x200_sprite-min_82
+  - first:
+      213: 6432528583376136741
+    second: animation_salt_200x200_sprite-min_83
+  - first:
+      213: -992146238428993284
+    second: animation_salt_200x200_sprite-min_84
+  - first:
+      213: 7723786901091419486
+    second: animation_salt_200x200_sprite-min_85
+  - first:
+      213: -7490974831575257861
+    second: animation_salt_200x200_sprite-min_86
+  - first:
+      213: 4116189536117274771
+    second: animation_salt_200x200_sprite-min_87
+  - first:
+      213: -1616162080897091250
+    second: animation_salt_200x200_sprite-min_88
+  - first:
+      213: -7816914302957648920
+    second: animation_salt_200x200_sprite-min_89
+  - first:
+      213: 5076451611336311330
+    second: animation_salt_200x200_sprite-min_90
+  - first:
+      213: -1973468742350991316
+    second: animation_salt_200x200_sprite-min_91
+  - first:
+      213: 2239100227191366477
+    second: animation_salt_200x200_sprite-min_92
+  - first:
+      213: 4062667382846905119
+    second: animation_salt_200x200_sprite-min_93
+  - first:
+      213: 5349337052068289170
+    second: animation_salt_200x200_sprite-min_94
+  - first:
+      213: 4646431916200163899
+    second: animation_salt_200x200_sprite-min_95
+  - first:
+      213: -7982043066525756788
+    second: animation_salt_200x200_sprite-min_96
+  - first:
+      213: 5026251491128548317
+    second: animation_salt_200x200_sprite-min_97
+  - first:
+      213: 1803699017218789842
+    second: animation_salt_200x200_sprite-min_98
+  - first:
+      213: 6063487361887762148
+    second: animation_salt_200x200_sprite-min_99
+  - first:
+      213: 97073558221662507
+    second: animation_salt_200x200_sprite-min_100
+  - first:
+      213: 5204287530405380369
+    second: animation_salt_200x200_sprite-min_101
+  - first:
+      213: 5398608112137919463
+    second: animation_salt_200x200_sprite-min_102
+  - first:
+      213: -5618792182430197024
+    second: animation_salt_200x200_sprite-min_103
+  - first:
+      213: 5966724790824167567
+    second: animation_salt_200x200_sprite-min_104
+  - first:
+      213: -3912551698674515036
+    second: animation_salt_200x200_sprite-min_105
+  - first:
+      213: 7817030461706344792
+    second: animation_salt_200x200_sprite-min_106
+  - first:
+      213: -2191890055164947836
+    second: animation_salt_200x200_sprite-min_107
+  - first:
+      213: -3761370823373602259
+    second: animation_salt_200x200_sprite-min_108
+  - first:
+      213: -805141795620364782
+    second: animation_salt_200x200_sprite-min_109
+  - first:
+      213: 2518867377208960972
+    second: animation_salt_200x200_sprite-min_110
+  - first:
+      213: -2725656675913715395
+    second: animation_salt_200x200_sprite-min_111
+  - first:
+      213: 2706868204877874105
+    second: animation_salt_200x200_sprite-min_112
+  - first:
+      213: -1945423647791844718
+    second: animation_salt_200x200_sprite-min_113
+  - first:
+      213: 9030383892346847092
+    second: animation_salt_200x200_sprite-min_114
+  - first:
+      213: 5955878534749300326
+    second: animation_salt_200x200_sprite-min_115
+  - first:
+      213: -8717128111016350399
+    second: animation_salt_200x200_sprite-min_116
+  - first:
+      213: -923707591148460002
+    second: animation_salt_200x200_sprite-min_117
+  - first:
+      213: -80508934325411762
+    second: animation_salt_200x200_sprite-min_118
+  - first:
+      213: -72630907865405530
+    second: animation_salt_200x200_sprite-min_119
+  - first:
+      213: 7185070651190844932
+    second: animation_salt_200x200_sprite-min_120
+  - first:
+      213: -5589141356358729991
+    second: animation_salt_200x200_sprite-min_121
+  - first:
+      213: 3058151725369662080
+    second: animation_salt_200x200_sprite-min_122
+  - first:
+      213: -7769907545008499634
+    second: animation_salt_200x200_sprite-min_123
+  - first:
+      213: 7566712560464204469
+    second: animation_salt_200x200_sprite-min_124
+  - first:
+      213: 1542713043581099663
+    second: animation_salt_200x200_sprite-min_125
+  - first:
+      213: 426985691670982233
+    second: animation_salt_200x200_sprite-min_126
+  - first:
+      213: -6735277712646521565
+    second: animation_salt_200x200_sprite-min_127
+  - first:
+      213: 1927138897111830055
+    second: animation_salt_200x200_sprite-min_128
+  - first:
+      213: -3541522936520160454
+    second: animation_salt_200x200_sprite-min_129
+  - first:
+      213: -9153998796822738690
+    second: animation_salt_200x200_sprite-min_130
+  - first:
+      213: 880994171948425951
+    second: animation_salt_200x200_sprite-min_131
+  - first:
+      213: -1367648414286558762
+    second: animation_salt_200x200_sprite-min_132
+  - first:
+      213: 3278736364747026866
+    second: animation_salt_200x200_sprite-min_133
+  - first:
+      213: -8241369861503797918
+    second: animation_salt_200x200_sprite-min_134
+  - first:
+      213: -723274336699662526
+    second: animation_salt_200x200_sprite-min_135
+  - first:
+      213: -8940593995870320420
+    second: animation_salt_200x200_sprite-min_136
+  - first:
+      213: 7372587850483571824
+    second: animation_salt_200x200_sprite-min_137
+  - first:
+      213: 6870389112670681091
+    second: animation_salt_200x200_sprite-min_138
+  - first:
+      213: 5041064364728677683
+    second: animation_salt_200x200_sprite-min_139
+  - first:
+      213: -2323106026471458341
+    second: animation_salt_200x200_sprite-min_140
+  - first:
+      213: -7171230613913166435
+    second: animation_salt_200x200_sprite-min_141
+  - first:
+      213: 8572741712681532685
+    second: animation_salt_200x200_sprite-min_142
+  - first:
+      213: 8056572262604505764
+    second: animation_salt_200x200_sprite-min_143
+  - first:
+      213: 9001202245700199721
+    second: animation_salt_200x200_sprite-min_144
+  - first:
+      213: 3204453475148974313
+    second: animation_salt_200x200_sprite-min_145
+  - first:
+      213: 2286078503237800521
+    second: animation_salt_200x200_sprite-min_146
+  - first:
+      213: 3918116375366346047
+    second: animation_salt_200x200_sprite-min_147
+  - first:
+      213: -3580380865628958696
+    second: animation_salt_200x200_sprite-min_148
+  - first:
+      213: 6987613017509373375
+    second: animation_salt_200x200_sprite-min_149
+  - first:
+      213: 6831866643663919291
+    second: animation_salt_200x200_sprite-min_150
+  - first:
+      213: -7835438326537814285
+    second: animation_salt_200x200_sprite-min_151
+  - first:
+      213: -3513502641657069278
+    second: animation_salt_200x200_sprite-min_152
+  - first:
+      213: -6290050353760171482
+    second: animation_salt_200x200_sprite-min_153
+  - first:
+      213: -8942086159230807883
+    second: animation_salt_200x200_sprite-min_154
+  - first:
+      213: -2632687454208950621
+    second: animation_salt_200x200_sprite-min_155
+  - first:
+      213: -5422206342090186048
+    second: animation_salt_200x200_sprite-min_156
+  - first:
+      213: 4960876065168410362
+    second: animation_salt_200x200_sprite-min_157
+  - first:
+      213: 4132654294396988921
+    second: animation_salt_200x200_sprite-min_158
+  - first:
+      213: -684037395756476886
+    second: animation_salt_200x200_sprite-min_159
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_0
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d353241e0dfe6640bebf4d7d0ebf6f6
+      internalID: -2605090237364369190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_1
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1bb61074b921542927ce7acdf027ac
+      internalID: 1032980892836398807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a1d353c846c24f4fb9054b574343293
+      internalID: 2801681508591728177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02186fbb688b1cd41b1b7a883f4a7b9f
+      internalID: 6450806038360914913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_4
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0e506953322caa4e979fe2420523b9f
+      internalID: -797140752339503605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_5
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 600
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4e274c9924beb44280906f870bc8fe6
+      internalID: 6178206553531448958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c741934bc8f9d4dbbfa1b180315d6c
+      internalID: -7881961732578470290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_7
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc83a68892ca65543a31006aaf407936
+      internalID: 7015821473864952887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_8
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e869dcfe6c8b444ba23ef080e28c884
+      internalID: -203350717444395142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_9
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af621a3e054cec40933f74a732d7e1a
+      internalID: -3877653889289372631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_10
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54377adcd1d821246a3ae644d758f340
+      internalID: -2747006620826332439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_11
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 0
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2960ff02f816e1d499cbe3b1d2844057
+      internalID: -8641890882057133364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bf109caa4b588e458115dba809389bf
+      internalID: 4823758977299741845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_13
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a16f802004f117b449fd66fab696b17a
+      internalID: 3972793105838791970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_14
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e21909893c26dc4b941490047ede479
+      internalID: 2943410741852214544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_15
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b4c71fda7363fe42b2be7211cb75f73
+      internalID: 2869653319172628162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_16
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03a6279914720624cb9b882be22c1399
+      internalID: -3979897771163922623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_17
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 400
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c34d2276f4d485447a66c6cca197c92d
+      internalID: 5833644062643473600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_18
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08bb6d0c11500242922e936cb2f02a2
+      internalID: -3393935497523258629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_19
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d8152673a44750439df98a1b2189c57
+      internalID: -5420512367447349585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_20
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f3eca3e7ba2ccb48b650dc4fcacb081
+      internalID: 6082223763429912393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_21
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43c68735b7cf16418ce561271f7bd80
+      internalID: -4609840122658929013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_22
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f803e5e4cdf074ab2e0494e4627a88
+      internalID: -1999049674969440729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_salt_200x200_sprite-min_23
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 200
+        width: 60
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c82ca0a2347bba349bf6fc4fb2b0d957
+      internalID: 5505263236586601837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_salt_200x200_sprite-min_0: -2605090237364369190
+      animation_salt_200x200_sprite-min_1: 1032980892836398807
+      animation_salt_200x200_sprite-min_10: -2747006620826332439
+      animation_salt_200x200_sprite-min_100: 97073558221662507
+      animation_salt_200x200_sprite-min_101: 5204287530405380369
+      animation_salt_200x200_sprite-min_102: 5398608112137919463
+      animation_salt_200x200_sprite-min_103: -5618792182430197024
+      animation_salt_200x200_sprite-min_104: 5966724790824167567
+      animation_salt_200x200_sprite-min_105: -3912551698674515036
+      animation_salt_200x200_sprite-min_106: 7817030461706344792
+      animation_salt_200x200_sprite-min_107: -2191890055164947836
+      animation_salt_200x200_sprite-min_108: -3761370823373602259
+      animation_salt_200x200_sprite-min_109: -805141795620364782
+      animation_salt_200x200_sprite-min_11: -8641890882057133364
+      animation_salt_200x200_sprite-min_110: 2518867377208960972
+      animation_salt_200x200_sprite-min_111: -2725656675913715395
+      animation_salt_200x200_sprite-min_112: 2706868204877874105
+      animation_salt_200x200_sprite-min_113: -1945423647791844718
+      animation_salt_200x200_sprite-min_114: 9030383892346847092
+      animation_salt_200x200_sprite-min_115: 5955878534749300326
+      animation_salt_200x200_sprite-min_116: -8717128111016350399
+      animation_salt_200x200_sprite-min_117: -923707591148460002
+      animation_salt_200x200_sprite-min_118: -80508934325411762
+      animation_salt_200x200_sprite-min_119: -72630907865405530
+      animation_salt_200x200_sprite-min_12: 4823758977299741845
+      animation_salt_200x200_sprite-min_120: 7185070651190844932
+      animation_salt_200x200_sprite-min_121: -5589141356358729991
+      animation_salt_200x200_sprite-min_122: 3058151725369662080
+      animation_salt_200x200_sprite-min_123: -7769907545008499634
+      animation_salt_200x200_sprite-min_124: 7566712560464204469
+      animation_salt_200x200_sprite-min_125: 1542713043581099663
+      animation_salt_200x200_sprite-min_126: 426985691670982233
+      animation_salt_200x200_sprite-min_127: -6735277712646521565
+      animation_salt_200x200_sprite-min_128: 1927138897111830055
+      animation_salt_200x200_sprite-min_129: -3541522936520160454
+      animation_salt_200x200_sprite-min_13: 3972793105838791970
+      animation_salt_200x200_sprite-min_130: -9153998796822738690
+      animation_salt_200x200_sprite-min_131: 880994171948425951
+      animation_salt_200x200_sprite-min_132: -1367648414286558762
+      animation_salt_200x200_sprite-min_133: 3278736364747026866
+      animation_salt_200x200_sprite-min_134: -8241369861503797918
+      animation_salt_200x200_sprite-min_135: -723274336699662526
+      animation_salt_200x200_sprite-min_136: -8940593995870320420
+      animation_salt_200x200_sprite-min_137: 7372587850483571824
+      animation_salt_200x200_sprite-min_138: 6870389112670681091
+      animation_salt_200x200_sprite-min_139: 5041064364728677683
+      animation_salt_200x200_sprite-min_14: 2943410741852214544
+      animation_salt_200x200_sprite-min_140: -2323106026471458341
+      animation_salt_200x200_sprite-min_141: -7171230613913166435
+      animation_salt_200x200_sprite-min_142: 8572741712681532685
+      animation_salt_200x200_sprite-min_143: 8056572262604505764
+      animation_salt_200x200_sprite-min_144: 9001202245700199721
+      animation_salt_200x200_sprite-min_145: 3204453475148974313
+      animation_salt_200x200_sprite-min_146: 2286078503237800521
+      animation_salt_200x200_sprite-min_147: 3918116375366346047
+      animation_salt_200x200_sprite-min_148: -3580380865628958696
+      animation_salt_200x200_sprite-min_149: 6987613017509373375
+      animation_salt_200x200_sprite-min_15: 2869653319172628162
+      animation_salt_200x200_sprite-min_150: 6831866643663919291
+      animation_salt_200x200_sprite-min_151: -7835438326537814285
+      animation_salt_200x200_sprite-min_152: -3513502641657069278
+      animation_salt_200x200_sprite-min_153: -6290050353760171482
+      animation_salt_200x200_sprite-min_154: -8942086159230807883
+      animation_salt_200x200_sprite-min_155: -2632687454208950621
+      animation_salt_200x200_sprite-min_156: -5422206342090186048
+      animation_salt_200x200_sprite-min_157: 4960876065168410362
+      animation_salt_200x200_sprite-min_158: 4132654294396988921
+      animation_salt_200x200_sprite-min_159: -684037395756476886
+      animation_salt_200x200_sprite-min_16: -3979897771163922623
+      animation_salt_200x200_sprite-min_160: 1771543174
+      animation_salt_200x200_sprite-min_17: 5833644062643473600
+      animation_salt_200x200_sprite-min_18: -3393935497523258629
+      animation_salt_200x200_sprite-min_19: -5420512367447349585
+      animation_salt_200x200_sprite-min_2: 2801681508591728177
+      animation_salt_200x200_sprite-min_20: 6082223763429912393
+      animation_salt_200x200_sprite-min_21: -4609840122658929013
+      animation_salt_200x200_sprite-min_22: -1999049674969440729
+      animation_salt_200x200_sprite-min_23: 5505263236586601837
+      animation_salt_200x200_sprite-min_24: -1459255553493756236
+      animation_salt_200x200_sprite-min_25: -1431347691124585545
+      animation_salt_200x200_sprite-min_26: -8163688022396774273
+      animation_salt_200x200_sprite-min_27: 6047310495837884510
+      animation_salt_200x200_sprite-min_28: 7659603485190852857
+      animation_salt_200x200_sprite-min_29: 7996456262977341238
+      animation_salt_200x200_sprite-min_3: 6450806038360914913
+      animation_salt_200x200_sprite-min_30: -3992826010562137414
+      animation_salt_200x200_sprite-min_31: 3081517575664167196
+      animation_salt_200x200_sprite-min_32: -7773396564282951152
+      animation_salt_200x200_sprite-min_33: -327350473069247335
+      animation_salt_200x200_sprite-min_34: -6167826502793271442
+      animation_salt_200x200_sprite-min_35: 6141428063756781627
+      animation_salt_200x200_sprite-min_36: 647231779280518113
+      animation_salt_200x200_sprite-min_37: -5620969825306805997
+      animation_salt_200x200_sprite-min_38: 722216460800200475
+      animation_salt_200x200_sprite-min_39: -1419915970845836758
+      animation_salt_200x200_sprite-min_4: -797140752339503605
+      animation_salt_200x200_sprite-min_40: -3226213254786944302
+      animation_salt_200x200_sprite-min_41: -190371751658860727
+      animation_salt_200x200_sprite-min_42: -8346236490330642030
+      animation_salt_200x200_sprite-min_43: 6297148327040465276
+      animation_salt_200x200_sprite-min_44: -8709651717330853766
+      animation_salt_200x200_sprite-min_45: 8281919851006170714
+      animation_salt_200x200_sprite-min_46: 6786740710804629906
+      animation_salt_200x200_sprite-min_47: 643881681388555127
+      animation_salt_200x200_sprite-min_48: -406792109467317145
+      animation_salt_200x200_sprite-min_49: -7092163665904027053
+      animation_salt_200x200_sprite-min_5: 6178206553531448958
+      animation_salt_200x200_sprite-min_50: -4162643434656576100
+      animation_salt_200x200_sprite-min_51: 5479164005134301051
+      animation_salt_200x200_sprite-min_52: 7968259932055711784
+      animation_salt_200x200_sprite-min_53: -9013714901024878006
+      animation_salt_200x200_sprite-min_54: 8122174447264064329
+      animation_salt_200x200_sprite-min_55: -5615422095499333782
+      animation_salt_200x200_sprite-min_56: 5560006309908882885
+      animation_salt_200x200_sprite-min_57: 6059035400907801659
+      animation_salt_200x200_sprite-min_58: 7075675858872780891
+      animation_salt_200x200_sprite-min_59: -6781757770439526673
+      animation_salt_200x200_sprite-min_6: -7881961732578470290
+      animation_salt_200x200_sprite-min_60: 5431047445887317135
+      animation_salt_200x200_sprite-min_61: -5794968416237459822
+      animation_salt_200x200_sprite-min_62: -8003021028634548016
+      animation_salt_200x200_sprite-min_63: -7194975850467312628
+      animation_salt_200x200_sprite-min_64: 6997132580763056989
+      animation_salt_200x200_sprite-min_65: -2782517898365171991
+      animation_salt_200x200_sprite-min_66: 1521927431884533761
+      animation_salt_200x200_sprite-min_67: -5839153729066196371
+      animation_salt_200x200_sprite-min_68: -9016704542371673732
+      animation_salt_200x200_sprite-min_69: -5316244408581894904
+      animation_salt_200x200_sprite-min_7: 7015821473864952887
+      animation_salt_200x200_sprite-min_70: 2510341582533692105
+      animation_salt_200x200_sprite-min_71: -2016605156172846738
+      animation_salt_200x200_sprite-min_72: -7915296446629049719
+      animation_salt_200x200_sprite-min_73: -6278705026724069980
+      animation_salt_200x200_sprite-min_74: 1927969126282721478
+      animation_salt_200x200_sprite-min_75: -7877497107994537690
+      animation_salt_200x200_sprite-min_76: 467103140796481857
+      animation_salt_200x200_sprite-min_77: 6061726248028033008
+      animation_salt_200x200_sprite-min_78: -7058899879702915246
+      animation_salt_200x200_sprite-min_79: -8195491958308582527
+      animation_salt_200x200_sprite-min_8: -203350717444395142
+      animation_salt_200x200_sprite-min_80: 7278664422639339433
+      animation_salt_200x200_sprite-min_81: -4876112112503246645
+      animation_salt_200x200_sprite-min_82: -5233194100413077963
+      animation_salt_200x200_sprite-min_83: 6432528583376136741
+      animation_salt_200x200_sprite-min_84: -992146238428993284
+      animation_salt_200x200_sprite-min_85: 7723786901091419486
+      animation_salt_200x200_sprite-min_86: -7490974831575257861
+      animation_salt_200x200_sprite-min_87: 4116189536117274771
+      animation_salt_200x200_sprite-min_88: -1616162080897091250
+      animation_salt_200x200_sprite-min_89: -7816914302957648920
+      animation_salt_200x200_sprite-min_9: -3877653889289372631
+      animation_salt_200x200_sprite-min_90: 5076451611336311330
+      animation_salt_200x200_sprite-min_91: -1973468742350991316
+      animation_salt_200x200_sprite-min_92: 2239100227191366477
+      animation_salt_200x200_sprite-min_93: 4062667382846905119
+      animation_salt_200x200_sprite-min_94: 5349337052068289170
+      animation_salt_200x200_sprite-min_95: 4646431916200163899
+      animation_salt_200x200_sprite-min_96: -7982043066525756788
+      animation_salt_200x200_sprite-min_97: 5026251491128548317
+      animation_salt_200x200_sprite-min_98: 1803699017218789842
+      animation_salt_200x200_sprite-min_99: 6063487361887762148
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

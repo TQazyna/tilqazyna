@@ -1,0 +1,544 @@
+fileFormatVersion: 2
+guid: 0a34411b5b0bdda45913645bbe615458
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5185406167843258687
+    second: animation_reveal_02_375x375_sprite-min_0
+  - first:
+      213: 4995438384301924701
+    second: animation_reveal_02_375x375_sprite-min_1
+  - first:
+      213: -8493337582643168486
+    second: animation_reveal_02_375x375_sprite-min_2
+  - first:
+      213: 5485154863641496490
+    second: animation_reveal_02_375x375_sprite-min_3
+  - first:
+      213: -7540997946021431441
+    second: animation_reveal_02_375x375_sprite-min_4
+  - first:
+      213: 672970707221443067
+    second: animation_reveal_02_375x375_sprite-min_5
+  - first:
+      213: -1086213552790778850
+    second: animation_reveal_02_375x375_sprite-min_6
+  - first:
+      213: -8353460185921096755
+    second: animation_reveal_02_375x375_sprite-min_7
+  - first:
+      213: -8539995668538156136
+    second: animation_reveal_02_375x375_sprite-min_8
+  - first:
+      213: -8649121750606259639
+    second: animation_reveal_02_375x375_sprite-min_9
+  - first:
+      213: -8273858180955408959
+    second: animation_reveal_02_375x375_sprite-min_10
+  - first:
+      213: 4498070881758080492
+    second: animation_reveal_02_375x375_sprite-min_11
+  - first:
+      213: 3735924479976582250
+    second: animation_reveal_02_375x375_sprite-min_12
+  - first:
+      213: 4376279024989625062
+    second: animation_reveal_02_375x375_sprite-min_13
+  - first:
+      213: -7177658763126414310
+    second: animation_reveal_02_375x375_sprite-min_14
+  - first:
+      213: -8052593659102143600
+    second: animation_reveal_02_375x375_sprite-min_15
+  - first:
+      213: -3717657789806292828
+    second: animation_reveal_02_375x375_sprite-min_16
+  - first:
+      213: 7639897918192260306
+    second: animation_reveal_02_375x375_sprite-min_17
+  - first:
+      213: 2708844660574281301
+    second: animation_reveal_02_375x375_sprite-min_18
+  - first:
+      213: 1054131012985872481
+    second: animation_reveal_02_375x375_sprite-min_19
+  - first:
+      213: -3571195350676457766
+    second: animation_reveal_02_375x375_sprite-min_20
+  - first:
+      213: 1564024685956875564
+    second: animation_reveal_02_375x375_sprite-min_21
+  - first:
+      213: 6246691943847475947
+    second: animation_reveal_02_375x375_sprite-min_22
+  - first:
+      213: -182048051924791181
+    second: animation_reveal_02_375x375_sprite-min_23
+  - first:
+      213: -3019447373081838125
+    second: animation_reveal_02_375x375_sprite-min_24
+  - first:
+      213: -8021950799157321246
+    second: animation_reveal_02_375x375_sprite-min_25
+  - first:
+      213: -7250939931989948587
+    second: animation_reveal_02_375x375_sprite-min_26
+  - first:
+      213: -484691608106477953
+    second: animation_reveal_02_375x375_sprite-min_27
+  - first:
+      213: -2889130459709185585
+    second: animation_reveal_02_375x375_sprite-min_28
+  - first:
+      213: -8155075336706644982
+    second: animation_reveal_02_375x375_sprite-min_29
+  - first:
+      213: 1350298417529865624
+    second: animation_reveal_02_375x375_sprite-min_30
+  - first:
+      213: 8178142844981243086
+    second: animation_reveal_02_375x375_sprite-min_31
+  - first:
+      213: 5372780345939570555
+    second: animation_reveal_02_375x375_sprite-min_32
+  - first:
+      213: -4826387206524870239
+    second: animation_reveal_02_375x375_sprite-min_33
+  - first:
+      213: 9179510620468593163
+    second: animation_reveal_02_375x375_sprite-min_34
+  - first:
+      213: 3362380488094440694
+    second: animation_reveal_02_375x375_sprite-min_35
+  - first:
+      213: 4906951207779138488
+    second: animation_reveal_02_375x375_sprite-min_36
+  - first:
+      213: -1476841741332400155
+    second: animation_reveal_02_375x375_sprite-min_37
+  - first:
+      213: 4505854796117342046
+    second: animation_reveal_02_375x375_sprite-min_38
+  - first:
+      213: -1363312027324728366
+    second: animation_reveal_02_375x375_sprite-min_39
+  - first:
+      213: 5844880253976264959
+    second: animation_reveal_02_375x375_sprite-min_40
+  - first:
+      213: 8529570892261032003
+    second: animation_reveal_02_375x375_sprite-min_41
+  - first:
+      213: -4870930472641491143
+    second: animation_reveal_02_375x375_sprite-min_42
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1239
+        width: 335
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1b341dd77a912a80800000000000000
+      internalID: -8493337582643168486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 860
+        width: 347
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aab8b51794f2f1c40800000000000000
+      internalID: 5485154863641496490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_4
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 859
+        width: 354
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f67317f625ef85790800000000000000
+      internalID: -7540997946021431441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_5
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 859
+        width: 362
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf17d2cea4fd65900800000000000000
+      internalID: 672970707221443067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_0
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 1239
+        width: 335
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f830f8346d1d44fb918e4fcfb9e103
+      internalID: 475834062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_43
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 1239
+        width: 335
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 972a02cab1317ad4885dd87a8839aab1
+      internalID: 996624350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_44
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1239
+        width: 335
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4d218abb4925344788f5712e06b520a
+      internalID: -1020896915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_1
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 859
+        width: 362
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a408c496cec5920468925d6275e3aad7
+      internalID: -1051469625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 485
+        width: 347
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5700b8c44edc1154a941cc145063a096
+      internalID: -150769526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_7
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 485
+        width: 356
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee2d1b18e02100246ae4aa0040766e77
+      internalID: 1357733378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_8
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 485
+        width: 354
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0979fa0ef7199a1468e9b426acd5f4cd
+      internalID: 1064721515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_reveal_02_375x375_sprite-min_9
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 485
+        width: 341
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf1e3e576c79ce4fb615d628297f14f
+      internalID: -1745452674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 87a56b141b01e0242a8412795b247af1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_reveal_02_375x375_sprite-min_0: 475834062
+      animation_reveal_02_375x375_sprite-min_1: -1051469625
+      animation_reveal_02_375x375_sprite-min_43: 996624350
+      animation_reveal_02_375x375_sprite-min_44: -1020896915
+      animation_reveal_02_375x375_sprite-min_6: -150769526
+      animation_reveal_02_375x375_sprite-min_7: 1357733378
+      animation_reveal_02_375x375_sprite-min_8: 1064721515
+      animation_reveal_02_375x375_sprite-min_9: -1745452674
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

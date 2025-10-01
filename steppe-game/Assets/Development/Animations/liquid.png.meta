@@ -1,0 +1,864 @@
+fileFormatVersion: 2
+guid: 3715e92a2557755469d356d5967c316d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7290534985110167030
+    second: liquid_0
+  - first:
+      213: -3645834018858455197
+    second: liquid_1
+  - first:
+      213: -1902136471255979517
+    second: liquid_2
+  - first:
+      213: 5431258965374492690
+    second: liquid_3
+  - first:
+      213: -8710253795041219794
+    second: liquid_4
+  - first:
+      213: 1102409872402297799
+    second: liquid_5
+  - first:
+      213: 7238278512907451556
+    second: liquid_6
+  - first:
+      213: 1603267752991515848
+    second: liquid_7
+  - first:
+      213: -2947511756183673938
+    second: liquid_8
+  - first:
+      213: 7192159546862232382
+    second: liquid_9
+  - first:
+      213: 4043811673440155954
+    second: liquid_10
+  - first:
+      213: -7707968088804183935
+    second: liquid_11
+  - first:
+      213: -5021762424994521341
+    second: liquid_12
+  - first:
+      213: -3308226781349672541
+    second: liquid_13
+  - first:
+      213: -3258696949571765652
+    second: liquid_14
+  - first:
+      213: 3350943700187147241
+    second: liquid_15
+  - first:
+      213: -5379725219282481717
+    second: liquid_16
+  - first:
+      213: -2757806204037730060
+    second: liquid_17
+  - first:
+      213: -791129139205259601
+    second: liquid_18
+  - first:
+      213: 5412250829847441028
+    second: liquid_19
+  - first:
+      213: 5159024642502443793
+    second: liquid_20
+  - first:
+      213: -6802067161715863805
+    second: liquid_21
+  - first:
+      213: -4512190030796248602
+    second: liquid_22
+  - first:
+      213: 8924334381647550713
+    second: liquid_23
+  - first:
+      213: -5978435305657784128
+    second: liquid_24
+  - first:
+      213: -100078947408592848
+    second: liquid_25
+  - first:
+      213: 7318259868902303287
+    second: liquid_26
+  - first:
+      213: 5937639206922510086
+    second: liquid_27
+  - first:
+      213: 7324880490953900310
+    second: liquid_28
+  - first:
+      213: -3411267541669631623
+    second: liquid_29
+  - first:
+      213: 8025731113887297274
+    second: liquid_30
+  - first:
+      213: -3002000007557742419
+    second: liquid_31
+  - first:
+      213: 1972757901537970494
+    second: liquid_32
+  - first:
+      213: -1801682925276375225
+    second: liquid_33
+  - first:
+      213: 3928560521279144053
+    second: liquid_34
+  - first:
+      213: -8222925307990719492
+    second: liquid_35
+  - first:
+      213: 6658451774212992597
+    second: liquid_36
+  - first:
+      213: 8956865262283761437
+    second: liquid_37
+  - first:
+      213: -8627453030554122641
+    second: liquid_38
+  - first:
+      213: 7392668573876466865
+    second: liquid_39
+  - first:
+      213: 3054830723413080170
+    second: liquid_40
+  - first:
+      213: 1320879374744596881
+    second: liquid_41
+  - first:
+      213: 5852596201289610802
+    second: liquid_42
+  - first:
+      213: 3258734309016397275
+    second: liquid_43
+  - first:
+      213: 6071167432848270536
+    second: liquid_44
+  - first:
+      213: 5699066426326905548
+    second: liquid_45
+  - first:
+      213: -539871828315080688
+    second: liquid_46
+  - first:
+      213: -8919080329582225793
+    second: liquid_47
+  - first:
+      213: -4793271583312034417
+    second: liquid_48
+  - first:
+      213: 7174345228524018024
+    second: liquid_49
+  - first:
+      213: 3131896243604053335
+    second: liquid_50
+  - first:
+      213: 1712561254898106255
+    second: liquid_51
+  - first:
+      213: 7795966869390157787
+    second: liquid_52
+  - first:
+      213: -7650904105026176783
+    second: liquid_53
+  - first:
+      213: -7359041054525828468
+    second: liquid_54
+  - first:
+      213: -8482388683278554831
+    second: liquid_55
+  - first:
+      213: 6212788395617018016
+    second: liquid_56
+  - first:
+      213: 1959185291732387217
+    second: liquid_57
+  - first:
+      213: -7285211191315919037
+    second: liquid_58
+  - first:
+      213: 3278605498309815350
+    second: liquid_59
+  - first:
+      213: -7771096117107222870
+    second: liquid_60
+  - first:
+      213: 4444521226226368752
+    second: liquid_61
+  - first:
+      213: -9070205312406408267
+    second: liquid_62
+  - first:
+      213: -5466757052963150427
+    second: liquid_63
+  - first:
+      213: 3630523114360462070
+    second: liquid_64
+  - first:
+      213: 6347016050688511062
+    second: liquid_65
+  - first:
+      213: -6652186586848874565
+    second: liquid_66
+  - first:
+      213: 4906385821292165269
+    second: liquid_67
+  - first:
+      213: -7527127581269059111
+    second: liquid_68
+  - first:
+      213: -7651462324867390273
+    second: liquid_69
+  - first:
+      213: 7439130424950216859
+    second: liquid_70
+  - first:
+      213: 1541997571681428328
+    second: liquid_71
+  - first:
+      213: -7457836090090816220
+    second: liquid_72
+  - first:
+      213: 3296058913643256090
+    second: liquid_73
+  - first:
+      213: 8558952902111442240
+    second: liquid_74
+  - first:
+      213: 4725408883261890642
+    second: liquid_75
+  - first:
+      213: -1168819811221573688
+    second: liquid_76
+  - first:
+      213: -5068508356834803526
+    second: liquid_77
+  - first:
+      213: 5409676387116401484
+    second: liquid_78
+  - first:
+      213: -6179396727753542351
+    second: liquid_79
+  - first:
+      213: 3470437948140800619
+    second: liquid_80
+  - first:
+      213: -3023171906299658963
+    second: liquid_81
+  - first:
+      213: 4154954775124045815
+    second: liquid_82
+  - first:
+      213: -5029596138285180241
+    second: liquid_83
+  - first:
+      213: 4461521309814529954
+    second: liquid_84
+  - first:
+      213: -19620954744258558
+    second: liquid_85
+  - first:
+      213: 1129985334344221196
+    second: liquid_86
+  - first:
+      213: -3382767368096101433
+    second: liquid_87
+  - first:
+      213: 6265772258084300008
+    second: liquid_88
+  - first:
+      213: -5830197680239992210
+    second: liquid_89
+  - first:
+      213: 6227417842664022367
+    second: liquid_90
+  - first:
+      213: 401280321561608002
+    second: liquid_91
+  - first:
+      213: 975088848392555906
+    second: liquid_92
+  - first:
+      213: -3802140548557011188
+    second: liquid_93
+  - first:
+      213: -6482804225562611408
+    second: liquid_94
+  - first:
+      213: 1705907195320724986
+    second: liquid_95
+  - first:
+      213: -8573281673532659144
+    second: liquid_96
+  - first:
+      213: -5815594306285608589
+    second: liquid_97
+  - first:
+      213: -1035717139443012657
+    second: liquid_98
+  - first:
+      213: 4648374332756246516
+    second: liquid_99
+  - first:
+      213: 7570134918727378254
+    second: liquid_100
+  - first:
+      213: 6607455098253990513
+    second: liquid_101
+  - first:
+      213: 8223517107973128722
+    second: liquid_102
+  - first:
+      213: -4198359579115701667
+    second: liquid_103
+  - first:
+      213: -8395570629453709359
+    second: liquid_104
+  - first:
+      213: -5623214856341188305
+    second: liquid_105
+  - first:
+      213: 5691795047894500213
+    second: liquid_106
+  - first:
+      213: -3682214012377537549
+    second: liquid_107
+  - first:
+      213: 5763355517555846874
+    second: liquid_108
+  - first:
+      213: 5871438138384526335
+    second: liquid_109
+  - first:
+      213: -5704938601966878506
+    second: liquid_110
+  - first:
+      213: 4164666405285911989
+    second: liquid_111
+  - first:
+      213: -7771195004566153800
+    second: liquid_112
+  - first:
+      213: 5211735164726190999
+    second: liquid_113
+  - first:
+      213: 3622762040383508040
+    second: liquid_114
+  - first:
+      213: -1292950359051259183
+    second: liquid_115
+  - first:
+      213: 4156868069707295308
+    second: liquid_116
+  - first:
+      213: -8576513770777182963
+    second: liquid_117
+  - first:
+      213: 1916358035701798607
+    second: liquid_118
+  - first:
+      213: -8982412961137355231
+    second: liquid_119
+  - first:
+      213: 708194834015035478
+    second: liquid_120
+  - first:
+      213: 2995509571289131064
+    second: liquid_121
+  - first:
+      213: 8246936140499829194
+    second: liquid_122
+  - first:
+      213: 295193669434832613
+    second: liquid_123
+  - first:
+      213: 5630404990687620698
+    second: liquid_124
+  - first:
+      213: -5392337002263261278
+    second: liquid_125
+  - first:
+      213: 7531298339237836881
+    second: liquid_126
+  - first:
+      213: 1338821716827225867
+    second: liquid_127
+  - first:
+      213: 7026200766398367129
+    second: liquid_128
+  - first:
+      213: -6050465223380518008
+    second: liquid_129
+  - first:
+      213: 1227264026346983174
+    second: liquid_130
+  - first:
+      213: 4148295749299430904
+    second: liquid_131
+  - first:
+      213: -9089613659117201325
+    second: liquid_132
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: liquid_0
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 1160
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9931079707391747a4b93d723c59a03
+      internalID: -1178138241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_1
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 1160
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f424715db800de54ea4d1c8bb771a5b5
+      internalID: -788369291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_2
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 1160
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1bb1b017f010464bbca8e3c19955739
+      internalID: 2013346399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_3
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 1160
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18ca65228015f914aa3ba55e9f35693f
+      internalID: 172050198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_4
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 780
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db872b926c182a04ba0f6114bb16d4a4
+      internalID: 295381667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_5
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 780
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14a4b7b359be9e64899df0f3627deb08
+      internalID: 2098279494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_6
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 780
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84d8bfaace8ab0a45a8eaf1034efeaee
+      internalID: 70860638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_7
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 780
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b261c9521ffb6345ac0d9701b3c035b
+      internalID: 2015449471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_8
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 415
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 123d2de507f83474d81b7547001aa15d
+      internalID: -51792348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_9
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 415
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2ccda248ba8b41459151b0d21c0f111
+      internalID: 1919511103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_10
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 415
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f0f643501f0dc478a1596ebb4bc43b
+      internalID: 877465983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_11
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 415
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e7b53f03ce1b741b1a0c30d4123edd
+      internalID: -575629905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_12
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 35
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd9bf639e1cdf1b4ab17178f0451e247
+      internalID: 309156144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid_13
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 35
+        width: 170
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 512b9bef679de3640bec645a30ff1844
+      internalID: -1632546420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 86bb3a3e3b0941040ad5e6d6d1d3a8e4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      liquid_0: -1178138241
+      liquid_1: -788369291
+      liquid_10: 877465983
+      liquid_11: -575629905
+      liquid_12: 309156144
+      liquid_13: -1632546420
+      liquid_2: 2013346399
+      liquid_3: 172050198
+      liquid_4: 295381667
+      liquid_5: 2098279494
+      liquid_6: 70860638
+      liquid_7: 2015449471
+      liquid_8: -51792348
+      liquid_9: 1919511103
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

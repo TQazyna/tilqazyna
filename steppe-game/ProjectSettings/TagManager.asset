@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - DropValid
+  - DropInvalid
+  - Conversation
+  - TriggerConversation
+  - MuseumFiveWeaponsCanvas
+  - MuseumSevenTreasuresCanvas
+  - Rock
+  - Coin
+  - TraditionalLifeCanvas
+  - AltynAdamCanvas
+  - AlmatyMuseumCanvas
+  - GlobalBackButton
+  - BozokStartBone
+  - SoundManager
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - UIToBlur
+  - 
+  - Dragging
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Objects
+    uniqueID: 3926164529
+    locked: 0
+  - name: Dragging
+    uniqueID: 1240519687
+    locked: 0
+  - name: 3
+    uniqueID: 1731267655
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  - TopUI

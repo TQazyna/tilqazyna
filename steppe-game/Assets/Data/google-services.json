@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1017084335292",
+    "project_id": "steppegame-a41f5",
+    "storage_bucket": "steppegame-a41f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017084335292:android:9d4cef484533bf21a3ecb9",
+        "android_client_info": {
+          "package_name": "com.SteppeGame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017084335292-cagpk71envmerfht2c988hmvbg1g1jfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SteppeGame",
+            "certificate_hash": "edd8fc1a40191229d561b54309de0ae3b5584134"
+          }
+        },
+        {
+          "client_id": "1017084335292-h9hnsfu3hfrtcbslrbcd2345luakp1tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu8MRmbqnam1I-9QQSAotH4hnnuL85Ku0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017084335292-h9hnsfu3hfrtcbslrbcd2345luakp1tu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1017084335292-1glav05c47hus6jle8o4qjs88o0qsb4h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.SteppeGame"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

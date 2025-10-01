@@ -1,0 +1,249 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62cf549583f44e159f4fe4a9e2cdc7f, type: 3}
+  m_Name: BoneGameData
+  m_EditorClassIdentifier: 
+  questions:
+  - isSequence: 0
+    description: "\u041D\u0430\u0439\u0434\u0438 \u0441\u043B\u043E\u0432\u043E,
+      \u043E\u0431\u043E\u0437\u043D\u0430\u0447\u0430\u044E\u0449\u0435\u0435 \u0447\u0430\u0441\u0442\u044C
+      \u044E\u0440\u0442\u044B:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0410\u0442 (\u041B\u043E\u0448\u0430\u0434\u044C)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u04AE\u0439 (\u0414\u043E\u043C)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0428\u0430\u04A3\u044B\u0440\u0430\u049B (\u041A\u0443\u043F\u043E\u043B
+        \u044E\u0440\u0442\u044B)"
+      correct: 1
+  - isSequence: 0
+    description: "\u0412\u044B\u0431\u0435\u0440\u0438 \u0441\u043B\u043E\u0432\u043E,
+      \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u0441\u044F
+      \u043A\u0430\u043A '\u0421\u043E\u043B\u043D\u0446\u0435':"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u041A\u04AF\u043D (\u0421\u043E\u043B\u043D\u0446\u0435)"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0410\u0439 (\u041B\u0443\u043D\u0430)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0416\u0435\u0440 (\u0417\u0435\u043C\u043B\u044F)"
+      correct: 0
+  - isSequence: 0
+    description: "\u041D\u0430\u0439\u0434\u0438 \u0441\u043B\u043E\u0432\u043E,
+      \u043E\u0431\u043E\u0437\u043D\u0430\u0447\u0430\u044E\u0449\u0435\u0435 \u043D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439
+      \u043D\u0430\u043F\u0438\u0442\u043E\u043A:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u049A\u044B\u043C\u044B\u0437 (\u041A\u0443\u043C\u044B\u0441)"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u049A\u04B1\u0440\u0442 (\u0422\u0432\u043E\u0440\u043E\u0433)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0421\u0443 (\u0412\u043E\u0434\u0430)"
+      correct: 0
+  - isSequence: 0
+    description: "\u041D\u0430\u0439\u0434\u0438 \u0441\u043B\u043E\u0432\u043E,
+      \u043E\u0437\u043D\u0430\u0447\u0430\u044E\u0449\u0435\u0435 '\u041C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0439
+      \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442':"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0414\u043E\u043C\u0431\u044B\u0440\u0430 (\u0414\u043E\u043C\u0431\u0440\u0430)"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0428\u0430\u04A3\u044B\u0440\u0430\u049B (\u041A\u0443\u043F\u043E\u043B
+        \u044E\u0440\u0442\u044B)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0422\u04AF\u0439\u0435 (\u0412\u0435\u0440\u0431\u043B\u044E\u0434)"
+      correct: 0
+  - isSequence: 0
+    description: "\u0412\u044B\u0431\u0435\u0440\u0438 \u0441\u043B\u043E\u0432\u043E,
+      \u043E\u0431\u043E\u0437\u043D\u0430\u0447\u0430\u044E\u0449\u0435\u0435 '\u041D\u0430\u043F\u0438\u0442\u043E\u043A':"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0421\u0443 (\u0412\u043E\u0434\u0430)"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0422\u0430\u0443 (\u0413\u043E\u0440\u0430)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u049A\u04B1\u0440\u0442 (\u0422\u0432\u043E\u0440\u043E\u0433)"
+      correct: 0
+  - isSequence: 1
+    description: "\u0421\u043E\u0431\u0435\u0440\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435:
+      '\u042F \u0447\u0438\u0442\u0430\u044E \u043A\u043D\u0438\u0433\u0443.'"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u041C\u0435\u043D (\u042F)"
+      correct: 1
+    - inSequenceOrder: 2
+      answer: "\u043A\u0456\u0442\u0430\u043F\u0442\u044B (\u043A\u043D\u0438\u0433\u0443)"
+      correct: 1
+    - inSequenceOrder: 1
+      answer: "\u043E\u049B\u044B\u0434\u044B\u043C (\u0447\u0438\u0442\u0430\u043B)"
+      correct: 1
+  - isSequence: 1
+    description: "\u0421\u043E\u0431\u0435\u0440\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435:
+      '\u0421\u0435\u0433\u043E\u0434\u043D\u044F \u043C\u044B \u0433\u0443\u043B\u044F\u043B\u0438
+      \u0432 \u0441\u0442\u0435\u043F\u0438.'"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0411\u0456\u0437 (\u041C\u044B)"
+      correct: 1
+    - inSequenceOrder: 2
+      answer: "\u0434\u0430\u043B\u0430\u0434\u0430 (\u0432 \u0441\u0442\u0435\u043F\u0438)"
+      correct: 1
+    - inSequenceOrder: 1
+      answer: "\u0436\u04AF\u0440\u0434\u0456\u043A (\u0433\u0443\u043B\u044F\u043B\u0438)"
+      correct: 1
+  - isSequence: 1
+    description: "\u0421\u043E\u0431\u0435\u0440\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435:
+      '\u0414\u0435\u0442\u0438 \u0438\u0433\u0440\u0430\u043B\u0438 \u0432 \u0430\u0441\u044B\u049B.'"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0411\u0430\u043B\u0430\u043B\u0430\u0440 (\u0414\u0435\u0442\u0438)"
+      correct: 1
+    - inSequenceOrder: 2
+      answer: "\u0430\u0441\u044B\u049B (\u0430\u0441\u044B\u043A\u0438)"
+      correct: 1
+    - inSequenceOrder: 1
+      answer: "\u043E\u0439\u043D\u0430\u0434\u044B (\u0438\u0433\u0440\u0430\u043B\u0438)"
+      correct: 1
+  - isSequence: 1
+    description: "\u0421\u043E\u0431\u0435\u0440\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435:
+      '\u041B\u0443\u043D\u0430 \u0441\u0432\u0435\u0442\u0438\u0442 \u043D\u043E\u0447\u044C\u044E.'"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0410\u0439 (\u041B\u0443\u043D\u0430)"
+      correct: 1
+    - inSequenceOrder: 2
+      answer: "\u0442\u04AF\u043D\u0434\u0435 (\u043D\u043E\u0447\u044C\u044E)"
+      correct: 1
+    - inSequenceOrder: 1
+      answer: "\u0436\u0430\u0440\u049B\u044B\u0440\u0430\u0439\u0434\u044B (\u0441\u0432\u0435\u0442\u0438\u0442)"
+      correct: 1
+  - isSequence: 0
+    description: "\u041D\u0430\u0439\u0434\u0438 \u043B\u0438\u0448\u043D\u0435\u0435
+      \u0441\u0440\u0435\u0434\u0438 \u044D\u0442\u0438\u0445 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u043E\u0432:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u049A\u04B1\u0440\u0442 (\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u043E\u043D\u043D\u043E\u0435
+        \u0431\u043B\u044E\u0434\u043E)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u049A\u044B\u043C\u044B\u0437 (\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439
+        \u043D\u0430\u043F\u0438\u0442\u043E\u043A)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0428\u0430\u04A3\u044B\u0440\u0430\u049B (\u041A\u0443\u043F\u043E\u043B
+        \u044E\u0440\u0442\u044B)"
+      correct: 1
+  - isSequence: 0
+    description: "\u041D\u0430\u0439\u0434\u0438 \u043B\u0438\u0448\u043D\u0435\u0435
+      \u0441\u0440\u0435\u0434\u0438 \u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0445:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0416\u044B\u043B\u049B\u044B (\u041B\u043E\u0448\u0430\u0434\u044C)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0422\u04AF\u0439\u0435 (\u0412\u0435\u0440\u0431\u043B\u044E\u0434)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u049A\u04B1\u0440\u0442 (\u0422\u0432\u043E\u0440\u043E\u0433)"
+      correct: 1
+  - isSequence: 0
+    description: "\u0427\u0442\u043E \u043B\u0438\u0448\u043D\u0435\u0435 \u0441\u0440\u0435\u0434\u0438
+      \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0414\u043E\u043C\u0431\u044B\u0440\u0430 (\u041C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0439
+        \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u049A\u044B\u043C\u044B\u0437 (\u041D\u0430\u043F\u0438\u0442\u043E\u043A)"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0416\u0435\u0442\u0456\u0433\u0435\u043D (\u041C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0439
+        \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442)"
+      correct: 0
+  - isSequence: 0
+    description: "\u041B\u0438\u0448\u043D\u0435\u0435 \u0441\u043B\u043E\u0432\u043E
+      \u0441\u0440\u0435\u0434\u0438 \u043F\u0440\u0438\u0440\u043E\u0434\u043D\u044B\u0445
+      \u043E\u0431\u044A\u0435\u043A\u0442\u043E\u0432:"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0422\u0430\u0443 (\u0413\u043E\u0440\u0430)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u041A\u04E9\u043B (\u041E\u0437\u0435\u0440\u043E)"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0410\u0441\u044B\u049B (\u041A\u043E\u0441\u0442\u043E\u0447\u043A\u0430)"
+      correct: 1
+  - isSequence: 0
+    description: "\u041A\u0430\u043A \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u0441\u044F
+      '\u0422\u0430\u0443'?"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0413\u043E\u0440\u0430"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u041E\u0437\u0435\u0440\u043E"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u041B\u0435\u0441"
+      correct: 0
+  - isSequence: 0
+    description: "\u041A\u0430\u043A \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u0441\u044F
+      '\u0416\u0435\u0440'?"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u0417\u0435\u043C\u043B\u044F"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0421\u043E\u043B\u043D\u0446\u0435"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u041B\u0443\u043D\u0430"
+      correct: 0
+  - isSequence: 0
+    description: "\u041A\u0430\u043A \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u0441\u044F
+      '\u0410\u0439'?"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u041B\u0443\u043D\u0430"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u0417\u0432\u0435\u0437\u0434\u0430"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0421\u043E\u043B\u043D\u0446\u0435"
+      correct: 0
+  - isSequence: 0
+    description: "\u041A\u0430\u043A \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u0438\u0442\u0441\u044F
+      '\u0428\u0430\u04A3\u044B\u0440\u0430\u049B'?"
+    answers:
+    - inSequenceOrder: 0
+      answer: "\u041A\u0443\u043F\u043E\u043B \u044E\u0440\u0442\u044B"
+      correct: 1
+    - inSequenceOrder: 0
+      answer: "\u041E\u0437\u0435\u0440\u043E"
+      correct: 0
+    - inSequenceOrder: 0
+      answer: "\u0414\u043E\u043C"
+      correct: 0

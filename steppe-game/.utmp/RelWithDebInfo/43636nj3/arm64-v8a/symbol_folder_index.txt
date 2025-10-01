@@ -1,0 +1,1 @@
+/Users/maximtsalyuk/Desktop/Projects/unity/qm-game-unity/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/43636nj3/obj/arm64-v8a

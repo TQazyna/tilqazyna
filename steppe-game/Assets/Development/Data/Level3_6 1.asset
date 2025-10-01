@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cd54d43f944cf0b1204f7867dceae3, type: 3}
+  m_Name: Level3_6 1
+  m_EditorClassIdentifier: 
+  levelNumber: 3
+  sublevelNumber: 6
+  pointsAmount: 60
+  expAmount: 50
+  guests:
+  - guestPhoto: {fileID: -5002433994687509786, guid: 9ab2b54c5f3e91d47967222309a1ff0d, type: 3}
+    guestOrderData:
+      waitingTime: 130
+      dishes:
+      - dishPhoto: {fileID: 7312287867367422726, guid: a1bdbc298b60cfb4690ded4f83e6a3f5, type: 3}
+        dishType: 30
+      - dishPhoto: {fileID: -6955451280310906127, guid: 53ead2da7801bc840a24bccb423e2b31, type: 3}
+        dishType: 0
+      dishPrice: 24
+      OrderPhrase:
+        m_TableReference:
+          m_TableCollectionName: 
+        m_TableEntryReference:
+          m_KeyId: 0
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      orderSound: {fileID: 0}
+  - guestPhoto: {fileID: 3088445618829204956, guid: f9dc1029317e8c148bf314f5c9b4528d, type: 3}
+    guestOrderData:
+      waitingTime: 180
+      dishes:
+      - dishPhoto: {fileID: -6955451280310906127, guid: 53ead2da7801bc840a24bccb423e2b31, type: 3}
+        dishType: 0
+      - dishPhoto: {fileID: 7312287867367422726, guid: a1bdbc298b60cfb4690ded4f83e6a3f5, type: 3}
+        dishType: 30
+      dishPrice: 18
+      OrderPhrase:
+        m_TableReference:
+          m_TableCollectionName: 
+        m_TableEntryReference:
+          m_KeyId: 0
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      orderSound: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

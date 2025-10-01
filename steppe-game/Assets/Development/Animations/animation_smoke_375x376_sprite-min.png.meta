@@ -1,0 +1,553 @@
+fileFormatVersion: 2
+guid: 0dab551ab326d604e8de865be81a5f1d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6493171515815383649
+    second: animation_smoke_375x376_sprite-min_0
+  - first:
+      213: -3580185476336859520
+    second: animation_smoke_375x376_sprite-min_1
+  - first:
+      213: -696874177169379666
+    second: animation_smoke_375x376_sprite-min_2
+  - first:
+      213: 11904731767802739
+    second: animation_smoke_375x376_sprite-min_3
+  - first:
+      213: -1455491134308533356
+    second: animation_smoke_375x376_sprite-min_4
+  - first:
+      213: 5677633070632988981
+    second: animation_smoke_375x376_sprite-min_5
+  - first:
+      213: -548619573615865125
+    second: animation_smoke_375x376_sprite-min_6
+  - first:
+      213: 8230091629602529615
+    second: animation_smoke_375x376_sprite-min_7
+  - first:
+      213: -9205310599918127579
+    second: animation_smoke_375x376_sprite-min_8
+  - first:
+      213: -174569278222063465
+    second: animation_smoke_375x376_sprite-min_9
+  - first:
+      213: -7240497332736470620
+    second: animation_smoke_375x376_sprite-min_10
+  - first:
+      213: 7629996115931526896
+    second: animation_smoke_375x376_sprite-min_11
+  - first:
+      213: 485302739223591757
+    second: animation_smoke_375x376_sprite-min_12
+  - first:
+      213: -229192923795998735
+    second: animation_smoke_375x376_sprite-min_13
+  - first:
+      213: 3826059668870637305
+    second: animation_smoke_375x376_sprite-min_14
+  - first:
+      213: -9108670108151192371
+    second: animation_smoke_375x376_sprite-min_15
+  - first:
+      213: 2271821986089947466
+    second: animation_smoke_375x376_sprite-min_16
+  - first:
+      213: 3444158912326599489
+    second: animation_smoke_375x376_sprite-min_17
+  - first:
+      213: -1512306335274787277
+    second: animation_smoke_375x376_sprite-min_18
+  - first:
+      213: -7136413206111400244
+    second: animation_smoke_375x376_sprite-min_19
+  - first:
+      213: 2903931756983703785
+    second: animation_smoke_375x376_sprite-min_20
+  - first:
+      213: -8755316513055765078
+    second: animation_smoke_375x376_sprite-min_21
+  - first:
+      213: 6195050685500259034
+    second: animation_smoke_375x376_sprite-min_22
+  - first:
+      213: 951441774397067608
+    second: animation_smoke_375x376_sprite-min_23
+  - first:
+      213: -1714776646445706928
+    second: animation_smoke_375x376_sprite-min_24
+  - first:
+      213: -9114051772316918020
+    second: animation_smoke_375x376_sprite-min_25
+  - first:
+      213: -5766739329626237211
+    second: animation_smoke_375x376_sprite-min_26
+  - first:
+      213: 6184009758053599290
+    second: animation_smoke_375x376_sprite-min_27
+  - first:
+      213: -8099776024297179967
+    second: animation_smoke_375x376_sprite-min_28
+  - first:
+      213: -8686165338084482179
+    second: animation_smoke_375x376_sprite-min_29
+  - first:
+      213: 146388702644627440
+    second: animation_smoke_375x376_sprite-min_30
+  - first:
+      213: 8045169789093514428
+    second: animation_smoke_375x376_sprite-min_31
+  - first:
+      213: -6340689216729914142
+    second: animation_smoke_375x376_sprite-min_32
+  - first:
+      213: -3944377482967479643
+    second: animation_smoke_375x376_sprite-min_33
+  - first:
+      213: 6811674028081821716
+    second: animation_smoke_375x376_sprite-min_34
+  - first:
+      213: 3176011885406205314
+    second: animation_smoke_375x376_sprite-min_35
+  - first:
+      213: -4608415248329186627
+    second: animation_smoke_375x376_sprite-min_36
+  - first:
+      213: 6143459672906920367
+    second: animation_smoke_375x376_sprite-min_37
+  - first:
+      213: 4001172176267745925
+    second: animation_smoke_375x376_sprite-min_38
+  - first:
+      213: 7898507644552687679
+    second: animation_smoke_375x376_sprite-min_39
+  - first:
+      213: 6436986995566596329
+    second: animation_smoke_375x376_sprite-min_40
+  - first:
+      213: 1365146516037134023
+    second: animation_smoke_375x376_sprite-min_41
+  - first:
+      213: 1720740717735894226
+    second: animation_smoke_375x376_sprite-min_42
+  - first:
+      213: -3252399379617348680
+    second: animation_smoke_375x376_sprite-min_43
+  - first:
+      213: -3965239944527863525
+    second: animation_smoke_375x376_sprite-min_44
+  - first:
+      213: 7376644860638454401
+    second: animation_smoke_375x376_sprite-min_45
+  - first:
+      213: 4060817439610882375
+    second: animation_smoke_375x376_sprite-min_46
+  - first:
+      213: -1019003101448190964
+    second: animation_smoke_375x376_sprite-min_47
+  - first:
+      213: 4556102198257874615
+    second: animation_smoke_375x376_sprite-min_48
+  - first:
+      213: -3804025580975254711
+    second: animation_smoke_375x376_sprite-min_49
+  - first:
+      213: 4891425846803227867
+    second: animation_smoke_375x376_sprite-min_50
+  - first:
+      213: -3067298007142096466
+    second: animation_smoke_375x376_sprite-min_51
+  - first:
+      213: 6119492720531362971
+    second: animation_smoke_375x376_sprite-min_52
+  - first:
+      213: -796498208681210512
+    second: animation_smoke_375x376_sprite-min_53
+  - first:
+      213: 456566644706456535
+    second: animation_smoke_375x376_sprite-min_54
+  - first:
+      213: 2299731988601043889
+    second: animation_smoke_375x376_sprite-min_55
+  - first:
+      213: 9009801232471647873
+    second: animation_smoke_375x376_sprite-min_56
+  - first:
+      213: -2536859879296653503
+    second: animation_smoke_375x376_sprite-min_57
+  - first:
+      213: 6499706323901483401
+    second: animation_smoke_375x376_sprite-min_58
+  - first:
+      213: -7089463202536453486
+    second: animation_smoke_375x376_sprite-min_59
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 1204
+        width: 239
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eae2da8c0a43456f0800000000000000
+      internalID: -696874177169379666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1204
+        width: 238
+        height: 249
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37b8a2c5a4b4a2000800000000000000
+      internalID: 11904731767802739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_9
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 1204
+        width: 246
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 798a0e69a2ec39df0800000000000000
+      internalID: -174569278222063465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_21
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 834
+        width: 240
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad033fd40ede7680800000000000000
+      internalID: -8755316513055765078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_24
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 831
+        width: 245
+        height: 263
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 051d77fa9b3e338e0800000000000000
+      internalID: -1714776646445706928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_26
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 827
+        width: 258
+        height: 251
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e69a59122d68ffa0800000000000000
+      internalID: -5766739329626237211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_48
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 456
+        width: 241
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b6798f5fc68a3f30800000000000000
+      internalID: 4556102198257874615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_50
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 455
+        width: 249
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4eedb44e5d1e340800000000000000
+      internalID: 4891425846803227867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_51
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 455
+        width: 247
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea12808b6b4ce65d0800000000000000
+      internalID: -3067298007142096466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_smoke_375x376_sprite-min_57
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 79
+        width: 248
+        height: 270
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 147259171634bccd0800000000000000
+      internalID: -2536859879296653503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d3858906179b66c49948dfc39bdad99c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_smoke_375x376_sprite-min_2: -696874177169379666
+      animation_smoke_375x376_sprite-min_21: -8755316513055765078
+      animation_smoke_375x376_sprite-min_24: -1714776646445706928
+      animation_smoke_375x376_sprite-min_26: -5766739329626237211
+      animation_smoke_375x376_sprite-min_3: 11904731767802739
+      animation_smoke_375x376_sprite-min_48: 4556102198257874615
+      animation_smoke_375x376_sprite-min_50: 4891425846803227867
+      animation_smoke_375x376_sprite-min_51: -3067298007142096466
+      animation_smoke_375x376_sprite-min_57: -2536859879296653503
+      animation_smoke_375x376_sprite-min_9: -174569278222063465
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

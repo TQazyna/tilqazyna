@@ -1,0 +1,7 @@
+# Автоматическое определение текста и управление переводами строк
+* text=auto
+# Использовать LF для Unity файлов
+*.meta text eol=lf
+*.unity filter=lfs diff=lfs merge=lfs -text
+*.prefab text eol=lf
+Assets/Development/GameScene.cs filter=lfs diff=lfs merge=lfs -text

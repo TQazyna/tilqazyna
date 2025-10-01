@@ -1,0 +1,36 @@
+{
+  "project_info": {
+    "project_number": "1017084335292",
+    "project_id": "steppegame-a41f5",
+    "storage_bucket": "steppegame-a41f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017084335292:ios:074fca490ec556a4a3ecb9",
+        "android_client_info": {
+          "package_name": "com.SteppeGame"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIRsNjfbDtamdVsWKAHYIUZtuDEZhcrdo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017084335292-1glav05c47hus6jle8o4qjs88o0qsb4h.apps.googleusercontent.com"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}

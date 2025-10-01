@@ -1,0 +1,711 @@
+fileFormatVersion: 2
+guid: 91e462c1de1291e4284469a71ce94267
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9009573962196648879
+    second: animation_steam_375x375_sprite-min_0
+  - first:
+      213: -7329109392313563647
+    second: animation_steam_375x375_sprite-min_1
+  - first:
+      213: -264773947508649707
+    second: animation_steam_375x375_sprite-min_2
+  - first:
+      213: -1708405470753376046
+    second: animation_steam_375x375_sprite-min_3
+  - first:
+      213: -6052133003419796882
+    second: animation_steam_375x375_sprite-min_4
+  - first:
+      213: 3418288031155341991
+    second: animation_steam_375x375_sprite-min_5
+  - first:
+      213: 7108524671131676655
+    second: animation_steam_375x375_sprite-min_6
+  - first:
+      213: 6564555824292101740
+    second: animation_steam_375x375_sprite-min_7
+  - first:
+      213: -2643810519976457421
+    second: animation_steam_375x375_sprite-min_8
+  - first:
+      213: 3601840781784334650
+    second: animation_steam_375x375_sprite-min_9
+  - first:
+      213: 4388726120281268146
+    second: animation_steam_375x375_sprite-min_10
+  - first:
+      213: -2242883867949523050
+    second: animation_steam_375x375_sprite-min_11
+  - first:
+      213: -151653491747319355
+    second: animation_steam_375x375_sprite-min_12
+  - first:
+      213: -1521954777056453284
+    second: animation_steam_375x375_sprite-min_13
+  - first:
+      213: 6142141513339771972
+    second: animation_steam_375x375_sprite-min_14
+  - first:
+      213: 1588438839459967878
+    second: animation_steam_375x375_sprite-min_15
+  - first:
+      213: 755023649541586506
+    second: animation_steam_375x375_sprite-min_16
+  - first:
+      213: -4026972089175982621
+    second: animation_steam_375x375_sprite-min_17
+  - first:
+      213: -1296583028991942165
+    second: animation_steam_375x375_sprite-min_18
+  - first:
+      213: -70392328223551579
+    second: animation_steam_375x375_sprite-min_19
+  - first:
+      213: 5787005484189427898
+    second: animation_steam_375x375_sprite-min_20
+  - first:
+      213: 205282437704038203
+    second: animation_steam_375x375_sprite-min_21
+  - first:
+      213: -5864431864912220936
+    second: animation_steam_375x375_sprite-min_22
+  - first:
+      213: 4399478107588929174
+    second: animation_steam_375x375_sprite-min_23
+  - first:
+      213: 34960162563343324
+    second: animation_steam_375x375_sprite-min_24
+  - first:
+      213: 6969849753000207710
+    second: animation_steam_375x375_sprite-min_25
+  - first:
+      213: 4924885703760199235
+    second: animation_steam_375x375_sprite-min_26
+  - first:
+      213: -5194943124492987251
+    second: animation_steam_375x375_sprite-min_27
+  - first:
+      213: -1418156505577003220
+    second: animation_steam_375x375_sprite-min_28
+  - first:
+      213: -7302518591233050626
+    second: animation_steam_375x375_sprite-min_29
+  - first:
+      213: 2520632622148034782
+    second: animation_steam_375x375_sprite-min_30
+  - first:
+      213: 401055654047181285
+    second: animation_steam_375x375_sprite-min_31
+  - first:
+      213: 2274168650666588460
+    second: animation_steam_375x375_sprite-min_32
+  - first:
+      213: 6836917688559134373
+    second: animation_steam_375x375_sprite-min_33
+  - first:
+      213: -3543232962487389911
+    second: animation_steam_375x375_sprite-min_34
+  - first:
+      213: -5950042321613077625
+    second: animation_steam_375x375_sprite-min_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1613
+        width: 312
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15cf8a5573097f280800000000000000
+      internalID: -9009573962196648879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_1
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 1600
+        width: 319
+        height: 201
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 106cb27c6d5c94a90800000000000000
+      internalID: -7329109392313563647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_2
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 1600
+        width: 323
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51118f06f75535cf0800000000000000
+      internalID: -264773947508649707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_3
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 1599
+        width: 321
+        height: 203
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d8396f96468a48e0800000000000000
+      internalID: -1708405470753376046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_4
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 1225
+        width: 320
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6abeb55911820ca0800000000000000
+      internalID: -6052133003419796882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_5
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 1227
+        width: 321
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aacbfc7ad2307f20800000000000000
+      internalID: 3418288031155341991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_6
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 1225
+        width: 321
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef67eb968d86a260800000000000000
+      internalID: 7108524671131676655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_7
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 1228
+        width: 318
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ef62fddbcf91b50800000000000000
+      internalID: 6564555824292101740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_8
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 852
+        width: 314
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33bcc5fe65c4f4bd0800000000000000
+      internalID: -2643810519976457421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_9
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 856
+        width: 314
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3145cf8b1f4cf130800000000000000
+      internalID: 3601840781784334650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_10
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 857
+        width: 330
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bfd7d76723e7ec30800000000000000
+      internalID: 4388726120281268146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_12
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 857
+        width: 323
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c11477e3f735edf0800000000000000
+      internalID: -151653491747319355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_14
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 476
+        width: 321
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44c1cc6f9254d3550800000000000000
+      internalID: 6142141513339771972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_15
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 475
+        width: 320
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 683f17565b44b0610800000000000000
+      internalID: 1588438839459967878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_16
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 474
+        width: 321
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ef1fb42026a7a00800000000000000
+      internalID: 755023649541586506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_17
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 475
+        width: 317
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3edb04088325d18c0800000000000000
+      internalID: -4026972089175982621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_28
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 102
+        width: 315
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c276c210c22b15ce0800000000000000
+      internalID: -1418156505577003220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_30
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 100
+        width: 309
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed02564d3061bf220800000000000000
+      internalID: 2520632622148034782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_32
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 103
+        width: 308
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c29bf46b6587f8f10800000000000000
+      internalID: 2274168650666588460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animation_steam_375x375_sprite-min_34
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 102
+        width: 306
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 921fb7ab468e3dec0800000000000000
+      internalID: -3543232962487389911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4204c204b73da5f42b2e6afbb57120ec
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animation_steam_375x375_sprite-min_0: -9009573962196648879
+      animation_steam_375x375_sprite-min_1: -7329109392313563647
+      animation_steam_375x375_sprite-min_10: 4388726120281268146
+      animation_steam_375x375_sprite-min_12: -151653491747319355
+      animation_steam_375x375_sprite-min_14: 6142141513339771972
+      animation_steam_375x375_sprite-min_15: 1588438839459967878
+      animation_steam_375x375_sprite-min_16: 755023649541586506
+      animation_steam_375x375_sprite-min_17: -4026972089175982621
+      animation_steam_375x375_sprite-min_2: -264773947508649707
+      animation_steam_375x375_sprite-min_28: -1418156505577003220
+      animation_steam_375x375_sprite-min_3: -1708405470753376046
+      animation_steam_375x375_sprite-min_30: 2520632622148034782
+      animation_steam_375x375_sprite-min_32: 2274168650666588460
+      animation_steam_375x375_sprite-min_34: -3543232962487389911
+      animation_steam_375x375_sprite-min_4: -6052133003419796882
+      animation_steam_375x375_sprite-min_5: 3418288031155341991
+      animation_steam_375x375_sprite-min_6: 7108524671131676655
+      animation_steam_375x375_sprite-min_7: 6564555824292101740
+      animation_steam_375x375_sprite-min_8: -2643810519976457421
+      animation_steam_375x375_sprite-min_9: 3601840781784334650
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
