@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Слушать перевод</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
       :root {
         --bg-gradient-start: #f0f2f5;
         --bg-gradient-end: #e6e9ed;
@@ -433,6 +423,83 @@
         border-color: var(--accent-primary);
       }
 
+      /* Language Toggle Styles */
+      .language-toggle {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+
+      .lang-tabs {
+        display: flex;
+        background: var(--surface-hover);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-md);
+        padding: 0.25rem;
+        gap: 0.25rem;
+      }
+
+      .lang-tab {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: all var(--duration-base) var(--ease-out);
+        white-space: nowrap;
+      }
+
+      .lang-tab:hover {
+        background: var(--surface);
+        color: var(--text-primary);
+      }
+
+      .lang-tab:focus {
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 2px;
+      }
+
+      .lang-tab.active {
+        background: var(--surface);
+        color: var(--accent-primary);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .lang-flag {
+        font-size: 1rem;
+        width: 1.25rem;
+        text-align: center;
+      }
+
+      .lang-name {
+        font-size: 0.75rem;
+      }
+
+      @media (max-width: 640px) {
+        .language-toggle {
+          justify-content: center;
+        }
+
+        .lang-tabs {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .lang-tab {
+          flex: 1;
+          min-width: 0;
+          justify-content: center;
+        }
+      }
+
       @media (max-width: 640px) {
         body {
           padding: 1rem;
@@ -471,287 +538,3 @@
           transition-duration: 0.01ms !important;
         }
       }
-    </style>
-  </head>
-  <body>
-    <main class="panel">
-      <header class="panel__header">
-        <h1>Слушать перевод</h1>
-        <p class="subtitle">Выберите язык и начните слушать синхронный перевод</p>
-      </header>
-
-      <div class="language-selector">
-        <label for="language">Язык перевода</label>
-        <select id="language">
-          <option value="ru">Русский</option>
-          <option value="en">English</option>
-          <option value="kk">Қазақша</option>
-          <option value="zh">中文</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="it">Italiano</option>
-          <option value="pt">Português</option>
-          <option value="ar">العربية</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-        </select>
-      </div>
-
-      <button id="connect" aria-label="Подключиться к трансляции">
-        Подключиться
-      </button>
-
-      <div class="status" role="status" aria-live="polite">
-        <span class="status__label">Статус подключения</span>
-        <span class="status__value" id="status">
-          <span class="status__dot" aria-hidden="true"></span>
-          Ожидание
-        </span>
-      </div>
-
-      <div class="alert" id="feedback" role="alert" aria-live="assertive"></div>
-
-      <section class="card" aria-labelledby="audio-output-title">
-        <div class="card__header">
-          <div class="card__icon" aria-hidden="true">🔊</div>
-          <h2 id="audio-output-title">Аудио перевода</h2>
-        </div>
-        <audio
-          id="audioPlayer"
-          controls
-          autoplay
-          aria-label="Воспроизведение переведённого аудио">
-        </audio>
-        <p class="hint">Перевод воспроизводится автоматически при подключении</p>
-      </section>
-    </main>
-
-    <script>
-      const connectBtn = document.getElementById("connect");
-      const statusEl = document.getElementById("status");
-      const feedback = document.getElementById("feedback");
-      const audioPlayer = document.getElementById("audioPlayer");
-      const languageSelect = document.getElementById("language");
-
-      let ws = null;
-      let isConnected = false;
-      let mediaSource = null;
-      let sourceBuffer = null;
-      let audioQueue = [];
-      let isSourceBufferReady = false;
-
-      function log(message) {
-        const timestamp = new Date().toISOString();
-        console.log(`[${timestamp}] ${message}`);
-      }
-
-      function appendAudioChunk() {
-        if (!sourceBuffer || sourceBuffer.updating || audioQueue.length === 0) {
-          return;
-        }
-
-        // Проверяем, что MediaSource всё ещё открыт
-        if (!mediaSource || mediaSource.readyState !== 'open') {
-          log('MediaSource закрыт, очищаем очередь');
-          audioQueue = [];
-          return;
-        }
-
-        const chunk = audioQueue.shift();
-        try {
-          sourceBuffer.appendBuffer(chunk);
-        } catch (e) {
-          log(`Ошибка добавления аудио: ${e.message}`);
-          // Очищаем очередь при ошибке
-          audioQueue = [];
-        }
-      }
-
-      function setStatus(text, tone = "idle") {
-        statusEl.innerHTML = "";
-        const dot = document.createElement("span");
-        dot.className = "status__dot";
-        dot.setAttribute("aria-hidden", "true");
-
-        if (tone === "busy") dot.classList.add("status__dot--busy");
-        if (tone === "ready") dot.classList.add("status__dot--ready");
-        if (tone === "error") dot.classList.add("status__dot--error");
-
-        const capitalizedText = text.charAt(0).toUpperCase() + text.slice(1);
-        statusEl.append(dot, document.createTextNode(" " + capitalizedText));
-      }
-
-      function showMessage(text = "", tone = "info") {
-        if (!text) {
-          feedback.style.display = "none";
-          feedback.textContent = "";
-          return;
-        }
-        feedback.className = `alert alert--${tone}`;
-        feedback.textContent = text;
-        feedback.style.display = "block";
-      }
-
-      function disconnect() {
-        log("Отключение от трансляции");
-        if (ws) {
-          ws.close();
-          ws = null;
-        }
-
-        if (mediaSource && mediaSource.readyState === 'open') {
-          mediaSource.endOfStream();
-        }
-
-        isConnected = false;
-        isSourceBufferReady = false;
-        audioQueue = [];
-        mediaSource = null;
-        sourceBuffer = null;
-        audioPlayer.src = "";
-
-        setStatus("ожидание", "idle");
-        showMessage("", "info");
-        connectBtn.textContent = "Подключиться";
-        connectBtn.disabled = false;
-        connectBtn.classList.remove("disconnect", "connecting");
-        connectBtn.setAttribute("aria-label", "Подключиться к трансляции");
-      }
-
-      function connect() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const projectId = urlParams.get('project');
-
-        if (!projectId) {
-          log("Ошибка: не указан ID проекта");
-          setStatus("ошибка", "error");
-          showMessage("Не указан ID проекта. Вернитесь к списку проектов.", "error");
-          return;
-        }
-
-        const selectedLanguage = languageSelect.value;
-        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-        const wsUrl = `${protocol}//${window.location.host}/listen?project=${projectId}&lang=${selectedLanguage}`;
-
-        log(`Подключение к трансляции на языке: ${selectedLanguage}`);
-
-        connectBtn.disabled = true;
-        connectBtn.classList.add("connecting");
-        connectBtn.textContent = "Подключаемся...";
-        setStatus("подключаемся", "busy");
-
-        ws = new WebSocket(wsUrl);
-
-        ws.onopen = () => {
-          log("WebSocket соединение установлено");
-
-          // Инициализируем MediaSource
-          mediaSource = new MediaSource();
-          audioPlayer.src = URL.createObjectURL(mediaSource);
-
-          mediaSource.addEventListener('sourceopen', () => {
-            log("MediaSource открыт");
-            try {
-              sourceBuffer = mediaSource.addSourceBuffer('audio/webm; codecs="opus"');
-
-              sourceBuffer.addEventListener('updateend', () => {
-                appendAudioChunk();
-              });
-
-              isSourceBufferReady = true;
-              log(`SourceBuffer готов, начинаем воспроизведение ${audioQueue.length} накопленных чанков`);
-
-              // Начинаем воспроизводить накопленные данные
-              if (audioQueue.length > 0) {
-                appendAudioChunk();
-              }
-            } catch (e) {
-              log(`Ошибка создания SourceBuffer: ${e.message}`);
-              showMessage("Ошибка инициализации аудио", "error");
-            }
-          });
-
-          setStatus("подключено", "ready");
-          showMessage("Слушаем перевод в реальном времени", "info");
-          connectBtn.textContent = "Отключиться";
-          connectBtn.disabled = false;
-          connectBtn.classList.remove("connecting");
-          connectBtn.classList.add("disconnect");
-          connectBtn.setAttribute("aria-label", "Отключиться от трансляции");
-          isConnected = true;
-        };
-
-        ws.onmessage = async (event) => {
-          // Получаем аудио данные как Blob
-          if (event.data instanceof Blob) {
-            const arrayBuffer = await event.data.arrayBuffer();
-
-            // Добавляем в очередь независимо от готовности SourceBuffer
-            audioQueue.push(arrayBuffer);
-
-            // Пытаемся воспроизвести, если SourceBuffer готов
-            if (isSourceBufferReady && sourceBuffer && mediaSource?.readyState === 'open') {
-              appendAudioChunk();
-            } else {
-              log(`Данные в очереди: ${audioQueue.length}, SourceBuffer готов: ${isSourceBufferReady}`);
-            }
-          }
-        };
-
-        ws.onerror = (error) => {
-          log(`WebSocket ошибка: ${error}`);
-          setStatus("ошибка подключения", "error");
-          showMessage("Ошибка подключения к трансляции", "error");
-        };
-
-        ws.onclose = () => {
-          log("WebSocket соединение закрыто");
-          if (isConnected) {
-            disconnect();
-          } else {
-            setStatus("не удалось подключиться", "error");
-            showMessage("Не удалось подключиться к трансляции", "error");
-            connectBtn.textContent = "Подключиться";
-            connectBtn.disabled = false;
-            connectBtn.classList.remove("connecting");
-          }
-        };
-      }
-
-      connectBtn.addEventListener("click", () => {
-        if (isConnected) {
-          disconnect();
-        } else {
-          connect();
-        }
-      });
-
-      // Запрет смены языка во время подключения
-      languageSelect.addEventListener("change", () => {
-        if (isConnected) {
-          showMessage("Для смены языка отключитесь от трансляции", "info");
-        }
-      });
-
-      // Проверка наличия project ID при загрузке
-      window.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const projectId = urlParams.get('project');
-
-        if (!projectId) {
-          setStatus("ошибка", "error");
-          showMessage("Не указан ID проекта. Перейдите к списку проектов.", "error");
-          connectBtn.disabled = true;
-
-          // Добавляем ссылку на projects.html
-          const link = document.createElement('a');
-          link.href = '/projects.html';
-          link.textContent = 'Перейти к списку проектов';
-          link.style.cssText = 'display: block; margin-top: 1rem; text-align: center; color: var(--accent-primary); font-weight: 600;';
-          feedback.appendChild(link);
-        }
-      });
-    </script>
-  </body>
-</html>
