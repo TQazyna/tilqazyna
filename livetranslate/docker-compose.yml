@@ -19,7 +19,7 @@ services:
     environment:
       - TZ=${TZ:-Asia/Almaty}
       - MTX_RTSPTRANSPORTS=tcp
-      - MTX_WEBRTCADDITIONALHOSTS=${MEDIAMTX_WEBRTC_HOSTS:-localhost}
+      - MTX_WEBRTCADDITIONALHOSTS=${MEDIAMTX_WEBRTC_HOSTS:-talksync.tilqazyna.kz}
     ports:
       - "8554:8554"       # RTSP
       - "1935:1935"       # RTMP
@@ -32,6 +32,7 @@ services:
       - ./media/hls:/app/media/hls
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - caddy_data:/caddy_data:ro
 
   livetranslate:
     build: .
