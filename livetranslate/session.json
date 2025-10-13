@@ -1,9 +1,9 @@
 {
-  "id": "sess_CPrVG3ovYjdUKwsYpsxJV",
-  "createdAt": "2025-10-12T14:37:59.986Z",
+  "id": "sess_CPuYTKP5RQ6Ke5U03rLJ9",
+  "createdAt": "2025-10-12T17:53:30.452Z",
   "session": {
     "object": "realtime.session",
-    "id": "sess_CPrVG3ovYjdUKwsYpsxJV",
+    "id": "sess_CPuYTKP5RQ6Ke5U03rLJ9",
     "model": "gpt-realtime",
     "modalities": [
       "audio",
@@ -18,9 +18,9 @@
     "max_response_output_tokens": "inf",
     "turn_detection": {
       "type": "server_vad",
-      "threshold": 0.5,
+      "threshold": 0.1,
       "prefix_padding_ms": 300,
-      "silence_duration_ms": 250,
+      "silence_duration_ms": 50,
       "idle_timeout_ms": null,
       "create_response": true,
       "interrupt_response": true
@@ -34,8 +34,8 @@
     "input_audio_format": "pcm16",
     "input_audio_transcription": null,
     "client_secret": {
-      "value": "ek_68ebbd5ed114819197d439a27e3a42a5",
-      "expires_at": 1760280502
+      "value": "ek_68ebeb31a91c81919b4a77d107f017b9",
+      "expires_at": 1760292233
     },
     "include": null
   }
