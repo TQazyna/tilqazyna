@@ -2,7 +2,7 @@
 services:
   caddy:
     image: caddy:latest
-    name: caddy
+    container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"
@@ -11,6 +11,27 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+
+  mediamtx:
+    image: bluenviron/mediamtx
+    container_name: mediamtx
+    restart: always
+    environment:
+      - TZ=${TZ:-Asia/Almaty}
+      - MTX_RTSPTRANSPORTS=tcp
+      - MTX_WEBRTCADDITIONALHOSTS=${MEDIAMTX_WEBRTC_HOSTS:-localhost}
+    ports:
+      - "8554:8554"       # RTSP
+      - "1935:1935"       # RTMP
+      - "8880:8888"       # HLS (changed from 8888 to avoid conflict with SeaweedFS filer)
+      - "8889:8889"       # WebRTC
+      - "8890:8890/udp"   # WebRTC UDP
+      - "8189:8189/udp"   # WebRTC UDP
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
+      - ./media/hls:/app/media/hls
+      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
 
 volumes:
   caddy_data:
