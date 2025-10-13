@@ -52,6 +52,21 @@ services:
     volumes:
       - ./session.json:/app/session.json
 
+  restreamer:
+    image: datarhei/restreamer:latest
+    container_name: restreamer
+    restart: always
+    networks:
+      - livetranslate-network
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+      - "1936:1936"
+      - "6000:6000/udp"
+    volumes:
+      - /opt/restreamer/config:/core/config
+      - /opt/restreamer/data:/core/data
+
 networks:
   livetranslate-network:
     driver: bridge
