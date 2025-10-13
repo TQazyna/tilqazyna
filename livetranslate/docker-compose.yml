@@ -33,6 +33,17 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
 
+  livetranslate:
+    build: .
+    container_name: livetranslate
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./session.json:/app/session.json
+
 volumes:
   caddy_data:
   caddy_config:
