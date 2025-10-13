@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHIP Audio Stream Publisher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.idle { background: #e3f2fd; color: #1976d2; }
+        .status.connecting { background: #fff3e0; color: #f57c00; }
+        .status.connected { background: #e8f5e8; color: #2e7d32; }
+        .status.error { background: #ffebee; color: #c62828; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .start { background: #4caf50; color: white; }
+        .stop { background: #f44336; color: white; }
+        .start:disabled { background: #ccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <h1>WHIP Audio Stream Publisher</h1>
+    <p>Publishes microphone audio to: <code>https://talksync.tilqazyna.kz:8889/steppe-games/whip</code></p>
+
+    <div id="status" class="status idle">Idle</div>
+
+    <button id="startBtn" class="start">Start Publishing</button>
+    <button id="stopBtn" class="stop" disabled>Stop Publishing</button>
+
+    <div style="margin-top: 20px;">
+        <h3>Local Audio Preview:</h3>
+        <audio id="localAudio" controls muted></audio>
+    </div>
+
+    <div style="margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 5px;">
+        <h3>Console Log:</h3>
+        <pre id="log" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></pre>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const localAudio = document.getElementById('localAudio');
+        const logPre = document.getElementById('log');
+
+        let peerConnection = null;
+        let localStream = null;
+        let resourceUrl = null;
+
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logPre.textContent += `[${timestamp}] ${message}\n`;
+            logPre.scrollTop = logPre.scrollHeight;
+            console.log(message);
+        }
+
+        function setStatus(status, type = 'idle') {
+            statusDiv.textContent = status;
+            statusDiv.className = `status ${type}`;
+        }
+
+        async function startPublishing() {
+            try {
+                setStatus('Requesting microphone access...', 'connecting');
+                startBtn.disabled = true;
+
+                // Get microphone access
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    }
+                });
+
+                // Setup local audio preview
+                localAudio.srcObject = localStream;
+
+                log('Microphone access granted');
+                setStatus('Setting up peer connection...', 'connecting');
+
+                // Create peer connection
+                peerConnection = new RTCPeerConnection({
+                    iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:stun1.l.google.com:19302' }
+                    ]
+                });
+
+                // Add audio track to peer connection
+                localStream.getTracks().forEach(track => {
+                    peerConnection.addTrack(track, localStream);
+                });
+
+                log('Audio track added to peer connection');
+
+                // Handle ICE candidates
+                peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        log('ICE candidate: ' + event.candidate.candidate);
+                    }
+                };
+
+                // Handle connection state changes
+                peerConnection.onconnectionstatechange = () => {
+                    log('Connection state: ' + peerConnection.connectionState);
+                    if (peerConnection.connectionState === 'connected') {
+                        setStatus('Connected and publishing', 'connected');
+                    } else if (peerConnection.connectionState === 'failed') {
+                        setStatus('Connection failed', 'error');
+                    }
+                };
+
+                setStatus('Creating offer...', 'connecting');
+
+                // Create offer
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+
+                log('SDP offer created');
+
+                // Send to WHIP endpoint
+                setStatus('Sending to WHIP endpoint...', 'connecting');
+
+                const response = await fetch('https://talksync.tilqazyna.kz:8889/steppe-games/whip', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/sdp'
+                    },
+                    body: offer.sdp
+                });
+
+                if (!response.ok) {
+                    throw new Error(`WHIP server responded with ${response.status}: ${response.statusText}`);
+                }
+
+                const answerSdp = await response.text();
+                log('Received SDP answer');
+
+                // Set remote description
+                await peerConnection.setRemoteDescription({
+                    type: 'answer',
+                    sdp: answerSdp
+                });
+
+                // Get the resource URL for future DELETE requests
+                resourceUrl = response.headers.get('Location');
+                if (resourceUrl) {
+                    log('Resource URL: ' + resourceUrl);
+                }
+
+                log('WHIP publishing started successfully');
+                setStatus('Publishing audio stream', 'connected');
+                startBtn.style.display = 'none';
+                stopBtn.disabled = false;
+
+            } catch (error) {
+                log('Error: ' + error.message);
+                setStatus('Error: ' + error.message, 'error');
+                startBtn.disabled = false;
+
+                // Cleanup on error
+                if (peerConnection) {
+                    peerConnection.close();
+                    peerConnection = null;
+                }
+                if (localStream) {
+                    localStream.getTracks().forEach(track => track.stop());
+                    localStream = null;
+                }
+                localAudio.srcObject = null;
+            }
+        }
+
+        async function stopPublishing() {
+            try {
+                setStatus('Stopping...', 'connecting');
+
+                // DELETE the WHIP resource if we have the URL
+                if (resourceUrl) {
+                    await fetch(resourceUrl, {
+                        method: 'DELETE'
+                    });
+                    log('WHIP resource deleted');
+                }
+
+                // Close peer connection
+                if (peerConnection) {
+                    peerConnection.close();
+                    peerConnection = null;
+                }
+
+                // Stop local stream
+                if (localStream) {
+                    localStream.getTracks().forEach(track => track.stop());
+                    localStream = null;
+                }
+
+                localAudio.srcObject = null;
+
+                log('Publishing stopped');
+                setStatus('Idle', 'idle');
+                startBtn.style.display = 'inline-block';
+                stopBtn.disabled = true;
+
+            } catch (error) {
+                log('Error stopping: ' + error.message);
+                setStatus('Error stopping', 'error');
+            }
+        }
+
+        startBtn.addEventListener('click', startPublishing);
+        stopBtn.addEventListener('click', stopPublishing);
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (peerConnection) {
+                peerConnection.close();
+            }
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+            }
+        });
+    </script>
+</body>
+</html>

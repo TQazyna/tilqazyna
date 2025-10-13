@@ -250,6 +250,161 @@ app.delete("/api/projects/:id", async (req, res) => {
   res.json({ success: true });
 });
 
+// Хранилище логов событий MediaMTX
+const mediamtxLogs = [];
+const maxLogs = 100;
+
+// MediaMTX webhook endpoint
+app.post("/api/mediamtx/hook", express.json(), (req, res) => {
+  const {
+    MTX_PATH,
+    MTX_SOURCE_TYPE,
+    MTX_SOURCE_ID,
+    MTX_CONN_TYPE,
+    MTX_CONN_ID,
+    MTX_READER_TYPE,
+    MTX_READER_ID,
+    MTX_SEGMENT_PATH,
+    MTX_SEGMENT_DURATION
+  } = process.env;
+
+  // Логируем все полученные переменные окружения для отладки
+  console.log("MediaMTX Hook called with env vars:", {
+    MTX_PATH,
+    MTX_SOURCE_TYPE,
+    MTX_SOURCE_ID,
+    MTX_CONN_TYPE,
+    MTX_CONN_ID,
+    MTX_READER_TYPE,
+    MTX_READER_ID,
+    MTX_SEGMENT_PATH,
+    MTX_SEGMENT_DURATION,
+    body: req.body
+  });
+
+  let logMessage = '';
+  let logType = 'info';
+
+  // Обрабатываем различные события
+  if (MTX_SOURCE_TYPE === "rtmpConn") {
+    if (MTX_CONN_TYPE === "publish") {
+      logMessage = `RTMP трансляция начата на путь: ${MTX_PATH}`;
+      logType = 'stream';
+    } else if (MTX_CONN_TYPE === "read") {
+      logMessage = `RTMP чтение начато на путь: ${MTX_PATH}`;
+      logType = 'connect';
+    }
+  } else if (MTX_SOURCE_TYPE === "rtspConn") {
+    if (MTX_CONN_TYPE === "publish") {
+      logMessage = `RTSP трансляция начата на путь: ${MTX_PATH}`;
+      logType = 'stream';
+    } else if (MTX_CONN_TYPE === "read") {
+      logMessage = `RTSP чтение начато на путь: ${MTX_PATH}`;
+      logType = 'connect';
+    }
+  } else if (MTX_SOURCE_TYPE === "webrtcConn") {
+    if (MTX_CONN_TYPE === "publish") {
+      logMessage = `WebRTC трансляция начата на путь: ${MTX_PATH}`;
+      logType = 'stream';
+    } else if (MTX_CONN_TYPE === "read") {
+      logMessage = `WebRTC чтение начато на путь: ${MTX_PATH}`;
+      logType = 'connect';
+    }
+  } else if (MTX_SOURCE_TYPE === "srtConn") {
+    if (MTX_CONN_TYPE === "publish") {
+      logMessage = `SRT трансляция начата на путь: ${MTX_PATH}`;
+      logType = 'stream';
+    } else if (MTX_CONN_TYPE === "read") {
+      logMessage = `SRT чтение начато на путь: ${MTX_PATH}`;
+      logType = 'connect';
+    }
+  }
+
+  // События чтения (потребители)
+  if (MTX_READER_TYPE === "rtmpConn" || MTX_READER_TYPE === "rtspConn" ||
+      MTX_READER_TYPE === "webrtcConn" || MTX_READER_TYPE === "srtConn") {
+    if (MTX_CONN_TYPE === "read") {
+      logMessage = `Клиент подключился к трансляции: ${MTX_PATH}`;
+      logType = 'connect';
+    }
+  }
+
+  // События сегментов записи
+  if (MTX_SEGMENT_PATH) {
+    if (req.body && req.body.action === "create") {
+      logMessage = `Создан сегмент записи: ${MTX_SEGMENT_PATH} (${MTX_SEGMENT_DURATION}s)`;
+      logType = 'record';
+    } else if (req.body && req.body.action === "complete") {
+      logMessage = `Завершен сегмент записи: ${MTX_SEGMENT_PATH}`;
+      logType = 'record';
+    }
+  }
+
+  // Добавляем лог в хранилище
+  if (logMessage) {
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      message: logMessage,
+      type: logType,
+      path: MTX_PATH,
+      sourceType: MTX_SOURCE_TYPE,
+      connType: MTX_CONN_TYPE
+    };
+
+    mediamtxLogs.push(logEntry);
+
+    if (mediamtxLogs.length > maxLogs) {
+      mediamtxLogs.shift();
+    }
+
+    console.log(`📋 ${logMessage}`);
+  }
+
+  res.json({ success: true, message: "Hook processed" });
+});
+
+// Status endpoint для мониторинга
+app.get("/api/mediamtx/status", (_req, res) => {
+  try {
+    // Подсчитываем активные трансляции
+    const activeStreams = projects.size; // Используем количество проектов как индикатор активных трансляций
+    const connectedClients = Array.from(projects.values()).reduce((total, project) => {
+      return total + project.listeners.size;
+    }, 0);
+
+    // Последние события за сегодня
+    const today = new Date().toDateString();
+    const eventsToday = mediamtxLogs.filter(log => {
+      return new Date(log.timestamp).toDateString() === today;
+    }).length;
+
+    // Последнее событие
+    const lastEvent = mediamtxLogs.length > 0
+      ? new Date(mediamtxLogs[mediamtxLogs.length - 1].timestamp).toLocaleString('ru-RU')
+      : null;
+
+    res.json({
+      mediamtx: {
+        running: true // Предполагаем, что если сервер отвечает, то MediaMTX работает
+      },
+      livetranslate: {
+        running: true, // Сервер отвечает, значит работает
+        uptime: process.uptime()
+      },
+      metrics: {
+        activeStreams,
+        connectedClients,
+        eventsToday,
+        lastEvent
+      },
+      logs: mediamtxLogs.slice(-20) // Последние 20 логов
+    });
+  } catch (error) {
+    console.error('Ошибка получения статуса:', error);
+    res.status(500).json({ error: 'Ошибка получения статуса' });
+  }
+});
+
 // WebSocket обработчик
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url, `http://${req.headers.host}`);

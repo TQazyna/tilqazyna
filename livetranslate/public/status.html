@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статус трансляций - LiveTranslate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+      .status-dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .status-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .logs-section {
+        margin-top: 1rem;
+      }
+
+      .logs-container {
+        background: var(--surface);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        max-height: 400px;
+        overflow-y: auto;
+        font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .log-entry {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-light);
+        animation: slideIn var(--duration-base) var(--ease-out);
+      }
+
+      .log-entry:last-child {
+        border-bottom: none;
+      }
+
+      .log-timestamp {
+        color: var(--text-tertiary);
+        font-size: 0.75rem;
+        margin-right: 1rem;
+        min-width: 80px;
+        display: inline-block;
+      }
+
+      .log-icon {
+        margin-right: 0.5rem;
+        font-weight: 600;
+      }
+
+      .log-message {
+        color: var(--text-primary);
+      }
+
+      .log-icon--connect { color: var(--accent-primary); }
+      .log-icon--disconnect { color: var(--accent-error); }
+      .log-icon--stream { color: var(--accent-success); }
+      .log-icon--record { color: var(--accent-warning); }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .controls button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+
+      .controls button.clear-logs {
+        background: var(--accent-error);
+      }
+
+      .controls button.clear-logs:not(:disabled):hover {
+        background: #c62828;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .status-badge--online {
+        background: rgba(30, 142, 62, 0.1);
+        color: var(--accent-success);
+        border: 1px solid rgba(30, 142, 62, 0.2);
+      }
+
+      .status-badge--offline {
+        background: rgba(95, 99, 102, 0.1);
+        color: var(--text-tertiary);
+        border: 1px solid rgba(95, 99, 102, 0.2);
+      }
+
+      .status-badge--error {
+        background: rgba(217, 48, 37, 0.1);
+        color: var(--accent-error);
+        border: 1px solid rgba(217, 48, 37, 0.2);
+      }
+
+      .metric {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .metric:last-child {
+        border-bottom: none;
+      }
+
+      .metric__label {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      .metric__value {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.125rem;
+      }
+
+      .refresh-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-tertiary);
+        font-size: 0.75rem;
+      }
+
+      .refresh-indicator.spinning {
+        color: var(--accent-primary);
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .logs-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .logs-container::-webkit-scrollbar-track {
+        background: var(--surface-hover);
+        border-radius: var(--radius-sm);
+      }
+
+      .logs-container::-webkit-scrollbar-thumb {
+        background: var(--border-medium);
+        border-radius: var(--radius-sm);
+      }
+
+      .logs-container::-webkit-scrollbar-thumb:hover {
+        background: var(--border-strong);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="panel">
+      <header class="panel__header">
+        <h1>Статус трансляций</h1>
+        <p class="subtitle">Мониторинг событий MediaMTX и LiveTranslate</p>
+
+        <div class="controls">
+          <button id="refresh" aria-label="Обновить статус">
+            Обновить
+          </button>
+          <button id="clearLogs" class="clear-logs" aria-label="Очистить логи">
+            Очистить логи
+          </button>
+          <div class="refresh-indicator" id="refreshIndicator">
+            <span>Автообновление</span>
+            <span class="status__dot status__dot--ready"></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="status-dashboard">
+        <div class="status-cards">
+          <div class="card" aria-labelledby="system-status">
+            <div class="card__header">
+              <div class="card__icon" aria-hidden="true">📊</div>
+              <h2 id="system-status">Системный статус</h2>
+            </div>
+            <div class="metric">
+              <span class="metric__label">MediaMTX</span>
+              <span class="status-badge" id="mediamtx-status">Проверка...</span>
+            </div>
+            <div class="metric">
+              <span class="metric__label">LiveTranslate</span>
+              <span class="status-badge" id="livetranslate-status">Проверка...</span>
+            </div>
+            <div class="metric">
+              <span class="metric__label">Активных трансляций</span>
+              <span class="metric__value" id="active-streams">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric__label">Подключенных клиентов</span>
+              <span class="metric__value" id="connected-clients">0</span>
+            </div>
+          </div>
+
+          <div class="card" aria-labelledby="recent-activity">
+            <div class="card__header">
+              <div class="card__icon" aria-hidden="true">📈</div>
+              <h2 id="recent-activity">Активность</h2>
+            </div>
+            <div class="metric">
+              <span class="metric__label">Событий за сегодня</span>
+              <span class="metric__value" id="events-today">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric__label">Последнее событие</span>
+              <span class="metric__value" id="last-event">Никогда</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="logs-section card" aria-labelledby="logs-title">
+          <div class="card__header">
+            <div class="card__icon" aria-hidden="true">📋</div>
+            <h2 id="logs-title">Логи событий</h2>
+          </div>
+          <div class="logs-container" id="logsContainer" role="log" aria-live="polite" aria-label="Логи событий трансляции">
+            <div class="log-entry">
+              <span class="log-timestamp">Загрузка...</span>
+              <span class="log-message">Инициализация мониторинга</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      class StatusMonitor {
+        constructor() {
+          this.logs = [];
+          this.isAutoRefresh = true;
+          this.refreshInterval = null;
+          this.maxLogs = 100;
+
+          this.initializeElements();
+          this.setupEventListeners();
+          this.startAutoRefresh();
+          this.refresh();
+        }
+
+        initializeElements() {
+          this.logsContainer = document.getElementById('logsContainer');
+          this.refreshBtn = document.getElementById('refresh');
+          this.clearLogsBtn = document.getElementById('clearLogs');
+          this.refreshIndicator = document.getElementById('refreshIndicator');
+          this.mediamtxStatus = document.getElementById('mediamtx-status');
+          this.livetranslateStatus = document.getElementById('livetranslate-status');
+          this.activeStreams = document.getElementById('active-streams');
+          this.connectedClients = document.getElementById('connected-clients');
+          this.eventsToday = document.getElementById('events-today');
+          this.lastEvent = document.getElementById('last-event');
+        }
+
+        setupEventListeners() {
+          this.refreshBtn.addEventListener('click', () => this.refresh());
+          this.clearLogsBtn.addEventListener('click', () => this.clearLogs());
+
+          // Остановка автообновления при потере фокуса
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              this.stopAutoRefresh();
+            } else {
+              this.startAutoRefresh();
+            }
+          });
+        }
+
+        startAutoRefresh() {
+          if (this.refreshInterval) return;
+
+          this.refreshInterval = setInterval(() => {
+            if (this.isAutoRefresh && !document.hidden) {
+              this.refresh();
+            }
+          }, 5000);
+
+          this.updateRefreshIndicator(true);
+        }
+
+        stopAutoRefresh() {
+          if (this.refreshInterval) {
+            clearInterval(this.refreshInterval);
+            this.refreshInterval = null;
+          }
+          this.updateRefreshIndicator(false);
+        }
+
+        updateRefreshIndicator(active) {
+          this.refreshIndicator.className = `refresh-indicator ${active ? 'spinning' : ''}`;
+        }
+
+        async refresh() {
+          try {
+            const response = await fetch('/api/mediamtx/status');
+            const data = await response.json();
+
+            this.updateSystemStatus(data);
+            this.updateMetrics(data);
+            this.updateLogs(data.logs || []);
+
+          } catch (error) {
+            console.error('Ошибка обновления статуса:', error);
+            this.addLogEntry('❌ Ошибка подключения', 'error');
+            this.setStatusError();
+          }
+        }
+
+        updateSystemStatus(data) {
+          // Статус MediaMTX
+          this.mediamtxStatus.textContent = data.mediamtx?.running ? 'Онлайн' : 'Офлайн';
+          this.mediamtxStatus.className = `status-badge ${data.mediamtx?.running ? 'status-badge--online' : 'status-badge--offline'}`;
+
+          // Статус LiveTranslate
+          this.livetranslateStatus.textContent = data.livetranslate?.running ? 'Онлайн' : 'Офлайн';
+          this.livetranslateStatus.className = `status-badge ${data.livetranslate?.running ? 'status-badge--online' : 'status-badge--offline'}`;
+        }
+
+        updateMetrics(data) {
+          this.activeStreams.textContent = data.metrics?.activeStreams || 0;
+          this.connectedClients.textContent = data.metrics?.connectedClients || 0;
+          this.eventsToday.textContent = data.metrics?.eventsToday || 0;
+          this.lastEvent.textContent = data.metrics?.lastEvent || 'Никогда';
+        }
+
+        updateLogs(logs) {
+          if (logs.length > 0) {
+            this.logs = logs.slice(-this.maxLogs);
+            this.renderLogs();
+          }
+        }
+
+        addLogEntry(message, type = 'info') {
+          const timestamp = new Date().toLocaleTimeString('ru-RU', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          });
+
+          const logEntry = {
+            timestamp,
+            message,
+            type,
+            id: Date.now() + Math.random()
+          };
+
+          this.logs.push(logEntry);
+
+          if (this.logs.length > this.maxLogs) {
+            this.logs = this.logs.slice(-this.maxLogs);
+          }
+
+          this.renderLogs();
+        }
+
+        renderLogs() {
+          this.logsContainer.innerHTML = this.logs.map(log => `
+            <div class="log-entry">
+              <span class="log-timestamp">${log.timestamp}</span>
+              <span class="log-icon log-icon--${log.type}">${this.getLogIcon(log.type)}</span>
+              <span class="log-message">${this.escapeHtml(log.message)}</span>
+            </div>
+          `).join('');
+
+          // Прокрутка вниз
+          this.logsContainer.scrollTop = this.logsContainer.scrollHeight;
+        }
+
+        getLogIcon(type) {
+          const icons = {
+            connect: '🔗',
+            disconnect: '🔌',
+            stream: '📡',
+            record: '📹',
+            error: '❌',
+            info: 'ℹ️'
+          };
+          return icons[type] || '📌';
+        }
+
+        escapeHtml(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        clearLogs() {
+          this.logs = [];
+          this.renderLogs();
+          this.addLogEntry('Логи очищены', 'info');
+        }
+
+        setStatusError() {
+          this.mediamtxStatus.textContent = 'Ошибка';
+          this.mediamtxStatus.className = 'status-badge status-badge--error';
+          this.livetranslateStatus.textContent = 'Ошибка';
+          this.livetranslateStatus.className = 'status-badge status-badge--error';
+        }
+      }
+
+      // Инициализация при загрузке страницы
+      document.addEventListener('DOMContentLoaded', () => {
+        new StatusMonitor();
+      });
+    </script>
+  </body>
+</html>

@@ -4,6 +4,8 @@ services:
     image: caddy:latest
     container_name: caddy
     restart: unless-stopped
+    networks:
+      - livetranslate-network
     ports:
       - "80:80"
       - "443:443"
@@ -16,6 +18,8 @@ services:
     image: bluenviron/mediamtx
     container_name: mediamtx
     restart: always
+    networks:
+      - livetranslate-network
     environment:
       - TZ=${TZ:-Asia/Almaty}
       - MTX_RTSPTRANSPORTS=tcp
@@ -39,12 +43,18 @@ services:
     build: .
     container_name: livetranslate
     restart: unless-stopped
+    networks:
+      - livetranslate-network
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
     volumes:
       - ./session.json:/app/session.json
+
+networks:
+  livetranslate-network:
+    driver: bridge
 
 volumes:
   caddy_data:
