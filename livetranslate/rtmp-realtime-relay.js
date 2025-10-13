@@ -24,12 +24,15 @@ export class RTMPRealtimeRelay extends EventEmitter {
     this.isConnected = false;
     this.isStreaming = false;
     
-    // Настройки аудио
-    this.sampleRate = 24000; // 24kHz
-    this.channels = 1; // моно
-    this.bitDepth = 16; // 16-bit
-    this.chunkDurationMs = 40; // 40ms чанки
+    // Настройки аудио (строго по требованиям Realtime API)
+    this.sampleRate = 24000; // 24kHz (строго)
+    this.channels = 1; // моно (строго)
+    this.bitDepth = 16; // 16-bit (строго)
+    this.chunkDurationMs = 40; // 40ms чанки (20-100мс по документации)
     this.chunkBytes = Math.floor(this.sampleRate * this.channels * (this.bitDepth / 8) * (this.chunkDurationMs / 1000));
+    
+    // Проверяем размер чанка
+    console.log(`Audio chunk size: ${this.chunkBytes} bytes (${this.chunkDurationMs}ms)`);
     
     this.audioBuffer = Buffer.alloc(0);
     
@@ -110,22 +113,19 @@ export class RTMPRealtimeRelay extends EventEmitter {
         console.log("Connected to OpenAI Realtime WebSocket");
         this.isConnected = true;
         
-        // Настройка сессии
+        // Настройка сессии для только транскрипции
         const sessionUpdate = {
           type: "session.update",
           session: {
-            input_audio_format: "pcm16",
+            input_audio_format: "pcm16",              // 16-bit PCM
             input_audio_transcription: { 
               model: "whisper-1" 
             },
             turn_detection: { 
               type: "server_vad", 
-              threshold: 0.5,
-              silence_duration_ms: 50
-            },
-            instructions: this.instructions,
-            voice: this.voice,
-            modalities: ["text", "audio"]
+              threshold: 0.5
+            }
+            // Убираем instructions, voice, modalities - они не нужны для только транскрипции
           }
         };
 
@@ -159,16 +159,17 @@ export class RTMPRealtimeRelay extends EventEmitter {
 
   /**
    * Запустить FFmpeg для декодирования RTMP аудио
+   * Формат: PCM 16-bit little-endian, моно, 24kHz (строго по требованиям Realtime API)
    */
   startFFmpeg() {
     const ffmpegArgs = [
       "-re", // читать в реальном времени
       "-i", this.rtmpUrl, // входной RTMP поток
       "-vn", // отключить видео
-      "-ac", "1", // моно аудио
-      "-ar", this.sampleRate.toString(), // частота дискретизации
-      "-f", "s16le", // формат: signed 16-bit little-endian
-      "-acodec", "pcm_s16le", // кодек PCM
+      "-ac", "1", // моно аудио (1 канал)
+      "-ar", "24000", // частота дискретизации 24kHz (строго)
+      "-f", "s16le", // формат: signed 16-bit little-endian (строго)
+      "-acodec", "pcm_s16le", // кодек PCM 16-bit little-endian
       "-" // вывод в stdout
     ];
 
@@ -291,16 +292,16 @@ export class RTMPRealtimeRelay extends EventEmitter {
         break;
 
       case "response.output_audio.delta":
-        // Получаем аудио ответ от Realtime API
+        // Получаем аудио ответ от Realtime API (не используется для только транскрипции)
         if (event.delta) {
-          this.addLog("audio", "Audio output delta received");
-          this.emit("audio_output", event.delta);
+          this.addLog("audio", "Audio output delta received (ignored for transcription-only mode)");
+          // Не эмитим audio_output для режима только транскрипции
         }
         break;
 
       case "response.output_audio.done":
         console.log("Audio output completed");
-        this.addLog("audio", "Audio output completed");
+        this.addLog("audio", "Audio output completed (ignored for transcription-only mode)");
         this.emit("audio_output_done");
         break;
 
@@ -329,13 +330,14 @@ export class RTMPRealtimeRelay extends EventEmitter {
         break;
 
       case "conversation.item.input_audio_transcription.completed":
-        // Получаем результат транскрипции
+        // Получаем результат транскрипции - основное событие для режима только транскрипции
         if (event.transcript) {
           const transcription = {
             id: event.item?.id,
             transcript: event.transcript,
             timestamp: new Date().toISOString(),
-            duration: event.duration || null
+            duration: event.duration || null,
+            confidence: event.confidence || null
           };
           
           this.transcriptionResults.push(transcription);
@@ -378,11 +380,18 @@ export class RTMPRealtimeRelay extends EventEmitter {
   }
 
   /**
-   * Зафиксировать аудио буфер и запросить ответ
+   * Зафиксировать аудио буфер (только для ручного режима)
+   * В режиме server_vad коммит происходит автоматически
    */
-  commitAndRequestResponse() {
+  commitAudioBuffer() {
     this.sendCommand({ type: "input_audio_buffer.commit" });
-    this.sendCommand({ type: "response.create" });
+  }
+
+  /**
+   * Очистить аудио буфер
+   */
+  clearAudioBuffer() {
+    this.sendCommand({ type: "input_audio_buffer.clear" });
   }
 
   /**

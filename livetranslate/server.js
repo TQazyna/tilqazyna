@@ -447,7 +447,7 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
       rtmpUrl,
       model: model || "gpt-realtime",
       voice: voice || "verse",
-      instructions: instructions || "Ты транскриптор речи. Твоя задача - точно транскрибировать услышанную речь в текст. Отвечай только транскрипцией, без дополнительных комментариев."
+      instructions: instructions || "Режим только транскрипции - генерация ответов отключена"
     });
 
     // Настройка обработчиков событий
@@ -467,21 +467,7 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
       rtmpRelays.get(relayId).lastError = error.message;
     });
 
-    relay.on("audio_output", (audioData) => {
-      // Транслируем аудио ответ всем слушателям проекта
-      const project = projects.get(projectId);
-      if (project) {
-        project.listeners.forEach((listener, id) => {
-          if (listener.readyState === 1) { // WebSocket.OPEN
-            try {
-              listener.send(audioData);
-            } catch (error) {
-              console.error(`Error sending audio to listener ${id}:`, error);
-            }
-          }
-        });
-      }
-    });
+    // Убираем обработку audio_output - в режиме только транскрипции аудио ответы не генерируются
 
     relay.on("transcription_completed", (transcription) => {
       // Отправляем результат транскрипции всем WebSocket клиентам, слушающим этот ретранслятор
