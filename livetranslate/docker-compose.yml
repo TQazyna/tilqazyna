@@ -32,6 +32,8 @@ services:
       - ./media/hls:/app/media/hls
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - ./server.crt:/app/server.crt
+      - ./server.key:/app/server.key
 
   livetranslate:
     build: .

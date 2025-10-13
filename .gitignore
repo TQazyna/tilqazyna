@@ -5,4 +5,8 @@ realt/.env
 realt/projects.json
 livetranslate/node_modules
 livetranslate/.env
+livetranslate/projects.json
+livetranslate/server.crt
+livetranslate/server.js
+livetranslate/server.key
 
