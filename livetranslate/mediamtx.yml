@@ -701,7 +701,6 @@ pathDefaults:
 # for example "~^(test1|test2)$" will match both "test1" and "test2",
 # for example "~^prefix" will match all paths that start with "prefix".
 paths:
-  runOnConnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=connect"
   # example:
   # my_camera:
   #   source: rtsp://my_camera
