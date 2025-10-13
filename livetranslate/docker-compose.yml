@@ -32,7 +32,6 @@ services:
       - ./media/hls:/app/media/hls
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
-      - caddy_data:/caddy_data:ro
 
   livetranslate:
     build: .

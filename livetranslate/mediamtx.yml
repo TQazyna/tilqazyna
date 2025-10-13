@@ -373,11 +373,11 @@ webrtc: yes
 # Address of the WebRTC HTTP listener.
 webrtcAddress: :8889
 # Enable TLS/HTTPS on the WebRTC server.
-webrtcEncryption: yes
+webrtcEncryption: no
 # Path to the server key (using Caddy's Let's Encrypt certificate)
-webrtcServerKey: /caddy_data/certificates/acme-v02.api.letsencrypt.org-directory/talksync.tilqazyna.kz/talksync.tilqazyna.kz.key
+# webrtcServerKey: /caddy_data/certificates/acme-v02.api.letsencrypt.org-directory/talksync.tilqazyna.kz/talksync.tilqazyna.kz.key
 # Path to the server certificate (using Caddy's Let's Encrypt certificate)
-webrtcServerCert: /caddy_data/certificates/acme-v02.api.letsencrypt.org-directory/talksync.tilqazyna.kz/talksync.tilqazyna.kz.crt
+# webrtcServerCert: /caddy_data/certificates/acme-v02.api.letsencrypt.org-directory/talksync.tilqazyna.kz/talksync.tilqazyna.kz.crt
 # Value of the Access-Control-Allow-Origin header provided in every HTTP response.
 # This allows to play the WebRTC stream from an external website.
 webrtcAllowOrigin: '*'
