@@ -3,9 +3,9 @@ FROM ubuntu:latest
 # Set DEBIAN_FRONTEND to noninteractive to suppress prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update and install required packages and Node.js 22.x
+# Update and install required packages, FFmpeg and Node.js 22.x
 RUN apt-get update && \
-    apt-get install -y curl ca-certificates && \
+    apt-get install -y curl ca-certificates ffmpeg && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean && \
