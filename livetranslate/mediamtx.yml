@@ -691,24 +691,6 @@ pathDefaults:
   # MediaMTX -> LiveTranslate Integration Hooks
   ###############################################
 
-  # Command to run when a client connects to the server.
-  # This will notify livetranslate about new connections.
-  runOnConnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=connect"
-
-  runOnDisconnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=disconnect"
-
-  runOnReady: curl "http://livetranslate:3000/api/mediamtx/hook?event=stream_ready"
-
-  runOnNotReady: curl "http://livetranslate:3000/api/mediamtx/hook?event=stream_not_ready"
-
-  runOnRead: curl "http://livetranslate:3000/api/mediamtx/hook?event=read_start"
-
-  runOnUnread: curl "http://livetranslate:3000/api/mediamtx/hook?event=read_stop"
-
-  runOnRecordSegmentCreate: curl "http://livetranslate:3000/api/mediamtx/hook?event=record_create"
-
-  runOnRecordSegmentComplete: curl "http://livetranslate:3000/api/mediamtx/hook?event=record_complete"
-
 ###############################################
 # Path settings
 
@@ -719,6 +701,7 @@ pathDefaults:
 # for example "~^(test1|test2)$" will match both "test1" and "test2",
 # for example "~^prefix" will match all paths that start with "prefix".
 paths:
+  runOnConnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=connect"
   # example:
   # my_camera:
   #   source: rtsp://my_camera
