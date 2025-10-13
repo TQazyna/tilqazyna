@@ -16,8 +16,6 @@ services:
     image: bluenviron/mediamtx
     container_name: mediamtx
     restart: always
-    depends_on:
-      - caddy
     environment:
       - TZ=${TZ:-Asia/Almaty}
       - MTX_RTSPTRANSPORTS=tcp
