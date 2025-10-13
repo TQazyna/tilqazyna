@@ -471,7 +471,8 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
 
     relay.on("transcription_completed", (transcription) => {
       // Отправляем результат транскрипции всем WebSocket клиентам, слушающим этот ретранслятор
-      this.broadcastToTranscriptionClients(relayId, {
+      console.log(`Broadcasting transcription for ${relayId}:`, transcription.transcript);
+      broadcastToTranscriptionClients(relayId, {
         type: "transcription",
         data: transcription
       });
@@ -479,7 +480,7 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
 
     relay.on("log", (logEntry) => {
       // Отправляем лог всем WebSocket клиентам, слушающим этот ретранслятор
-      this.broadcastToTranscriptionClients(relayId, {
+      broadcastToTranscriptionClients(relayId, {
         type: "log",
         data: logEntry
       });

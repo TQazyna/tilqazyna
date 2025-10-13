@@ -137,6 +137,7 @@ export class RTMPRealtimeRelay extends EventEmitter {
       this.ws.on("message", (data) => {
         try {
           const event = JSON.parse(data);
+          console.log(`[${new Date().toISOString()}] Received event:`, event.type);
           this.handleRealtimeEvent(event);
         } catch (error) {
           console.error("Error parsing Realtime message:", error);
@@ -331,10 +332,15 @@ export class RTMPRealtimeRelay extends EventEmitter {
 
       case "conversation.item.input_audio_transcription.completed":
         // Получаем результат транскрипции - основное событие для режима только транскрипции
-        if (event.transcript) {
+        console.log("DEBUG: Full transcription event:", JSON.stringify(event, null, 2));
+        
+        // Проверяем различные возможные места, где может быть транскрипция
+        const transcript = event.transcript || event.transcription?.text || event.content?.[0]?.transcript;
+        
+        if (transcript) {
           const transcription = {
-            id: event.item?.id,
-            transcript: event.transcript,
+            id: event.item_id || event.item?.id,
+            transcript: transcript,
             timestamp: new Date().toISOString(),
             duration: event.duration || null,
             confidence: event.confidence || null
@@ -347,10 +353,24 @@ export class RTMPRealtimeRelay extends EventEmitter {
             this.transcriptionResults.shift();
           }
           
-          console.log("Transcription completed:", event.transcript);
+          console.log("Transcription completed:", transcript);
           this.addLog("transcription", "Transcription completed", transcription);
           this.emit("transcription_completed", transcription);
+        } else {
+          console.warn("Transcription event received but no transcript found in event:", event);
+          this.addLog("warning", "Transcription event without transcript", event);
         }
+        break;
+
+      case "conversation.item.input_audio_transcription.delta":
+        // Промежуточные результаты транскрипции (если поддерживается)
+        console.log("DEBUG: Transcription delta event:", JSON.stringify(event, null, 2));
+        this.addLog("transcription_delta", "Transcription delta received", event);
+        break;
+
+      case "conversation.item.input_audio_transcription.failed":
+        console.error("Transcription failed:", event);
+        this.addLog("error", "Transcription failed", event);
         break;
 
       case "error":
@@ -361,10 +381,8 @@ export class RTMPRealtimeRelay extends EventEmitter {
 
       default:
         // Логируем неизвестные события для отладки
+        console.log("DEBUG: Unknown/unhandled event:", event.type, JSON.stringify(event, null, 2));
         this.addLog("unknown", `Unknown event: ${event.type}`, event);
-        if (process.env.NODE_ENV === "development") {
-          console.log("Unknown Realtime event:", event.type);
-        }
     }
   }
 
