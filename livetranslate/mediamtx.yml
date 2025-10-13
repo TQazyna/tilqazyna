@@ -686,48 +686,6 @@ pathDefaults:
   # * RTSP_PORT: RTSP server port
   # * G1, G2, ...: regular expression groups, if path name is
   #   a regular expression.
-  runOnReady:
-  # Restart the command if it exits.
-  runOnReadyRestart: no
-  # Command to run when the stream is not available anymore.
-  # Environment variables are the same of runOnReady.
-  runOnNotReady:
-
-  # Command to run when a client starts reading.
-  # This is terminated with SIGINT when a client stops reading.
-  # The following environment variables are available:
-  # * MTX_PATH: path name
-  # * MTX_QUERY: query parameters (passed by reader)
-  # * MTX_READER_TYPE: reader type
-  # * MTX_READER_ID: reader ID
-  # * RTSP_PORT: RTSP server port
-  # * G1, G2, ...: regular expression groups, if path name is
-  #   a regular expression.
-  runOnRead:
-  # Restart the command if it exits.
-  runOnReadRestart: no
-  # Command to run when a client stops reading.
-  # Environment variables are the same of runOnRead.
-  runOnUnread:
-
-  # Command to run when a recording segment is created.
-  # The following environment variables are available:
-  # * MTX_PATH: path name
-  # * MTX_SEGMENT_PATH: segment file path
-  # * RTSP_PORT: RTSP server port
-  # * G1, G2, ...: regular expression groups, if path name is
-  #   a regular expression.
-  runOnRecordSegmentCreate:
-
-  # Command to run when a recording segment is complete.
-  # The following environment variables are available:
-  # * MTX_PATH: path name
-  # * MTX_SEGMENT_PATH: segment file path
-  # * MTX_SEGMENT_DURATION: segment duration
-  # * RTSP_PORT: RTSP server port
-  # * G1, G2, ...: regular expression groups, if path name is
-  #   a regular expression.
-  runOnRecordSegmentComplete:
 
   ###############################################
   # MediaMTX -> LiveTranslate Integration Hooks
