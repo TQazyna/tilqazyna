@@ -16,6 +16,8 @@ services:
     image: bluenviron/mediamtx
     container_name: mediamtx
     restart: always
+    depends_on:
+      - caddy
     environment:
       - TZ=${TZ:-Asia/Almaty}
       - MTX_RTSPTRANSPORTS=tcp
@@ -33,6 +35,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
       - caddy_data:/caddy_data:ro
+    command: sh -c "while [ ! -f /caddy_data/certificates/acme-v02.api.letsencrypt.org-directory/talksync.tilqazyna.kz/talksync.tilqazyna.kz.crt ]; do echo 'Waiting for certificates...'; sleep 5; done; /mediamtx /mediamtx.yml"
 
   livetranslate:
     build: .
