@@ -735,35 +735,21 @@ pathDefaults:
 
   # Command to run when a client connects to the server.
   # This will notify livetranslate about new connections.
-  runOnConnect: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"connect\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnConnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=connect"
 
-  # Command to run when a client disconnects from the server.
-  # This will notify livetranslate about disconnections.
-  runOnDisconnect: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"disconnect\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnDisconnect: curl "http://livetranslate:3000/api/mediamtx/hook?event=disconnect"
 
-  # Command to run when the stream is ready to be read.
-  # This will notify livetranslate that a stream is available.
-  runOnReady: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"stream_ready\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnReady: curl "http://livetranslate:3000/api/mediamtx/hook?event=stream_ready"
 
-  # Command to run when the stream is not available anymore.
-  # This will notify livetranslate that a stream ended.
-  runOnNotReady: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"stream_not_ready\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnNotReady: curl "http://livetranslate:3000/api/mediamtx/hook?event=stream_not_ready"
 
-  # Command to run when a client starts reading.
-  # This will notify livetranslate about new viewers.
-  runOnRead: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"read_start\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnRead: curl "http://livetranslate:3000/api/mediamtx/hook?event=read_start"
 
-  # Command to run when a client stops reading.
-  # This will notify livetranslate about viewers leaving.
-  runOnUnread: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"read_stop\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnUnread: curl "http://livetranslate:3000/api/mediamtx/hook?event=read_stop"
 
-  # Command to run when a recording segment is created.
-  # This will notify livetranslate about recording events.
-  runOnRecordSegmentCreate: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"record_segment_create\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnRecordSegmentCreate: curl "http://livetranslate:3000/api/mediamtx/hook?event=record_create"
 
-  # Command to run when a recording segment is complete.
-  # This will notify livetranslate about completed recordings.
-  runOnRecordSegmentComplete: curl -X POST "http://livetranslate:3000/api/mediamtx/hook" -H "Content-Type: application/json" -d "{\"action\":\"record_segment_complete\",\"timestamp\":\"$(date +%Y-%m-%dT%H:%M:%S)\"}"
+  runOnRecordSegmentComplete: curl "http://livetranslate:3000/api/mediamtx/hook?event=record_complete"
 
 ###############################################
 # Path settings

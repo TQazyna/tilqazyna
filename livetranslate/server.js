@@ -254,8 +254,8 @@ app.delete("/api/projects/:id", async (req, res) => {
 const mediamtxLogs = [];
 const maxLogs = 100;
 
-// MediaMTX webhook endpoint
-app.post("/api/mediamtx/hook", express.json(), (req, res) => {
+// MediaMTX webhook endpoint (GET requests)
+app.get("/api/mediamtx/hook", (req, res) => {
   const {
     MTX_PATH,
     MTX_SOURCE_TYPE,
@@ -268,76 +268,64 @@ app.post("/api/mediamtx/hook", express.json(), (req, res) => {
     MTX_SEGMENT_DURATION
   } = process.env;
 
-  // Логируем все полученные переменные окружения для отладки
-  console.log("MediaMTX Hook called with env vars:", {
-    MTX_PATH,
-    MTX_SOURCE_TYPE,
-    MTX_SOURCE_ID,
-    MTX_CONN_TYPE,
-    MTX_CONN_ID,
-    MTX_READER_TYPE,
-    MTX_READER_ID,
-    MTX_SEGMENT_PATH,
-    MTX_SEGMENT_DURATION,
-    body: req.body
+  const { event } = req.query;
+
+  // Логируем все полученные переменные окружения и query параметры для отладки
+  console.log("MediaMTX Hook called with:", {
+    query: req.query,
+    env: {
+      MTX_PATH,
+      MTX_SOURCE_TYPE,
+      MTX_SOURCE_ID,
+      MTX_CONN_TYPE,
+      MTX_CONN_ID,
+      MTX_READER_TYPE,
+      MTX_READER_ID,
+      MTX_SEGMENT_PATH,
+      MTX_SEGMENT_DURATION
+    }
   });
 
   let logMessage = '';
   let logType = 'info';
 
-  // Обрабатываем различные события
-  if (MTX_SOURCE_TYPE === "rtmpConn") {
-    if (MTX_CONN_TYPE === "publish") {
-      logMessage = `RTMP трансляция начата на путь: ${MTX_PATH}`;
+  // Обрабатываем события на основе event параметра
+  switch (event) {
+    case 'connect':
+      logMessage = `Клиент подключился к серверу`;
+      logType = 'connect';
+      break;
+    case 'disconnect':
+      logMessage = `Клиент отключился от сервера`;
+      logType = 'disconnect';
+      break;
+    case 'stream_ready':
+      logMessage = `Трансляция готова к просмотру`;
       logType = 'stream';
-    } else if (MTX_CONN_TYPE === "read") {
-      logMessage = `RTMP чтение начато на путь: ${MTX_PATH}`;
-      logType = 'connect';
-    }
-  } else if (MTX_SOURCE_TYPE === "rtspConn") {
-    if (MTX_CONN_TYPE === "publish") {
-      logMessage = `RTSP трансляция начата на путь: ${MTX_PATH}`;
+      break;
+    case 'stream_not_ready':
+      logMessage = `Трансляция недоступна`;
       logType = 'stream';
-    } else if (MTX_CONN_TYPE === "read") {
-      logMessage = `RTSP чтение начато на путь: ${MTX_PATH}`;
+      break;
+    case 'read_start':
+      logMessage = `Клиент начал просмотр трансляции`;
       logType = 'connect';
-    }
-  } else if (MTX_SOURCE_TYPE === "webrtcConn") {
-    if (MTX_CONN_TYPE === "publish") {
-      logMessage = `WebRTC трансляция начата на путь: ${MTX_PATH}`;
-      logType = 'stream';
-    } else if (MTX_CONN_TYPE === "read") {
-      logMessage = `WebRTC чтение начато на путь: ${MTX_PATH}`;
-      logType = 'connect';
-    }
-  } else if (MTX_SOURCE_TYPE === "srtConn") {
-    if (MTX_CONN_TYPE === "publish") {
-      logMessage = `SRT трансляция начата на путь: ${MTX_PATH}`;
-      logType = 'stream';
-    } else if (MTX_CONN_TYPE === "read") {
-      logMessage = `SRT чтение начато на путь: ${MTX_PATH}`;
-      logType = 'connect';
-    }
-  }
-
-  // События чтения (потребители)
-  if (MTX_READER_TYPE === "rtmpConn" || MTX_READER_TYPE === "rtspConn" ||
-      MTX_READER_TYPE === "webrtcConn" || MTX_READER_TYPE === "srtConn") {
-    if (MTX_CONN_TYPE === "read") {
-      logMessage = `Клиент подключился к трансляции: ${MTX_PATH}`;
-      logType = 'connect';
-    }
-  }
-
-  // События сегментов записи
-  if (MTX_SEGMENT_PATH) {
-    if (req.body && req.body.action === "create") {
-      logMessage = `Создан сегмент записи: ${MTX_SEGMENT_PATH} (${MTX_SEGMENT_DURATION}s)`;
+      break;
+    case 'read_stop':
+      logMessage = `Клиент остановил просмотр трансляции`;
+      logType = 'disconnect';
+      break;
+    case 'record_create':
+      logMessage = `Создан сегмент записи`;
       logType = 'record';
-    } else if (req.body && req.body.action === "complete") {
-      logMessage = `Завершен сегмент записи: ${MTX_SEGMENT_PATH}`;
+      break;
+    case 'record_complete':
+      logMessage = `Завершен сегмент записи`;
       logType = 'record';
-    }
+      break;
+    default:
+      logMessage = `Неизвестное событие: ${event}`;
+      logType = 'info';
   }
 
   // Добавляем лог в хранилище
@@ -348,7 +336,8 @@ app.post("/api/mediamtx/hook", express.json(), (req, res) => {
       type: logType,
       path: MTX_PATH,
       sourceType: MTX_SOURCE_TYPE,
-      connType: MTX_CONN_TYPE
+      connType: MTX_CONN_TYPE,
+      event: event
     };
 
     mediamtxLogs.push(logEntry);
@@ -360,7 +349,8 @@ app.post("/api/mediamtx/hook", express.json(), (req, res) => {
     console.log(`📋 ${logMessage}`);
   }
 
-  res.json({ success: true, message: "Hook processed" });
+  // Возвращаем простой ответ для MediaMTX
+  res.status(200).send('OK');
 });
 
 // Status endpoint для мониторинга
