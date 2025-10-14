@@ -308,6 +308,8 @@
                 this.audioChunksReceived = 0;
                 this.audioActivityInterval = null;
                 this.audioBars = [];
+                this.nextPlayTime = 0; // Для синхронизации проигрывания
+                this.audioQueue = []; // Очередь аудио чанков
 
                 this.init();
             }
@@ -358,8 +360,10 @@
 
             initAudioContext() {
                 try {
-                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    console.log('AudioContext инициализацияланды');
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
+                        sampleRate: 24000 // Совпадает с частотой от RTMPRealtimeRelay
+                    });
+                    console.log('AudioContext инициализацияланды:', this.audioContext.sampleRate);
                 } catch (error) {
                     console.error('AudioContext инициализациялау мүмкін емес:', error);
                 }
@@ -441,6 +445,10 @@
                         // При получении транскрипции показываем активность аудио
                         this.triggerAudioActivity();
                         break;
+                    case 'audio_chunk':
+                        // Получили реальный аудио чанк
+                        this.handleAudioChunk(message.data);
+                        break;
                 }
             }
 
@@ -473,14 +481,70 @@
                     this.isPlaying = false;
                     audioPlayer.classList.remove('playing');
                     audioPlayer.classList.add('paused');
-                    audioPlayer.textContent = '▶️ Аудио плеерді іске қосу үшін ретрансляторды таңдаңыз';
+                    audioPlayer.textContent = '▶️ Тыңдауды бастау';
                     this.stopAudioActivity();
+                    this.nextPlayTime = 0; // Сбрасываем время
                 } else {
                     this.isPlaying = true;
                     audioPlayer.classList.remove('paused');
                     audioPlayer.classList.add('playing');
                     audioPlayer.textContent = '⏸️ Аудио ойнап тұр...';
                     this.startAudioActivity();
+                    this.nextPlayTime = this.audioContext.currentTime; // Начинаем с текущего времени
+                }
+            }
+
+            // Обработка аудио чанка от сервера
+            async handleAudioChunk(audioData) {
+                if (!this.isPlaying || !this.audioContext) {
+                    return;
+                }
+
+                try {
+                    // Декодируем base64 в ArrayBuffer
+                    const binaryString = atob(audioData.audio);
+                    const bytes = new Uint8Array(binaryString.length);
+                    for (let i = 0; i < binaryString.length; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+
+                    // Конвертируем PCM16 в Float32 для Web Audio API
+                    const pcm16 = new Int16Array(bytes.buffer);
+                    const float32 = new Float32Array(pcm16.length);
+                    for (let i = 0; i < pcm16.length; i++) {
+                        float32[i] = pcm16[i] / 32768.0; // Нормализация
+                    }
+
+                    // Создаем AudioBuffer
+                    const audioBuffer = this.audioContext.createBuffer(
+                        1, // моно
+                        float32.length,
+                        audioData.sampleRate || 24000
+                    );
+                    audioBuffer.getChannelData(0).set(float32);
+
+                    // Проигрываем с синхронизацией для плавного воспроизведения
+                    const source = this.audioContext.createBufferSource();
+                    source.buffer = audioBuffer;
+                    source.connect(this.audioContext.destination);
+
+                    // Вычисляем время старта
+                    const currentTime = this.audioContext.currentTime;
+                    if (this.nextPlayTime < currentTime) {
+                        this.nextPlayTime = currentTime;
+                    }
+
+                    source.start(this.nextPlayTime);
+
+                    // Обновляем время следующего чанка
+                    const duration = audioBuffer.length / audioBuffer.sampleRate;
+                    this.nextPlayTime += duration;
+
+                    // Обновляем счетчики и визуализацию
+                    this.updateAudioBuffer();
+                    this.triggerAudioActivity();
+                } catch (error) {
+                    console.error('Аудио чанкті өңдеу қатесі:', error);
                 }
             }
 

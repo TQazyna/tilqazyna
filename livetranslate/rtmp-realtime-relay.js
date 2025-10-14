@@ -232,6 +232,15 @@ export class RTMPRealtimeRelay extends EventEmitter {
 
       try {
         this.ws.send(JSON.stringify(audioEvent));
+
+        // Эмитим событие для preview клиентов с исходным PCM аудио
+        this.emit("audio_chunk", {
+          audio: chunk.toString("base64"),
+          sampleRate: this.sampleRate,
+          channels: this.channels,
+          bitDepth: this.bitDepth,
+          size: chunk.length
+        });
       } catch (error) {
         console.error("Error sending audio chunk:", error);
         this.emit("error", error);

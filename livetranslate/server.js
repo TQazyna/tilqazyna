@@ -486,6 +486,14 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
       });
     });
 
+    relay.on("audio_chunk", (audioData) => {
+      // Отправляем аудио чанк всем WebSocket клиентам для preview
+      broadcastToTranscriptionClients(relayId, {
+        type: "audio_chunk",
+        data: audioData
+      });
+    });
+
     // Сохраняем ретранслятор
     rtmpRelays.set(relayId, {
       relay,
