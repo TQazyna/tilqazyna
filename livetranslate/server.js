@@ -447,7 +447,7 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
       rtmpUrl,
       model: model || "gpt-realtime",
       voice: voice || "verse",
-      instructions: instructions || "Режим только транскрипции - генерация ответов отключена"
+      instructions: instructions || "Режим транскрипции казахской речи - генерация ответов отключена"
     });
 
     // Настройка обработчиков событий

@@ -16,8 +16,8 @@ export class RTMPRealtimeRelay extends EventEmitter {
     this.rtmpUrl = options.rtmpUrl;
     this.model = options.model || "gpt-realtime";
     this.voice = options.voice || "verse";
-    this.instructions = options.instructions || 
-      "Ты транскриптор речи. Твоя задача - точно транскрибировать услышанную речь в текст. Отвечай только транскрипцией, без дополнительных комментариев.";
+    this.instructions = options.instructions ||
+      "Ты транскриптор казахской речи. Твоя задача - точно транскрибировать услышанную речь с казахского языка в текст на казахском языке. Отвечай только транскрипцией на казахском, без дополнительных комментариев.";
     
     this.ws = null;
     this.ffmpeg = null;
@@ -118,8 +118,9 @@ export class RTMPRealtimeRelay extends EventEmitter {
           type: "session.update",
           session: {
             input_audio_format: "pcm16",              // 16-bit PCM
-            input_audio_transcription: { 
-              model: "whisper-1" 
+            input_audio_transcription: {
+              model: "whisper-1",
+              language: "kk"  // Казахский язык (ISO 639-1 код)
             },
             turn_detection: { 
               type: "server_vad", 
