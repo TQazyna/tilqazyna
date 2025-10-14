@@ -17,7 +17,7 @@ export class RTMPRealtimeRelay extends EventEmitter {
     this.model = options.model || "gpt-realtime";
     this.voice = options.voice || "verse";
     this.instructions = options.instructions ||
-      "Ты транскриптор казахской речи. Твоя задача - точно транскрибировать услышанную речь с казахского языка в текст на казахском языке. Отвечай только транскрипцией на казахском, без дополнительных комментариев.";
+      "Ты синхронный переводчик с казахского на русский язык. Слушай казахскую речь и сразу озвучивай её дословный перевод на русском языке. Говори четко и естественно.";
     
     this.ws = null;
     this.ffmpeg = null;
@@ -113,20 +113,31 @@ export class RTMPRealtimeRelay extends EventEmitter {
         console.log("Connected to OpenAI Realtime WebSocket");
         this.isConnected = true;
         
-        // Настройка сессии для только транскрипции
+        // Настройка сессии с поддержкой транскрипции И аудио ответов
         const sessionUpdate = {
           type: "session.update",
           session: {
+            // Входящее аудио
             input_audio_format: "pcm16",              // 16-bit PCM
             input_audio_transcription: {
               model: "whisper-1",
               language: "kk"  // Казахский язык (ISO 639-1 код)
             },
-            turn_detection: { 
-              type: "server_vad", 
-              threshold: 0.5
+
+            // Исходящее аудио от GPT
+            output_audio_format: "pcm16",             // 16-bit PCM для аудио ответов
+            voice: this.voice,                        // Голос для синтеза речи
+
+            // Инструкции и модальности
+            instructions: this.instructions,
+            modalities: ["text", "audio"],            // Включаем текст И аудио
+
+            // Определение конца речи
+            turn_detection: {
+              type: "server_vad",
+              threshold: 0.5,
+              silence_duration_ms: 500                // Пауза 500мс для определения конца речи
             }
-            // Убираем instructions, voice, modalities - они не нужны для только транскрипции
           }
         };
 
