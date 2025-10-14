@@ -2,8 +2,7 @@
       const statusEl = document.getElementById("status");
       const feedback = document.getElementById("feedback");
       const audioPlayer = document.getElementById("audioPlayer");
-      const languageSelect = document.getElementById("language");
-      const langTabs = document.querySelectorAll('.lang-tab');
+      // Убраны элементы выбора языка из интерфейса
 
       let ws = null;
       let isConnected = false;
@@ -13,11 +12,11 @@
       let isSourceBufferReady = false;
       let currentLang = 'ru';
 
-      // Объект переводов для интерфейса
+      // Объект переводов для интерфейса (только русский)
       const translations = {
         ru: {
           title: "Слушать перевод",
-          subtitle: "Выберите язык и начните слушать синхронный перевод",
+          subtitle: "Начните слушать синхронный перевод",
           translationLanguage: "Язык перевода",
           connect: "Подключиться",
           disconnect: "Отключиться",
@@ -36,50 +35,6 @@
           languageChangeWarning: "Для смены языка отключитесь от трансляции",
           audioInitError: "Ошибка инициализации аудио",
           mediaSourceClosed: "MediaSource закрыт, очищаем очередь"
-        },
-        en: {
-          title: "Listen to Translation",
-          subtitle: "Choose language and start listening to real-time translation",
-          translationLanguage: "Translation Language",
-          connect: "Connect",
-          disconnect: "Disconnect",
-          connecting: "Connecting...",
-          statusLabel: "Connection Status",
-          waiting: "Waiting",
-          connectingStatus: "Connecting",
-          connected: "Connected",
-          connectionError: "Connection Error",
-          connectionFailed: "Failed to Connect",
-          audioTitle: "Translation Audio",
-          audioHint: "Translation plays automatically when connected",
-          listeningMessage: "Listening to real-time translation",
-          projectDefault: "Connecting to default project: Steppe Games",
-          projectConnection: "Connecting to project:",
-          languageChangeWarning: "Disconnect from translation to change language",
-          audioInitError: "Audio initialization error",
-          mediaSourceClosed: "MediaSource closed, clearing queue"
-        },
-        kk: {
-          title: "Аударманы тыңдау",
-          subtitle: "Тілді таңдап, нақты уақыттағы аударманы тыңдай бастаңыз",
-          translationLanguage: "Аударма тілі",
-          connect: "Қосылу",
-          disconnect: "Ажырату",
-          connecting: "Қосылуда...",
-          statusLabel: "Қосылу күйі",
-          waiting: "Күту",
-          connectingStatus: "Қосылуда",
-          connected: "Қосылған",
-          connectionError: "Қосылу қатесі",
-          connectionFailed: "Қосылу мүмкін болмады",
-          audioTitle: "Аударма аудиосы",
-          audioHint: "Қосылған кезде аударма автоматты түрде ойнатылады",
-          listeningMessage: "Нақты уақыттағы аударманы тыңдау",
-          projectDefault: "Әдепкі жобаға қосылу: Steppe Games",
-          projectConnection: "Жобаға қосылу:",
-          languageChangeWarning: "Тілді өзгерту үшін аудармадан ажыратыңыз",
-          audioInitError: "Аудио инициализациялау қатесі",
-          mediaSourceClosed: "MediaSource жабылды, кезекті тазарту"
         }
       };
 
@@ -88,23 +43,16 @@
         console.log(`[${timestamp}] ${message}`);
       }
 
-      // Функция для обновления интерфейса при смене языка
-      function updateInterface(lang) {
-        currentLang = lang;
-        const t = translations[lang];
+      // Инициализация интерфейса (только русский)
+      function updateInterface() {
+        currentLang = 'ru';
+        const t = translations[currentLang];
 
         // Обновляем заголовок и подзаголовок
         document.querySelector('h1').textContent = t.title;
         document.querySelector('.subtitle').textContent = t.subtitle;
 
-        // Обновляем лейбл селектора языка
-        document.querySelector('label[for="language"]').textContent = t.translationLanguage;
-
-        // Обновляем опции селектора языка
-        const languageOptions = document.querySelectorAll('#language option');
-        languageOptions[0].textContent = 'Русский';
-        languageOptions[1].textContent = 'English';
-        languageOptions[2].textContent = 'Қазақша';
+        // Блоки выбора языка удалены, ничего не обновляем
 
         // Обновляем кнопку подключения (если не в процессе подключения)
         if (!connectBtn.classList.contains('connecting') && !isConnected) {
@@ -121,36 +69,12 @@
         document.querySelector('.hint').textContent = t.audioHint;
 
         // Обновляем атрибут lang у html элемента
-        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('lang', currentLang);
 
-        // Обновляем активную вкладку языка
-        langTabs.forEach(tab => {
-          if (tab.getAttribute('data-lang') === lang) {
-            tab.classList.add('active');
-          } else {
-            tab.classList.remove('active');
-          }
-        });
-
-        // Обновляем селектор языка перевода
-        const languageSelect = document.getElementById('language');
-        if (languageSelect && languageSelect.value !== lang) {
-          languageSelect.value = lang;
-        }
+        // Вкладки и селектор языка отсутствуют
       }
 
-      // Функция переключения языка
-      function changeLanguage(lang) {
-        updateInterface(lang);
-
-        // Обновляем выбранный язык перевода в селекторе
-        const languageSelect = document.getElementById('language');
-        languageSelect.value = lang;
-
-        // Триггерим событие change для селектора языка
-        const event = new Event('change', { bubbles: true });
-        languageSelect.dispatchEvent(event);
-      }
+      // Переключение языка не требуется (только русский)
 
       function appendAudioChunk() {
         if (!sourceBuffer || sourceBuffer.updating || audioQueue.length === 0) {
@@ -281,7 +205,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('project') || 'steppe-games';
 
-        const selectedLanguage = languageSelect.value;
+        const selectedLanguage = 'ru';
         const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
         const wsUrl = `${protocol}//${window.location.host}/listen?project=${projectId}&lang=${selectedLanguage}`;
 
@@ -379,35 +303,12 @@
         }
       });
 
-      // Обработчики событий для вкладок языка
-      langTabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
-          const lang = e.currentTarget.getAttribute('data-lang');
-          changeLanguage(lang);
-        });
-      });
-
-      // Синхронизация селектора языка перевода с языковыми вкладками
-      languageSelect.addEventListener("change", () => {
-        if (isConnected) {
-          showMessage("languageChangeWarning", "info");
-          return;
-        }
-
-        const selectedLang = languageSelect.value;
-        updateInterface(selectedLang);
-      });
+      // Элементы выбора языка удалены, обработчики не требуются
 
       // Автоматическое подключение к проекту по умолчанию при загрузке страницы
       window.addEventListener('DOMContentLoaded', () => {
-        // Синхронизируем языковые вкладки с селектором языка перевода
-        const languageSelect = document.getElementById('language');
-        if (languageSelect) {
-          currentLang = languageSelect.value || 'ru';
-        }
-
-        // Инициализируем интерфейс на текущем языке
-        updateInterface(currentLang);
+        // Инициализируем интерфейс (русский по умолчанию)
+        updateInterface();
 
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('project');
