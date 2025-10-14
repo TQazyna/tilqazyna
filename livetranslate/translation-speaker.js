@@ -128,8 +128,8 @@ export class TranslationSpeaker extends EventEmitter {
 
     this.emit("translation_received", translation);
 
-    // Добавляем в очередь
-    this.translationQueue.push(translation);
+    // ВАЖНО: Очищаем очередь - нам нужен только последний перевод
+    this.translationQueue = [translation];
 
     // Запускаем обработку очереди если она не запущена
     if (!this.isProcessingQueue) {
