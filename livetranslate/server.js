@@ -1561,6 +1561,28 @@ app.post("/api/speaker", express.json(), async (req, res) => {
       });
     });
 
+    // Ретрансляция аудио-стрима в браузер
+    speaker.on("audio_start", (meta) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_start",
+        data: meta
+      });
+    });
+
+    speaker.on("audio_chunk", (chunk) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_chunk",
+        data: chunk
+      });
+    });
+
+    speaker.on("audio_end", (info) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_end",
+        data: info
+      });
+    });
+
     // Сохраняем озвучиватель
     speakers.set(speakerId, {
       speaker,

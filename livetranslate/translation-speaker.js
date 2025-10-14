@@ -209,8 +209,33 @@ export class TranslationSpeaker extends EventEmitter {
         throw new Error(`API request failed with status ${response.status}: ${errorData}`);
       }
 
-      // Получаем аудио данные
-      const audioBuffer = await response.buffer();
+      // Стримим аудио по мере получения
+      const chunks = [];
+      let totalBytes = 0;
+
+      // Сообщаем клиентам о начале аудио-потока
+      this.emit("audio_start", {
+        speechId,
+        translationId,
+        mimeType: "audio/mpeg"
+      });
+
+      // response.body — ReadableStream/Node Readable; читаем по чанкам
+      for await (const chunk of response.body) {
+        const buf = Buffer.from(chunk);
+        chunks.push(buf);
+        totalBytes += buf.length;
+
+        // Отправляем чанк клиентам в base64 (для универсальности)
+        this.emit("audio_chunk", {
+          speechId,
+          translationId,
+          mimeType: "audio/mpeg",
+          chunkBase64: buf.toString("base64")
+        });
+      }
+
+      const audioBuffer = Buffer.concat(chunks, totalBytes);
       const duration = Date.now() - startTime;
 
       // Сохраняем аудио файл
@@ -254,6 +279,12 @@ export class TranslationSpeaker extends EventEmitter {
         speechId,
         audioSize: audioBuffer.length,
         duration
+      });
+
+      // Сообщаем клиентам об окончании аудио-потока
+      this.emit("audio_end", {
+        speechId,
+        translationId
       });
 
       this.emit("speech_completed", result);

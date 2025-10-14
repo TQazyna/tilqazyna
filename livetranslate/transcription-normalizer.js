@@ -186,7 +186,7 @@ export class TranscriptionNormalizer extends EventEmitter {
   }
 
   /**
-   * Нормализовать накопленные транскрипции
+   * Нормализовать только последнее сообщение, используя до 9 предыдущих нормализованных как контекст
    */
   async normalize() {
     if (this.transcriptions.length === 0) {
@@ -194,22 +194,36 @@ export class TranscriptionNormalizer extends EventEmitter {
       return null;
     }
 
-    const batchId = `batch-${Date.now()}`;
-    const transcriptionIds = this.transcriptions.map(t => t.id);
+    // Целимся на самую свежую транскрипцию
+    const targetTranscription = this.transcriptions[0];
 
-    // Объединяем все транскрипции в один текст
-    const combinedText = this.transcriptions
-      .map((t, index) => `[${index + 1}] ${t.transcript}`)
-      .join('\n');
+    // Формируем контекст из предыдущих нормализованных результатов
+    const maxContext = Math.max(0, Math.min((this.batchSize || 10) - 1, this.normalizedResults.length));
+    const contextNormalizedTexts = this.normalizedResults
+      .slice(0, maxContext)
+      .map(r => r.normalizedText)
+      .filter(Boolean)
+      .reverse(); // от старых к новым в тексте
 
-    this.addLog("normalization_start", "Starting normalization", {
+    const batchId = `norm-${Date.now()}`;
+
+    this.addLog("normalization_start", "Starting single-message normalization", {
       batchId,
-      count: this.transcriptions.length,
-      transcriptionIds
+      contextCount: contextNormalizedTexts.length,
+      targetId: targetTranscription.id
     });
 
     try {
       const startTime = Date.now();
+
+      // Готовим подсказку: строгая инструкция вернуть только нормализованный текст текущего сообщения
+      const systemPrompt = `${this.prompt}\n\nКонтекстные правила:\n- Используй список ранее нормализованных сообщений только как контекст для стиля, терминов и согласованности.\n- Нормализуй ТОЛЬКО текущее новое сообщение.\n- В ответе верни ТОЛЬКО нормализованный текст без каких-либо префиксов, нумерации и комментариев.`;
+
+      const contextBlock = contextNormalizedTexts.length > 0
+        ? `Предыдущие нормализованные сообщения (контекст, не нужно переписывать):\n${contextNormalizedTexts.map((t, i) => `${i + 1}) ${t}`).join("\n")}\n\n`
+        : "";
+
+      const userContent = `${contextBlock}Новое сообщение для нормализации:\n${targetTranscription.transcript}`;
 
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -220,14 +234,8 @@ export class TranscriptionNormalizer extends EventEmitter {
         body: JSON.stringify({
           model: this.model,
           messages: [
-            {
-              role: 'system',
-              content: this.prompt
-            },
-            {
-              role: 'user',
-              content: combinedText
-            }
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userContent }
           ],
           temperature: this.temperature,
           max_tokens: this.maxTokens
@@ -240,43 +248,42 @@ export class TranscriptionNormalizer extends EventEmitter {
       }
 
       const data = await response.json();
-      const normalizedText = data.choices[0].message.content;
+      const normalizedText = (data.choices?.[0]?.message?.content || "").trim();
       const tokensUsed = data.usage?.total_tokens || 0;
-
       const duration = Date.now() - startTime;
 
-      // Создаем результат нормализации
       const result = {
         id: batchId,
         timestamp: new Date().toISOString(),
-        originalTexts: this.transcriptions.map(t => ({
-          id: t.id,
-          transcript: t.transcript,
-          timestamp: t.timestamp
-        })),
-        normalizedText: normalizedText,
+        original: {
+          id: targetTranscription.id,
+          transcript: targetTranscription.transcript,
+          timestamp: targetTranscription.timestamp
+        },
+        contextNormalizedTexts,
+        normalizedText,
         model: this.model,
-        tokensUsed: tokensUsed,
-        duration: duration,
+        tokensUsed,
+        duration,
         success: true
       };
 
       // Сохраняем результат
       this.normalizedResults.unshift(result);
-
-      // Ограничиваем количество результатов в памяти
       if (this.normalizedResults.length > 100) {
         this.normalizedResults = this.normalizedResults.slice(0, 100);
       }
+
+      // Удаляем обработанную транскрипцию из буфера
+      this.transcriptions = this.transcriptions.filter(t => t.id !== targetTranscription.id);
 
       // Обновляем статистику
       this.stats.normalizationsCompleted++;
       this.stats.totalTokensUsed += tokensUsed;
 
-      // Сохраняем в файл
       await this.saveResult(result);
 
-      this.addLog("normalization_success", "Normalization completed", {
+      this.addLog("normalization_success", "Single-message normalization completed", {
         batchId,
         tokensUsed,
         duration
@@ -287,16 +294,16 @@ export class TranscriptionNormalizer extends EventEmitter {
       console.log(`Normalization completed: ${batchId} (${tokensUsed} tokens, ${duration}ms)`);
 
       return result;
-
     } catch (error) {
       const errorResult = {
         id: batchId,
         timestamp: new Date().toISOString(),
-        originalTexts: this.transcriptions.map(t => ({
-          id: t.id,
-          transcript: t.transcript,
-          timestamp: t.timestamp
-        })),
+        original: {
+          id: this.transcriptions[0]?.id,
+          transcript: this.transcriptions[0]?.transcript,
+          timestamp: this.transcriptions[0]?.timestamp
+        },
+        contextNormalizedTexts: contextNormalizedTexts || [],
         error: error.message,
         success: false
       };
@@ -306,7 +313,7 @@ export class TranscriptionNormalizer extends EventEmitter {
 
       await this.saveResult(errorResult);
 
-      this.addLog("normalization_error", "Normalization failed", {
+      this.addLog("normalization_error", "Single-message normalization failed", {
         batchId,
         error: error.message
       });
@@ -314,7 +321,6 @@ export class TranscriptionNormalizer extends EventEmitter {
       this.emit("normalization_failed", errorResult);
 
       console.error(`Normalization failed: ${batchId}`, error);
-
       throw error;
     }
   }

@@ -692,7 +692,11 @@
                     res.success
                       ? `<div class="normalized-text">${res.normalizedText}</div>
                         <div class="normalized-meta">Токенов: ${res.tokensUsed || 0} | ${res.duration || 0}мс | Текстов: ${
-                          res.originalTexts.length
+                          res.originalTexts ? res.originalTexts.length : 1
+                        }${
+                          typeof res.contextNormalizedTexts !== 'undefined'
+                            ? ` | Контекст: ${res.contextNormalizedTexts.length}`
+                            : ''
                         }</div>`
                       : `<div class="normalized-error">${res.error}</div>`
                   }

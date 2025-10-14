@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WHIP Audio Stream Subscriber</title>
+  <style>
+    body {
+      background: #fff;
+      color: #000;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .status {
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      border-radius: 0;
+      font-size: 1rem;
+    }
+    button {
+      padding: 6px 14px;
+      margin: 2px;
+      background: #fff;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 0;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:disabled {
+      color: #888;
+      border-color: #bbb;
+      background: #fff;
+      cursor: not-allowed;
+    }
+    audio {
+      width: 100%;
+      margin: 8px 0;
+      border: 1px solid #000;
+      background: #fff;
+    }
+    pre {
+      background: #fff;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 0;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>WHIP Audio Stream Subscriber</h1>
+  <p>
+    Listens to audio stream from:
+    <code>https://talksync.tilqazyna.kz:8889/steppe-games/whip</code>
+  </p>
+
+  <div id="status" class="status idle">Idle</div>
+
+  <button id="startBtn" class="start">Start Listening</button>
+  <button id="stopBtn" class="stop" disabled>Stop Listening</button>
+
+  <div style="margin-top: 20px;">
+    <h3>Remote Audio:</h3>
+    <audio id="remoteAudio" controls></audio>
+  </div>
+
+  <div style="margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 5px;">
+    <h3>Console Log:</h3>
+    <pre id="log" style="max-height: 200px; overflow-y: auto; font-size: 12px;"></pre>
+  </div>
+
+  <script>
+    const statusDiv = document.getElementById('status');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const remoteAudio = document.getElementById('remoteAudio');
+    const logPre = document.getElementById('log');
+
+    let peerConnection = null;
+    let resourceUrl = null;
+
+    function log(message) {
+      const timestamp = new Date().toLocaleTimeString();
+      logPre.textContent += `[${timestamp}] ${message}\n`;
+      logPre.scrollTop = logPre.scrollHeight;
+      console.log(message);
+    }
+
+    function setStatus(status, type = 'idle') {
+      statusDiv.textContent = status;
+      statusDiv.className = `status ${type}`;
+    }
+
+    async function startListening() {
+      try {
+        setStatus('Connecting to WHIP server...', 'connecting');
+        startBtn.disabled = true;
+
+        log('Creating peer connection...');
+
+        // Create peer connection
+        peerConnection = new RTCPeerConnection({
+          iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' }
+          ]
+        });
+
+        // Handle remote audio stream
+        peerConnection.ontrack = (event) => {
+          log('Received remote audio track');
+          remoteAudio.srcObject = event.streams[0];
+          setStatus('Connected - Audio playing', 'connected');
+        };
+
+        // Handle ICE candidates
+        peerConnection.onicecandidate = (event) => {
+          if (event.candidate) {
+            log('ICE candidate: ' + event.candidate.candidate);
+          }
+        };
+
+        // Handle connection state changes
+        peerConnection.onconnectionstatechange = () => {
+          log('Connection state: ' + peerConnection.connectionState);
+          if (peerConnection.connectionState === 'connected') {
+            setStatus('Connected and listening', 'connected');
+          } else if (peerConnection.connectionState === 'failed') {
+            setStatus('Connection failed', 'error');
+          } else if (peerConnection.connectionState === 'closed') {
+            setStatus('Connection closed', 'idle');
+          }
+        };
+
+        setStatus('Getting SDP offer from server...', 'connecting');
+
+        // Step 1: Get SDP offer from WHIP server
+        const response = await fetch(
+          'https://talksync.tilqazyna.kz:8889/steppe-games/whip',
+          {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/sdp'
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `WHIP server responded with ${response.status}: ${response.statusText}`
+          );
+        }
+
+        const offerSdp = await response.text();
+        log('Received SDP offer from server');
+
+        // Get the resource URL for future PATCH requests
+        resourceUrl = response.headers.get('Location');
+        if (resourceUrl) {
+          log('Resource URL: ' + resourceUrl);
+        }
+
+        // Step 2: Set remote description with the offer
+        await peerConnection.setRemoteDescription({
+          type: 'offer',
+          sdp: offerSdp
+        });
+
+        log('Remote description set');
+
+        // Step 3: Create answer
+        setStatus('Creating answer...', 'connecting');
+
+        const answer = await peerConnection.createAnswer();
+        await peerConnection.setLocalDescription(answer);
+
+        log('Answer created');
+
+        // Step 4: Send answer back to server
+        setStatus('Sending answer to server...', 'connecting');
+
+        const patchResponse = await fetch(
+          resourceUrl || 'https://talksync.tilqazyna.kz:8889/steppe-games/whip',
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/sdp'
+            },
+            body: answer.sdp
+          }
+        );
+
+        if (!patchResponse.ok) {
+          throw new Error(
+            `Failed to send answer: ${patchResponse.status}: ${patchResponse.statusText}`
+          );
+        }
+
+        log('Answer sent successfully');
+        setStatus('Listening for audio...', 'connected');
+        startBtn.style.display = 'none';
+        stopBtn.disabled = false;
+      } catch (error) {
+        log('Error: ' + error.message);
+        setStatus('Error: ' + error.message, 'error');
+        startBtn.disabled = false;
+
+        // Cleanup on error
+        if (peerConnection) {
+          peerConnection.close();
+          peerConnection = null;
+        }
+        remoteAudio.srcObject = null;
+      }
+    }
+
+    async function stopListening() {
+      try {
+        setStatus('Stopping...', 'connecting');
+
+        // Close peer connection
+        if (peerConnection) {
+          peerConnection.close();
+          peerConnection = null;
+        }
+
+        remoteAudio.srcObject = null;
+
+        log('Stopped listening');
+        setStatus('Idle', 'idle');
+        startBtn.style.display = 'inline-block';
+        stopBtn.disabled = true;
+      } catch (error) {
+        log('Error stopping: ' + error.message);
+        setStatus('Error stopping', 'error');
+      }
+    }
+
+    startBtn.addEventListener('click', startListening);
+    stopBtn.addEventListener('click', stopListening);
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (peerConnection) {
+        peerConnection.close();
+      }
+    });
+  </script>
+</body>
+</html>

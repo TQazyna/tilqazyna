@@ -482,6 +482,12 @@
                 updateStats(msg.data.stats);
                 updateResults(msg.data.results);
                 updateLogs(msg.data.logs);
+            } else if (msg.type === 'audio_start') {
+                speakerAudio.start(msg.data);
+            } else if (msg.type === 'audio_chunk') {
+                speakerAudio.appendChunk(msg.data);
+            } else if (msg.type === 'audio_end') {
+                speakerAudio.end(msg.data);
             } else if (msg.type === 'speech_completed') {
                 addResult(msg.data);
                 if (msg.data.stats) {
@@ -886,6 +892,54 @@
             loadSpeakers();
             updateConnectionStatus(false);
         });
+
+        // Простая очередь воспроизведения входящих аудио чанков (MP3 base64) без MSE
+        const speakerAudio = (() => {
+            const audio = new Audio();
+            audio.autoplay = true;
+            let currentSpeechId = null;
+            let collecting = false;
+            let buffers = [];
+
+            function start(meta) {
+                // Начинаем сбор чанков для конкретного speechId
+                currentSpeechId = meta.speechId;
+                buffers = [];
+                collecting = true;
+            }
+
+            function appendChunk(chunk) {
+                // Игнорируем, если это не тот же speechId
+                if (!collecting || chunk.speechId !== currentSpeechId) return;
+                try {
+                    const binary = atob(chunk.chunkBase64);
+                    const len = binary.length;
+                    const bytes = new Uint8Array(len);
+                    for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+                    buffers.push(bytes);
+                } catch (e) {
+                    console.error('Failed to decode audio chunk', e);
+                }
+            }
+
+            function end(info) {
+                if (!collecting || info.speechId !== currentSpeechId) return;
+                collecting = false;
+                // Склеиваем чанки и запускаем проигрывание
+                const totalLen = buffers.reduce((acc, b) => acc + b.byteLength, 0);
+                const out = new Uint8Array(totalLen);
+                let offset = 0;
+                buffers.forEach(b => { out.set(b, offset); offset += b.byteLength; });
+                const blob = new Blob([out], { type: 'audio/mpeg' });
+                const url = URL.createObjectURL(blob);
+                audio.src = url;
+                audio.play().catch(err => console.warn('Autoplay blocked, waiting for user gesture', err));
+                // Очистим собранное
+                buffers = [];
+            }
+
+            return { start, appendChunk, end };
+        })();
     </script>
 </body>
 </html>

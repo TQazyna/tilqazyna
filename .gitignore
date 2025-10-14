@@ -10,3 +10,6 @@ livetranslate/server.crt
 livetranslate/server.js
 livetranslate/server.key
 
+livetranslate/translator-data/*
+livetranslate/speaker-data/*
+livetranslate/normalizer-data/*
