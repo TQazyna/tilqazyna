@@ -220,6 +220,49 @@
             color: #fff;
         }
 
+        .transcript-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .transcript-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #FFB84D;
+        }
+
+        .transcript-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #FF6B6B;
+        }
+
+        .transcript-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .transcript-time {
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .transcript-empty {
+            text-align: center;
+            opacity: 0.5;
+            padding: 20px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -293,6 +336,13 @@
                 <div class="stat-label">Соңғы жаңарту</div>
             </div>
         </div>
+
+        <div class="transcript-container">
+            <div class="transcript-title">💬 GPT жауаптарының мәтіні</div>
+            <div id="transcripts">
+                <div class="transcript-empty">GPT жауаптары осында көрсетіледі</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -310,6 +360,7 @@
                 this.audioBars = [];
                 this.nextPlayTime = 0; // Для синхронизации проигрывания
                 this.audioQueue = []; // Очередь аудио чанков
+                this.transcripts = []; // История GPT транскриптов
 
                 this.init();
             }
@@ -443,6 +494,10 @@
                     case 'audio_output':
                         // Получили реальный аудио чанк от GPT
                         this.handleGPTAudioChunk(message.data);
+                        break;
+                    case 'gpt_transcript':
+                        // Получили транскрипт GPT ответа
+                        this.handleGPTTranscript(message.data);
                         break;
                 }
             }
@@ -597,6 +652,54 @@
                 if (audioInfo) {
                     audioInfo.textContent = `GPT аудио белсенді: ${new Date().toLocaleTimeString('kk-KZ')}`;
                 }
+            }
+
+            // Обработка транскрипта GPT ответа
+            handleGPTTranscript(transcriptData) {
+                console.log('GPT транскрипт:', transcriptData);
+
+                // Добавляем в историю
+                this.transcripts.push(transcriptData);
+
+                // Ограничиваем количество
+                if (this.transcripts.length > 20) {
+                    this.transcripts.shift();
+                }
+
+                // Обновляем отображение
+                this.renderTranscripts();
+            }
+
+            // Отображение транскриптов
+            renderTranscripts() {
+                const transcriptsContainer = document.getElementById('transcripts');
+
+                if (this.transcripts.length === 0) {
+                    transcriptsContainer.innerHTML = '<div class="transcript-empty">GPT жауаптары осында көрсетіледі</div>';
+                    return;
+                }
+
+                // Создаем элементы для последних транскриптов (в обратном порядке)
+                transcriptsContainer.innerHTML = this.transcripts
+                    .slice()
+                    .reverse()
+                    .map(t => `
+                        <div class="transcript-item">
+                            <div class="transcript-text">${this.escapeHtml(t.transcript)}</div>
+                            <div class="transcript-time">${new Date(t.timestamp).toLocaleTimeString('kk-KZ')}</div>
+                        </div>
+                    `)
+                    .join('');
+
+                // Прокручиваем к началу (где последний транскрипт)
+                transcriptsContainer.scrollTop = 0;
+            }
+
+            // Экранирование HTML для безопасности
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
         }
 

@@ -502,6 +502,14 @@ app.post("/api/rtmp-relay", express.json(), async (req, res) => {
       });
     });
 
+    relay.on("gpt_transcript", (transcriptData) => {
+      // Отправляем транскрипт GPT ответа всем WebSocket клиентам
+      broadcastToTranscriptionClients(relayId, {
+        type: "gpt_transcript",
+        data: transcriptData
+      });
+    });
+
     // Сохраняем ретранслятор
     rtmpRelays.set(relayId, {
       relay,

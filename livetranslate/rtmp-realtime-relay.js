@@ -341,6 +341,28 @@ export class RTMPRealtimeRelay extends EventEmitter {
       case "response.done":
         console.log("Response completed");
         this.addLog("response", "Response completed", event.response);
+
+        // Извлекаем транскрипт GPT ответа из response.output[0].content[0].transcript
+        if (event.response?.output && event.response.output.length > 0) {
+          const output = event.response.output[0];
+          if (output.content && output.content.length > 0) {
+            const content = output.content.find(c => c.type === 'audio');
+            if (content && content.transcript) {
+              const gptTranscript = {
+                id: event.response.id,
+                transcript: content.transcript,
+                timestamp: new Date().toISOString(),
+                role: output.role,
+                conversationId: event.response.conversation_id
+              };
+
+              console.log("GPT response transcript:", content.transcript);
+              this.addLog("gpt_transcript", "GPT response transcript", gptTranscript);
+              this.emit("gpt_transcript", gptTranscript);
+            }
+          }
+        }
+
         this.emit("response_done", event.response);
         break;
 
