@@ -233,6 +233,57 @@
             background: #DDA0DD;
         }
 
+        .response-event-item {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin-bottom: 8px;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        .response-event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .response-event-id {
+            font-size: 12px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .response-event-time {
+            font-size: 12px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .response-event-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .response-event-data {
+            color: #000;
+            margin-top: 5px;
+            font-size: 11px;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 3px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -383,6 +434,7 @@
             <div class="tabs">
                 <button class="tab active" data-tab="transcription">📝 Транскрипция</button>
                 <button class="tab" data-tab="logs">📋 Логи</button>
+                <button class="tab" data-tab="response-events">⚡ Response Events</button>
             </div>
 
             <!-- Контент транскрипции -->
@@ -401,6 +453,16 @@
                     <div class="empty-state">
                         <h3>Нет логов</h3>
                         <p>Выберите ретранслятор для просмотра логов</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контент response событий -->
+            <div class="tab-content" id="response-events-content">
+                <div id="responseEventsList">
+                    <div class="empty-state">
+                        <h3>Нет response событий</h3>
+                        <p>Выберите ретранслятор для просмотра response.done событий</p>
                     </div>
                 </div>
             </div>
@@ -495,6 +557,7 @@
                     await Promise.all([
                         this.loadTranscription(),
                         this.loadLogs(),
+                        this.loadResponseEvents(),
                         this.loadStats()
                     ]);
                 } catch (error) {
@@ -516,17 +579,41 @@
                 try {
                     const logType = document.getElementById('logTypeSelect').value;
                     const limit = document.getElementById('limitInput').value;
-                    
+
                     let url = `/api/rtmp-relay/${this.currentRelayId}/logs?limit=${limit}`;
                     if (logType) {
                         url += `&type=${logType}`;
                     }
-                    
+
                     const response = await fetch(url);
                     const data = await response.json();
                     this.renderLogs(data.logs);
                 } catch (error) {
                     console.error('Ошибка загрузки логов:', error);
+                }
+            }
+
+            async loadResponseEvents() {
+                try {
+                    const limit = document.getElementById('limitInput').value;
+
+                    // Загружаем все логи и фильтруем только response.done события
+                    const response = await fetch(`/api/rtmp-relay/${this.currentRelayId}/logs?limit=${limit}&type=realtime_event`);
+                    const data = await response.json();
+
+                    // Фильтруем только события с типом response.done
+                    const responseDoneEvents = data.logs.filter(log => {
+                        try {
+                            const eventData = typeof log.data === 'string' ? JSON.parse(log.data) : log.data;
+                            return eventData && eventData.type === 'response.done';
+                        } catch (e) {
+                            return false;
+                        }
+                    });
+
+                    this.renderResponseEvents(responseDoneEvents);
+                } catch (error) {
+                    console.error('Ошибка загрузки response событий:', error);
                 }
             }
 
@@ -571,7 +658,7 @@
 
             renderLogs(logs) {
                 const container = document.getElementById('logsList');
-                
+
                 if (!logs || logs.length === 0) {
                     container.innerHTML = `
                         <div class="empty-state">
@@ -592,6 +679,40 @@
                                 <span class="log-message">${log.message}</span>
                             </div>
                             ${log.data ? `<div class="log-data">${JSON.stringify(log.data, null, 2)}</div>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            renderResponseEvents(events) {
+                const container = document.getElementById('responseEventsList');
+
+                if (!events || events.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <h3>Нет response событий</h3>
+                            <p>Response.done события появятся здесь после обработки аудио</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = events.map(event => {
+                    let eventData;
+                    try {
+                        eventData = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+                    } catch (e) {
+                        eventData = { error: 'Invalid JSON', raw: event.data };
+                    }
+
+                    return `
+                        <div class="response-event-item">
+                            <div class="response-event-header">
+                                <div class="response-event-id">${eventData.response?.id || 'N/A'}</div>
+                                <div class="response-event-time">${new Date(event.timestamp).toLocaleString('ru-RU')}</div>
+                                <div class="response-event-type">response.done</div>
+                            </div>
+                            <div class="response-event-data">${JSON.stringify(eventData, null, 2)}</div>
                         </div>
                     `;
                 }).join('');
@@ -692,6 +813,7 @@
                     case 'initial_data':
                         this.renderTranscription(message.data.transcription);
                         this.renderLogs(message.data.logs);
+                        this.loadResponseEvents(); // Обновляем response события при инициализации
                         this.updateStats(message.data.status);
                         break;
                     case 'transcription':
@@ -699,6 +821,17 @@
                         break;
                     case 'log':
                         this.addLogItem(message.data);
+                        // Проверяем, является ли это response.done событием
+                        if (message.data.type === 'realtime_event') {
+                            try {
+                                const eventData = typeof message.data.data === 'string' ? JSON.parse(message.data.data) : message.data.data;
+                                if (eventData && eventData.type === 'response.done') {
+                                    this.addResponseEventItem(message.data);
+                                }
+                            } catch (e) {
+                                // Игнорируем ошибки парсинга
+                            }
+                        }
                         break;
                 }
             }
@@ -738,7 +871,7 @@
 
             addLogItem(log) {
                 const container = document.getElementById('logsList');
-                
+
                 // Убираем empty state если есть
                 const emptyState = container.querySelector('.empty-state');
                 if (emptyState) {
@@ -768,6 +901,42 @@
                 // Обновляем счетчик
                 const count = container.querySelectorAll('.log-item').length;
                 document.getElementById('logsCount').textContent = count;
+            }
+
+            addResponseEventItem(log) {
+                const container = document.getElementById('responseEventsList');
+
+                // Убираем empty state если есть
+                const emptyState = container.querySelector('.empty-state');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                let eventData;
+                try {
+                    eventData = typeof log.data === 'string' ? JSON.parse(log.data) : log.data;
+                } catch (e) {
+                    eventData = { error: 'Invalid JSON', raw: log.data };
+                }
+
+                const item = document.createElement('div');
+                item.className = 'response-event-item';
+                item.innerHTML = `
+                    <div class="response-event-header">
+                        <div class="response-event-id">${eventData.response?.id || 'N/A'}</div>
+                        <div class="response-event-time">${new Date(log.timestamp).toLocaleString('ru-RU')}</div>
+                        <div class="response-event-type">response.done</div>
+                    </div>
+                    <div class="response-event-data">${JSON.stringify(eventData, null, 2)}</div>
+                `;
+
+                container.insertBefore(item, container.firstChild);
+
+                // Ограничиваем количество элементов
+                const items = container.querySelectorAll('.response-event-item');
+                if (items.length > 50) {
+                    items[items.length - 1].remove();
+                }
             }
 
             updateStats(status) {
