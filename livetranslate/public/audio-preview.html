@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Аудио алдын ала көру</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .controls {
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        select option {
+            background: #333;
+            color: #fff;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .status.connected {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+
+        .status.disconnected {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+
+        .audio-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .audio-visualizer {
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-bars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 40px;
+        }
+
+        .audio-bar {
+            width: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .audio-bars.active .audio-bar {
+            background: linear-gradient(to top, #4CAF50, #81C784);
+            animation: pulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { height: 10px; }
+            to { height: 40px; }
+        }
+
+        .audio-player {
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-player:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .audio-player.playing {
+            background: rgba(76, 175, 80, 0.3);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .audio-player.paused {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-info {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 Аудио алдын ала көру</h1>
+            <p>RTMP ағынынан аудио тыңдау (қазақша транскрипция үшін)</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="relaySelect">Ретранслятор таңдаңыз</label>
+                <select id="relaySelect">
+                    <option value="">Ретрансляторды таңдаңыз...</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="status" class="status disconnected">
+            Байланыс жоқ
+        </div>
+
+        <div class="audio-container">
+            <div class="audio-visualizer">
+                <div id="audioBars" class="audio-bars">
+                    <div class="audio-bar" style="height: 15px;"></div>
+                    <div class="audio-bar" style="height: 25px;"></div>
+                    <div class="audio-bar" style="height: 35px;"></div>
+                    <div class="audio-bar" style="height: 20px;"></div>
+                    <div class="audio-bar" style="height: 30px;"></div>
+                    <div class="audio-bar" style="height: 40px;"></div>
+                    <div class="audio-bar" style="height: 25px;"></div>
+                    <div class="audio-bar" style="height: 35px;"></div>
+                    <div class="audio-bar" style="height: 15px;"></div>
+                    <div class="audio-bar" style="height: 30px;"></div>
+                </div>
+            </div>
+            <div id="audioPlayer" class="audio-player">
+                🔊 Аудио плеерді іске қосу үшін ретрансляторды таңдаңыз
+            </div>
+            <div id="audioInfo" class="audio-info">
+                Аудио ағынының белсенділігі көрсетіледі
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="relayStatus">-</div>
+                <div class="stat-label">Күйі</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="audioChunks">0</div>
+                <div class="stat-label">Аудио бөліктері</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastUpdate">-</div>
+                <div class="stat-label">Соңғы жаңарту</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AudioPreview {
+            constructor() {
+                this.relays = [];
+                this.currentRelayId = null;
+                this.ws = null;
+                this.audioContext = null;
+                this.processor = null;
+                this.audioBuffer = [];
+                this.isPlaying = false;
+                this.audioChunksReceived = 0;
+                this.audioActivityInterval = null;
+                this.audioBars = [];
+
+                this.init();
+            }
+
+            async init() {
+                await this.loadRelays();
+                this.setupEventListeners();
+                this.initAudioContext();
+                this.initAudioVisualizer();
+            }
+
+            async loadRelays() {
+                try {
+                    const response = await fetch('/api/rtmp-relay');
+                    this.relays = await response.json();
+
+                    const relaySelect = document.getElementById('relaySelect');
+                    relaySelect.innerHTML = '<option value="">Ретрансляторды таңдаңыз...</option>';
+
+                    this.relays.forEach(relay => {
+                        const option = document.createElement('option');
+                        option.value = relay.id;
+                        option.textContent = `${relay.id} (${relay.status}) - ${relay.rtmpUrl}`;
+                        relaySelect.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Ретрансляторларды жүктеу қатесі:', error);
+                }
+            }
+
+            setupEventListeners() {
+                document.getElementById('relaySelect').addEventListener('change', (e) => {
+                    this.currentRelayId = e.target.value;
+                    if (this.currentRelayId) {
+                        this.connectWebSocket();
+                        this.updateStatus('Байланыстыру...', 'connecting');
+                    } else {
+                        this.disconnectWebSocket();
+                        this.updateStatus('Байланыс жоқ', 'disconnected');
+                    }
+                });
+
+                // Аудио плеерді басу
+                document.getElementById('audioPlayer').addEventListener('click', () => {
+                    this.toggleAudio();
+                });
+            }
+
+            initAudioContext() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    console.log('AudioContext инициализацияланды');
+                } catch (error) {
+                    console.error('AudioContext инициализациялау мүмкін емес:', error);
+                }
+            }
+
+            initAudioVisualizer() {
+                const audioBarsContainer = document.getElementById('audioBars');
+                this.audioBars = audioBarsContainer.querySelectorAll('.audio-bar');
+            }
+
+            async connectWebSocket() {
+                this.disconnectWebSocket();
+
+                if (!this.currentRelayId) return;
+
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const wsUrl = `${protocol}//${window.location.host}/transcription?relay=${this.currentRelayId}`;
+
+                this.ws = new WebSocket(wsUrl);
+
+                this.ws.onopen = () => {
+                    console.log('WebSocket байланысы орнатылды');
+                    this.updateStatus('Байланысқан', 'connected');
+                    this.audioChunksReceived = 0;
+                    document.getElementById('audioChunks').textContent = '0';
+                };
+
+                this.ws.onmessage = (event) => {
+                    try {
+                        const message = JSON.parse(event.data);
+                        this.handleWebSocketMessage(message);
+                    } catch (error) {
+                        console.error('WebSocket хабарламасын талдау қатесі:', error);
+                    }
+                };
+
+                this.ws.onclose = () => {
+                    console.log('WebSocket байланысы үзілді');
+                    this.updateStatus('Байланыс үзілді', 'disconnected');
+                    // 3 секундтан кейін қайтадан байланысу
+                    setTimeout(() => {
+                        if (this.currentRelayId) {
+                            this.connectWebSocket();
+                        }
+                    }, 3000);
+                };
+
+                this.ws.onerror = (error) => {
+                    console.error('WebSocket қатесі:', error);
+                    this.updateStatus('Қате', 'error');
+                };
+            }
+
+            disconnectWebSocket() {
+                if (this.ws) {
+                    this.ws.close();
+                    this.ws = null;
+                }
+                if (this.audioContext && this.audioContext.state !== 'closed') {
+                    this.audioContext.close();
+                    this.audioContext = null;
+                }
+                this.stopAudioActivity();
+            }
+
+            handleWebSocketMessage(message) {
+                switch (message.type) {
+                    case 'initial_data':
+                        this.updateRelayStatus(message.data.status);
+                        this.startAudioActivity();
+                        break;
+                    case 'log':
+                        // Проверяем, есть ли аудио активность в логе
+                        if (message.data.type === 'audio' || message.data.message.includes('audio')) {
+                            this.triggerAudioActivity();
+                        }
+                        break;
+                    case 'transcription':
+                        // При получении транскрипции показываем активность аудио
+                        this.triggerAudioActivity();
+                        break;
+                }
+            }
+
+            updateStatus(message, className) {
+                const statusElement = document.getElementById('status');
+                statusElement.textContent = message;
+                statusElement.className = `status ${className}`;
+            }
+
+            updateRelayStatus(status) {
+                const statusElement = document.getElementById('relayStatus');
+                statusElement.textContent = status?.isStreaming ? 'Іске қосылған' : 'Тоқтатылған';
+
+                const lastUpdateElement = document.getElementById('lastUpdate');
+                lastUpdateElement.textContent = new Date().toLocaleTimeString('kk-KZ');
+            }
+
+            async toggleAudio() {
+                if (!this.audioContext) {
+                    this.initAudioContext();
+                }
+
+                if (this.audioContext.state === 'suspended') {
+                    await this.audioContext.resume();
+                }
+
+                const audioPlayer = document.getElementById('audioPlayer');
+
+                if (this.isPlaying) {
+                    this.isPlaying = false;
+                    audioPlayer.classList.remove('playing');
+                    audioPlayer.classList.add('paused');
+                    audioPlayer.textContent = '▶️ Аудио плеерді іске қосу үшін ретрансляторды таңдаңыз';
+                    this.stopAudioActivity();
+                } else {
+                    this.isPlaying = true;
+                    audioPlayer.classList.remove('paused');
+                    audioPlayer.classList.add('playing');
+                    audioPlayer.textContent = '⏸️ Аудио ойнап тұр...';
+                    this.startAudioActivity();
+                }
+            }
+
+            // Аудио буферді жаңарту (егер аудио деректері келсе)
+            updateAudioBuffer() {
+                this.audioChunksReceived++;
+                document.getElementById('audioChunks').textContent = this.audioChunksReceived.toString();
+            }
+
+            startAudioActivity() {
+                const audioBars = document.getElementById('audioBars');
+                if (audioBars) {
+                    audioBars.classList.add('active');
+                    this.triggerAudioActivity();
+                }
+
+                // Запускаем периодическую активность для визуализации
+                this.audioActivityInterval = setInterval(() => {
+                    if (this.isPlaying) {
+                        this.triggerAudioActivity();
+                    }
+                }, 2000);
+            }
+
+            stopAudioActivity() {
+                const audioBars = document.getElementById('audioBars');
+                if (audioBars) {
+                    audioBars.classList.remove('active');
+                }
+
+                if (this.audioActivityInterval) {
+                    clearInterval(this.audioActivityInterval);
+                    this.audioActivityInterval = null;
+                }
+            }
+
+            triggerAudioActivity() {
+                if (!this.audioBars.length) return;
+
+                // Создаем случайные высоты для баров для имитации аудио активности
+                this.audioBars.forEach((bar, index) => {
+                    const height = Math.random() * 30 + 10; // 10-40px
+                    bar.style.height = `${height}px`;
+
+                    // Сбрасываем высоту через короткое время
+                    setTimeout(() => {
+                        if (bar.style.height === `${height}px`) {
+                            bar.style.height = '15px';
+                        }
+                    }, 300 + (index * 50));
+                });
+
+                // Обновляем информацию
+                const audioInfo = document.getElementById('audioInfo');
+                if (audioInfo) {
+                    audioInfo.textContent = `Аудио белсенді: ${new Date().toLocaleTimeString('kk-KZ')}`;
+                }
+            }
+        }
+
+        // Аудио алдын ала көруді іске қосу
+        const audioPreview = new AudioPreview();
+    </script>
+</body>
+</html>
