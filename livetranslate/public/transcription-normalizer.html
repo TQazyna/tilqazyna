@@ -1,1 +1,735 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Transcription Normalizer</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f0f0;color:#000;line-height:1.4;font-size:12px}.container{max-width:1600px;margin:0 auto;background:#fff;border:1px solid #ccc}.header{background:#2E7D32;color:#fff;padding:15px;text-align:center;border-bottom:3px solid #000}.header h1{font-size:18px;margin-bottom:5px;font-weight:700}.header p{font-size:12px}.content{padding:20px}.controls{background:#fff;border:1px solid #ccc;padding:15px;margin-bottom:20px;display:flex;gap:15px;align-items:flex-start;flex-wrap:wrap}.control-group{display:flex;flex-direction:column;gap:5px}label{font-weight:700;color:#000;font-size:12px}select,input{padding:6px;border:1px solid #999;font-size:12px;min-width:200px;background:#fff}textarea{padding:6px;border:1px solid #999;font-size:11px;width:100%;background:#fff;font-family:monospace}.btn{background:#2E7D32;color:#fff;border:1px solid #000;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}.btn:hover{background:#1B5E20}.btn:disabled{background:#ccc;cursor:not-allowed}.btn-danger{background:#c62828}.btn-danger:hover{background:#b71c1c}.normalizer-list{background:#fff;border:1px solid #ccc;padding:15px;margin-bottom:20px}.normalizer-item{background:#f5f5f5;border:1px solid #ddd;padding:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}.normalizer-item.active{border-color:#2E7D32;background:#E8F5E9}.normalizer-info{flex:1}.normalizer-id{font-weight:700;margin-bottom:5px}.normalizer-stats{font-size:11px;color:#666}.normalizer-actions{display:flex;gap:5px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:20px}.stat-card{background:#2E7D32;color:#fff;padding:15px;border:1px solid #000;text-align:center}.stat-number{font-size:18px;font-weight:700;margin-bottom:5px}.stat-label{font-size:11px;font-weight:700}.sections{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}.section{border:1px solid #ccc;background:#fff}.section-header{background:#2E7D32;color:#fff;padding:10px;font-weight:700;text-align:center}.section-content{padding:15px;max-height:500px;overflow-y:auto}.transcription-item{background:#f5f5f5;border:1px solid #ddd;padding:10px;margin-bottom:8px;border-radius:3px}.transcription-item.latest{border-color:#2E7D32;background:#E8F5E9}.transcription-time{font-size:10px;color:#666;margin-bottom:5px;font-weight:700}.transcription-text{font-size:12px;color:#000}.normalized-item{background:#fff;border:1px solid #ccc;padding:12px;margin-bottom:10px;border-radius:3px}.normalized-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #ddd}.normalized-time{font-size:10px;color:#666;font-weight:700}.normalized-status{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:700;text-transform:uppercase}.normalized-status.success{background:#C8E6C9;color:#2E7D32}.normalized-status.error{background:#FFCDD2;color:#C62828}.normalized-text{font-size:12px;color:#000;padding:8px;background:#f9f9f9;border-radius:3px;white-space:pre-wrap;line-height:1.5}.normalized-meta{font-size:10px;color:#666;margin-top:5px}.normalized-error{font-size:11px;color:#C62828;font-style:italic}.log-item{background:#fff;border:1px solid #ccc;padding:8px;margin-bottom:6px;font-family:monospace;font-size:10px}.log-timestamp{color:#000;font-weight:700}.log-type{color:#2E7D32;font-weight:700;margin:0 8px}.log-message{color:#000}.empty-state{text-align:center;padding:40px;color:#666}.empty-state h3{margin-bottom:10px;color:#000;font-weight:700}@media (max-width:1024px){.sections{grid-template-columns:1fr}.controls{flex-direction:column}.control-group{width:100%}select,input{min-width:auto;width:100%}}</style></head><body><div class="container"><div class="header"><h1>🤖 Transcription Normalizer</h1><p>Серверная нормализация транскрипций казахского языка</p></div><div class="content"><div class="normalizer-list"><h3 style="margin-bottom:15px;font-size:14px">Активные нормализаторы</h3><div id="normalizersList"><div class="empty-state"><p>Нет активных нормализаторов</p></div></div></div><div class="controls"><div class="control-group"><label for="relaySelect">Ретранслятор</label><select id="relaySelect"><option value="">Выберите ретранслятор...</option></select></div><div class="control-group"><label for="batchSizeInput">Размер батча</label><input type="number" id="batchSizeInput" value="10" min="1" max="20"></div><div class="control-group"><label for="intervalInput">Интервал (сек)</label><input type="number" id="intervalInput" value="30" min="10" max="300"></div><div class="control-group"><label><input type="checkbox" id="autoNormalizeCheck" checked style="min-width:auto;width:auto"> Авто</label></div><div class="control-group"><button class="btn" id="createNormalizerBtn">+ Создать</button></div></div><div class="controls"><div class="control-group" style="flex:1"><label for="promptInput">Промпт для ChatGPT</label><textarea id="promptInput" rows="4">Ты эксперт по казахскому языку. Исправь ошибки транскрипции казахской речи. Верни только исправленный текст с знаками препинания.</textarea></div></div><div class="stats" id="stats" style="display:none"><div class="stat-card"><div class="stat-number" id="transcriptionCount">0</div><div class="stat-label">Транскрипций</div></div><div class="stat-card"><div class="stat-number" id="normalizedCount">0</div><div class="stat-label">Нормализовано</div></div><div class="stat-card"><div class="stat-number" id="errorCount">0</div><div class="stat-label">Ошибок</div></div><div class="stat-card"><div class="stat-number" id="tokensUsed">0</div><div class="stat-label">Токенов</div></div><div class="stat-card"><div class="stat-number" id="connectionStatus">-</div><div class="stat-label">Статус</div></div></div><div class="sections" id="sectionsContainer" style="display:none"><div class="section"><div class="section-header">📝 Исходные транскрипции</div><div class="section-content" id="transcriptionList"><div class="empty-state"><h3>Нет</h3></div></div></div><div class="section"><div class="section-header">✨ Нормализованные</div><div class="section-content" id="normalizedList"><div class="empty-state"><h3>Нет</h3></div></div></div></div><div class="section" id="logsSection" style="display:none"><div class="section-header">📋 Логи</div><div class="section-content" id="logsList"><div class="empty-state"><h3>Нет</h3></div></div></div></div></div><script>const app={normalizers:[],currentNormalizerId:null,ws:null,data:{transcriptions:[],results:[],logs:[],stats:null},async init(){await this.loadRelays(),await this.loadNormalizers(),this.setupEvents();const t=localStorage.getItem("normalizer_prompt");t&&(document.getElementById("promptInput").value=t),setInterval((()=>this.loadNormalizers()),5e3)},async loadRelays(){try{const t=await(await fetch("/api/rtmp-relay")).json(),e=document.getElementById("relaySelect");e.innerHTML='<option value="">Выберите...</option>',t.forEach((t=>{const n=document.createElement("option");n.value=t.id,n.textContent=`${t.id} (${t.status})`,e.appendChild(n)}))}catch(t){console.error("Load relays error:",t)}},async loadNormalizers(){try{const t=await fetch("/api/normalizer");this.normalizers=await t.json(),this.renderNormalizers()}catch(t){console.error("Load normalizers error:",t)}},renderNormalizers(){const t=document.getElementById("normalizersList");0===this.normalizers.length?t.innerHTML='<div class="empty-state"><p>Нет</p></div>':t.innerHTML=this.normalizers.map((t=>`<div class="normalizer-item ${t.id===this.currentNormalizerId?"active":""}"><div class="normalizer-info"><div class="normalizer-id">${t.id}</div><div class="normalizer-stats">Relay: ${t.relayId} | ${t.status} | Буфер: ${t.stats.transcriptionsInBuffer} | OK: ${t.stats.normalizationsCompleted} | Err: ${t.stats.normalizationsFailed}</div></div><div class="normalizer-actions"><button class="btn" onclick="app.select('${t.id}')">Открыть</button><button class="btn" onclick="app.normalize('${t.id}')">Запустить</button><button class="btn btn-danger" onclick="app.delete('${t.id}')">Удалить</button></div></div>`)).join("")},setupEvents(){document.getElementById("createNormalizerBtn").onclick=(()=>this.create()),document.getElementById("promptInput").onchange=(()=>{localStorage.setItem("normalizer_prompt",document.getElementById("promptInput").value)})},async create(){const t=document.getElementById("relaySelect").value;if(!t)return alert("Выберите ретранслятор");try{const e=await fetch("/api/normalizer",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({relayId:t,model:"gpt-4o",prompt:document.getElementById("promptInput").value,batchSize:parseInt(document.getElementById("batchSizeInput").value),autoNormalize:document.getElementById("autoNormalizeCheck").checked,normalizeInterval:1e3*parseInt(document.getElementById("intervalInput").value)})});if(!e.ok)throw new Error((await e.json()).error);const n=await e.json();await this.loadNormalizers(),this.select(n.id)}catch(t){alert("Ошибка: "+t.message)}},async delete(t){if(!confirm("Удалить?"))return;try{await fetch(`/api/normalizer/${t}`,{method:"DELETE"}),this.currentNormalizerId===t&&(this.disconnect(),this.currentNormalizerId=null,document.getElementById("stats").style.display="none",document.getElementById("sectionsContainer").style.display="none",document.getElementById("logsSection").style.display="none"),await this.loadNormalizers()}catch(t){alert("Ошибка удаления")}},async normalize(t){try{await fetch(`/api/normalizer/${t}/normalize`,{method:"POST"})}catch(t){alert("Ошибка нормализации")}},select(t){this.currentNormalizerId=t,this.renderNormalizers(),this.connect(),document.getElementById("stats").style.display="grid",document.getElementById("sectionsContainer").style.display="grid",document.getElementById("logsSection").style.display="block"},connect(){this.disconnect(),this.currentNormalizerId&&(this.ws=new WebSocket(`${"https:"===location.protocol?"wss:":"ws:"}//${location.host}/normalizer?id=${this.currentNormalizerId}`),this.ws.onopen=(()=>document.getElementById("connectionStatus").textContent="Подключено"),this.ws.onmessage=(t=>this.handleMsg(JSON.parse(t.data))),this.ws.onclose=(()=>document.getElementById("connectionStatus").textContent="Отключено"))},disconnect(){this.ws&&(this.ws.close(),this.ws=null)},handleMsg(t){switch(t.type){case"initial_data":this.data.transcriptions=t.data.transcriptions||[],this.data.results=t.data.results||[],this.data.logs=t.data.logs||[],this.data.stats=t.data.stats,this.renderAll();break;case"transcription_received":this.data.transcriptions.unshift(t.data),this.data.transcriptions.length>10&&(this.data.transcriptions=this.data.transcriptions.slice(0,10)),this.renderTranscriptions();break;case"normalization_completed":case"normalization_failed":this.data.results.unshift(t.data),this.data.results.length>20&&(this.data.results=this.data.results.slice(0,20)),this.renderResults(),this.loadNormalizers();break;case"log":this.data.logs.unshift(t.data),this.data.logs.length>50&&(this.data.logs=this.data.logs.slice(0,50)),this.renderLogs()}t.data&&t.data.stats&&(this.data.stats=t.data.stats,this.updateStats())},renderAll(){this.renderTranscriptions(),this.renderResults(),this.renderLogs(),this.updateStats()},renderTranscriptions(){const t=document.getElementById("transcriptionList");0===this.data.transcriptions.length?t.innerHTML='<div class="empty-state"><h3>Нет</h3></div>':t.innerHTML=this.data.transcriptions.map(((t,e)=>`<div class="transcription-item ${0===e?"latest":""}"><div class="transcription-time">${new Date(t.timestamp).toLocaleString("ru-RU")}</div><div class="transcription-text">${t.transcript}</div></div>`)).join("")},renderResults(){const t=document.getElementById("normalizedList");0===this.data.results.length?t.innerHTML='<div class="empty-state"><h3>Нет</h3></div>':t.innerHTML=this.data.results.map((t=>`<div class="normalized-item"><div class="normalized-header"><div class="normalized-time">${new Date(t.timestamp).toLocaleString("ru-RU")}</div><div class="normalized-status ${t.success?"success":"error"}">${t.success?"OK":"ERR"}</div></div>${t.success?`<div class="normalized-text">${t.normalizedText}</div><div class="normalized-meta">Токенов: ${t.tokensUsed||0} | ${t.duration||0}мс | Текстов: ${t.originalTexts.length}</div>`:`<div class="normalized-error">${t.error}</div>`}</div>`)).join("")},renderLogs(){const t=document.getElementById("logsList");0===this.data.logs.length?t.innerHTML='<div class="empty-state"><h3>Нет</h3></div>':t.innerHTML=this.data.logs.map((t=>`<div class="log-item"><span class="log-timestamp">${new Date(t.timestamp).toLocaleString("ru-RU")}</span><span class="log-type">[${t.type}]</span><span class="log-message">${t.message}</span></div>`)).join("")},updateStats(){if(!this.data.stats)return;const t=this.data.stats;document.getElementById("transcriptionCount").textContent=t.transcriptionsInBuffer||0,document.getElementById("normalizedCount").textContent=t.normalizationsCompleted||0,document.getElementById("errorCount").textContent=t.normalizationsFailed||0,document.getElementById("tokensUsed").textContent=t.totalTokensUsed||0}};app.init()</script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Transcription Normalizer</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+        color: #000;
+        line-height: 1.4;
+        font-size: 12px;
+      }
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+        background: #fff;
+        border: 1px solid #ccc;
+      }
+      .header {
+        background: #2e7d32;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+        border-bottom: 3px solid #000;
+      }
+      .header h1 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+      .header p {
+        font-size: 12px;
+      }
+      .content {
+        padding: 20px;
+      }
+      .controls {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      label {
+        font-weight: 700;
+        color: #000;
+        font-size: 12px;
+      }
+      select,
+      input {
+        padding: 6px;
+        border: 1px solid #999;
+        font-size: 12px;
+        min-width: 200px;
+        background: #fff;
+      }
+      textarea {
+        padding: 6px;
+        border: 1px solid #999;
+        font-size: 11px;
+        width: 100%;
+        background: #fff;
+        font-family: monospace;
+      }
+      .btn {
+        background: #2e7d32;
+        color: #fff;
+        border: 1px solid #000;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: #1b5e20;
+      }
+      .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .btn-danger {
+        background: #c62828;
+      }
+      .btn-danger:hover {
+        background: #b71c1c;
+      }
+      .normalizer-list {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .normalizer-item {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .normalizer-item.active {
+        border-color: #2e7d32;
+        background: #e8f5e9;
+      }
+      .normalizer-info {
+        flex: 1;
+      }
+      .normalizer-id {
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .normalizer-stats {
+        font-size: 11px;
+        color: #666;
+      }
+      .normalizer-actions {
+        display: flex;
+        gap: 5px;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .stat-card {
+        background: #2e7d32;
+        color: #fff;
+        padding: 15px;
+        border: 1px solid #000;
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .stat-label {
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .section {
+        border: 1px solid #ccc;
+        background: #fff;
+      }
+      .section-header {
+        background: #2e7d32;
+        color: #fff;
+        padding: 10px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .section-content {
+        padding: 15px;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .transcription-item {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 3px;
+      }
+      .transcription-item.latest {
+        border-color: #2e7d32;
+        background: #e8f5e9;
+      }
+      .transcription-time {
+        font-size: 10px;
+        color: #666;
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+      .transcription-text {
+        font-size: 12px;
+        color: #000;
+      }
+      .normalized-item {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+      }
+      .normalized-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ddd;
+      }
+      .normalized-time {
+        font-size: 10px;
+        color: #666;
+        font-weight: 700;
+      }
+      .normalized-status {
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .normalized-status.success {
+        background: #c8e6c9;
+        color: #2e7d32;
+      }
+      .normalized-status.error {
+        background: #ffcdd2;
+        color: #c62828;
+      }
+      .normalized-text {
+        font-size: 12px;
+        color: #000;
+        padding: 8px;
+        background: #f9f9f9;
+        border-radius: 3px;
+        white-space: pre-wrap;
+        line-height: 1.5;
+      }
+      .normalized-meta {
+        font-size: 10px;
+        color: #666;
+        margin-top: 5px;
+      }
+      .normalized-error {
+        font-size: 11px;
+        color: #c62828;
+        font-style: italic;
+      }
+      .log-item {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 8px;
+        margin-bottom: 6px;
+        font-family: monospace;
+        font-size: 10px;
+      }
+      .log-timestamp {
+        color: #000;
+        font-weight: 700;
+      }
+      .log-type {
+        color: #2e7d32;
+        font-weight: 700;
+        margin: 0 8px;
+      }
+      .log-message {
+        color: #000;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+      .empty-state h3 {
+        margin-bottom: 10px;
+        color: #000;
+        font-weight: 700;
+      }
+      @media (max-width: 1024px) {
+        .sections {
+          grid-template-columns: 1fr;
+        }
+        .controls {
+          flex-direction: column;
+        }
+        .control-group {
+          width: 100%;
+        }
+        select,
+        input {
+          min-width: auto;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🤖 Transcription Normalizer</h1>
+        <p>Серверная нормализация транскрипций казахского языка</p>
+      </div>
+      <div class="content">
+        <div class="normalizer-list">
+          <h3 style="margin-bottom:15px;font-size:14px">Активные нормализаторы</h3>
+          <div id="normalizersList">
+            <div class="empty-state">
+              <p>Нет активных нормализаторов</p>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label for="relaySelect">Ретранслятор</label>
+            <select id="relaySelect">
+              <option value="">Выберите ретранслятор...</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="batchSizeInput">Размер батча</label>
+            <input
+              type="number"
+              id="batchSizeInput"
+              value="10"
+              min="1"
+              max="20"
+            />
+          </div>
+          <div class="control-group">
+            <label for="intervalInput">Интервал (сек)</label>
+            <input
+              type="number"
+              id="intervalInput"
+              value="30"
+              min="10"
+              max="300"
+            />
+          </div>
+          <div class="control-group">
+            <label>
+              <input
+                type="checkbox"
+                id="autoNormalizeCheck"
+                checked
+                style="min-width:auto;width:auto"
+              />
+              Авто
+            </label>
+          </div>
+          <div class="control-group">
+            <button class="btn" id="createNormalizerBtn">+ Создать</button>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="control-group" style="flex:1">
+            <label for="promptInput">Промпт для ChatGPT</label>
+            <textarea id="promptInput" rows="4">
+Ты эксперт по казахскому языку. Исправь ошибки транскрипции казахской речи. Верни только исправленный текст с знаками препинания.
+            </textarea>
+          </div>
+        </div>
+        <div class="stats" id="stats" style="display:none">
+          <div class="stat-card">
+            <div class="stat-number" id="transcriptionCount">0</div>
+            <div class="stat-label">Транскрипций</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="normalizedCount">0</div>
+            <div class="stat-label">Нормализовано</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="errorCount">0</div>
+            <div class="stat-label">Ошибок</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="tokensUsed">0</div>
+            <div class="stat-label">Токенов</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="connectionStatus">-</div>
+            <div class="stat-label">Статус</div>
+          </div>
+        </div>
+        <div class="sections" id="sectionsContainer" style="display:none">
+          <div class="section">
+            <div class="section-header">📝 Исходные транскрипции</div>
+            <div class="section-content" id="transcriptionList">
+              <div class="empty-state">
+                <h3>Нет</h3>
+              </div>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-header">✨ Нормализованные</div>
+            <div class="section-content" id="normalizedList">
+              <div class="empty-state">
+                <h3>Нет</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section" id="logsSection" style="display:none">
+          <div class="section-header">📋 Логи</div>
+          <div class="section-content" id="logsList">
+            <div class="empty-state">
+              <h3>Нет</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const app = {
+        normalizers: [],
+        currentNormalizerId: null,
+        ws: null,
+        data: {
+          transcriptions: [],
+          results: [],
+          logs: [],
+          stats: null,
+        },
+        async init() {
+          await this.loadRelays();
+          await this.loadNormalizers();
+          this.setupEvents();
+          const t = localStorage.getItem('normalizer_prompt');
+          if (t) {
+            document.getElementById('promptInput').value = t;
+          }
+          setInterval(() => this.loadNormalizers(), 5000);
+        },
+        async loadRelays() {
+          try {
+            const relays = await (await fetch('/api/rtmp-relay')).json();
+            const relaySelect = document.getElementById('relaySelect');
+            relaySelect.innerHTML =
+              '<option value="">Выберите...</option>';
+            relays.forEach((relay) => {
+              const option = document.createElement('option');
+              option.value = relay.id;
+              option.textContent = `${relay.id} (${relay.status})`;
+              relaySelect.appendChild(option);
+            });
+          } catch (err) {
+            console.error('Load relays error:', err);
+          }
+        },
+        async loadNormalizers() {
+          try {
+            const resp = await fetch('/api/normalizer');
+            this.normalizers = await resp.json();
+            this.renderNormalizers();
+          } catch (err) {
+            console.error('Load normalizers error:', err);
+          }
+        },
+        renderNormalizers() {
+          const list = document.getElementById('normalizersList');
+          if (this.normalizers.length === 0) {
+            list.innerHTML =
+              '<div class="empty-state"><p>Нет</p></div>';
+            return;
+          }
+          list.innerHTML = this.normalizers
+            .map(
+              (norm) => `
+                  <div class="normalizer-item ${
+                    norm.id === this.currentNormalizerId ? 'active' : ''
+                  }">
+                    <div class="normalizer-info">
+                      <div class="normalizer-id">${norm.id}</div>
+                      <div class="normalizer-stats">
+                        Relay: ${norm.relayId} | ${norm.status} | Буфер: ${
+                  norm.stats.transcriptionsInBuffer
+                } | OK: ${norm.stats.normalizationsCompleted} | Err: ${
+                  norm.stats.normalizationsFailed
+                }
+                      </div>
+                    </div>
+                    <div class="normalizer-actions">
+                      <button class="btn" onclick="app.select('${
+                        norm.id
+                      }')">Открыть</button>
+                      <button class="btn" onclick="app.normalize('${
+                        norm.id
+                      }')">Запустить</button>
+                      <button class="btn btn-danger" onclick="app.delete('${
+                        norm.id
+                      }')">Удалить</button>
+                    </div>
+                  </div>
+                `
+            )
+            .join('');
+        },
+        setupEvents() {
+          document.getElementById('createNormalizerBtn').onclick = () =>
+            this.create();
+          document.getElementById('promptInput').onchange = () => {
+            localStorage.setItem(
+              'normalizer_prompt',
+              document.getElementById('promptInput').value
+            );
+          };
+        },
+        async create() {
+          const relayId = document.getElementById('relaySelect').value;
+          if (!relayId) {
+            alert('Выберите ретранслятор');
+            return;
+          }
+          try {
+            const resp = await fetch('/api/normalizer', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                relayId: relayId,
+                model: 'gpt-4o',
+                prompt: document.getElementById('promptInput').value,
+                batchSize: parseInt(
+                  document.getElementById('batchSizeInput').value,
+                  10
+                ),
+                autoNormalize: document.getElementById('autoNormalizeCheck')
+                  .checked,
+                normalizeInterval:
+                  1000 *
+                  parseInt(
+                    document.getElementById('intervalInput').value,
+                    10
+                  ),
+              }),
+            });
+            if (!resp.ok) {
+              throw new Error((await resp.json()).error);
+            }
+            const newNorm = await resp.json();
+            await this.loadNormalizers();
+            this.select(newNorm.id);
+          } catch (err) {
+            alert('Ошибка: ' + err.message);
+          }
+        },
+        async delete(id) {
+          if (!confirm('Удалить?')) return;
+          try {
+            await fetch(`/api/normalizer/${id}`, { method: 'DELETE' });
+            if (this.currentNormalizerId === id) {
+              this.disconnect();
+              this.currentNormalizerId = null;
+              document.getElementById('stats').style.display = 'none';
+              document.getElementById('sectionsContainer').style.display =
+                'none';
+              document.getElementById('logsSection').style.display = 'none';
+            }
+            await this.loadNormalizers();
+          } catch (err) {
+            alert('Ошибка удаления');
+          }
+        },
+        async normalize(id) {
+          try {
+            await fetch(`/api/normalizer/${id}/normalize`, {
+              method: 'POST',
+            });
+          } catch (err) {
+            alert('Ошибка нормализации');
+          }
+        },
+        select(id) {
+          this.currentNormalizerId = id;
+          this.renderNormalizers();
+          this.connect();
+          document.getElementById('stats').style.display = 'grid';
+          document.getElementById('sectionsContainer').style.display = 'grid';
+          document.getElementById('logsSection').style.display = 'block';
+        },
+        connect() {
+          this.disconnect();
+          if (!this.currentNormalizerId) return;
+          this.ws = new WebSocket(
+            `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${
+              location.host
+            }/normalizer?id=${this.currentNormalizerId}`
+          );
+          this.ws.onopen = () =>
+            (document.getElementById('connectionStatus').textContent =
+              'Подключено');
+          this.ws.onmessage = (evt) =>
+            this.handleMsg(JSON.parse(evt.data));
+          this.ws.onclose = () =>
+            (document.getElementById('connectionStatus').textContent =
+              'Отключено');
+        },
+        disconnect() {
+          if (this.ws) {
+            this.ws.close();
+            this.ws = null;
+          }
+        },
+        handleMsg(msg) {
+          switch (msg.type) {
+            case 'initial_data':
+              this.data.transcriptions = msg.data.transcriptions || [];
+              this.data.results = msg.data.results || [];
+              this.data.logs = msg.data.logs || [];
+              this.data.stats = msg.data.stats;
+              this.renderAll();
+              break;
+            case 'transcription_received':
+              this.data.transcriptions.unshift(msg.data);
+              if (this.data.transcriptions.length > 10) {
+                this.data.transcriptions = this.data.transcriptions.slice(0, 10);
+              }
+              this.renderTranscriptions();
+              break;
+            case 'normalization_completed':
+            case 'normalization_failed':
+              this.data.results.unshift(msg.data);
+              if (this.data.results.length > 20) {
+                this.data.results = this.data.results.slice(0, 20);
+              }
+              this.renderResults();
+              this.loadNormalizers();
+              break;
+            case 'log':
+              this.data.logs.unshift(msg.data);
+              if (this.data.logs.length > 50) {
+                this.data.logs = this.data.logs.slice(0, 50);
+              }
+              this.renderLogs();
+              break;
+          }
+          if (msg.data && msg.data.stats) {
+            this.data.stats = msg.data.stats;
+            this.updateStats();
+          }
+        },
+        renderAll() {
+          this.renderTranscriptions();
+          this.renderResults();
+          this.renderLogs();
+          this.updateStats();
+        },
+        renderTranscriptions() {
+          const list = document.getElementById('transcriptionList');
+          if (this.data.transcriptions.length === 0) {
+            list.innerHTML =
+              '<div class="empty-state"><h3>Нет</h3></div>';
+            return;
+          }
+          list.innerHTML = this.data.transcriptions
+            .map(
+              (tr, idx) =>
+                `<div class="transcription-item ${
+                  idx === 0 ? 'latest' : ''
+                }"><div class="transcription-time">${new Date(
+                  tr.timestamp
+                ).toLocaleString('ru-RU')}</div><div class="transcription-text">${
+                  tr.transcript
+                }</div></div>`
+            )
+            .join('');
+        },
+        renderResults() {
+          const list = document.getElementById('normalizedList');
+          if (this.data.results.length === 0) {
+            list.innerHTML =
+              '<div class="empty-state"><h3>Нет</h3></div>';
+            return;
+          }
+          list.innerHTML = this.data.results
+            .map(
+              (res) => `
+                <div class="normalized-item">
+                  <div class="normalized-header">
+                    <div class="normalized-time">${new Date(
+                      res.timestamp
+                    ).toLocaleString('ru-RU')}</div>
+                    <div class="normalized-status ${
+                      res.success ? 'success' : 'error'
+                    }">${res.success ? 'OK' : 'ERR'}</div>
+                  </div>
+                  ${
+                    res.success
+                      ? `<div class="normalized-text">${res.normalizedText}</div>
+                        <div class="normalized-meta">Токенов: ${res.tokensUsed || 0} | ${res.duration || 0}мс | Текстов: ${
+                          res.originalTexts.length
+                        }</div>`
+                      : `<div class="normalized-error">${res.error}</div>`
+                  }
+                </div>
+              `
+            )
+            .join('');
+        },
+        renderLogs() {
+          const list = document.getElementById('logsList');
+          if (this.data.logs.length === 0) {
+            list.innerHTML = '<div class="empty-state"><h3>Нет</h3></div>';
+            return;
+          }
+          list.innerHTML = this.data.logs
+            .map(
+              (log) =>
+                `<div class="log-item"><span class="log-timestamp">${new Date(
+                  log.timestamp
+                ).toLocaleString('ru-RU')}</span><span class="log-type">[${log.type}]</span><span class="log-message">${log.message}</span></div>`
+            )
+            .join('');
+        },
+        updateStats() {
+          if (!this.data.stats) return;
+          const stats = this.data.stats;
+          document.getElementById('transcriptionCount').textContent =
+            stats.transcriptionsInBuffer || 0;
+          document.getElementById('normalizedCount').textContent =
+            stats.normalizationsCompleted || 0;
+          document.getElementById('errorCount').textContent =
+            stats.normalizationsFailed || 0;
+          document.getElementById('tokensUsed').textContent =
+            stats.totalTokensUsed || 0;
+        },
+      };
+      app.init();
+    </script>
+  </body>
+</html>
