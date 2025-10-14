@@ -26,9 +26,10 @@ export class TranslationSpeaker extends EventEmitter {
     this.speed = options.speed || 2.0; // 0.25 - 4.0
 
     this.isRunning = false;
-    this.speechResults = []; // Результаты озвучивания
+    this.speechResults = []; // Результаты озвучивания (только последний)
     this.logs = [];
     this.maxLogs = 1000;
+    this.maxResults = 1; // ВАЖНО: храним только один последний результат
 
     this.stats = {
       speechCompleted: 0,
@@ -46,6 +47,9 @@ export class TranslationSpeaker extends EventEmitter {
     // Очередь переводов для озвучивания
     this.translationQueue = [];
     this.isProcessingQueue = false;
+
+    // Последний обработанный текст (для избежания дублирования)
+    this.lastProcessedText = null;
   }
 
   /**
@@ -114,16 +118,17 @@ export class TranslationSpeaker extends EventEmitter {
    * Обработать новый перевод
    */
   async handleNewTranslation(translation) {
-    // Проверяем, не обрабатывали ли мы уже этот перевод
-    if (this.processedTranslations.has(translation.id)) {
-      return;
-    }
+    const text = translation.translatedText;
 
-    this.processedTranslations.add(translation.id);
+    // ВАЖНО: Проверяем, не озвучивали ли мы уже этот ТЕКСТ
+    // (не ID, так как ID меняется при каждом обновлении)
+    if (this.lastProcessedText === text) {
+      return; // Это тот же текст, пропускаем
+    }
 
     this.addLog("translation_received", "New translation received", {
       id: translation.id,
-      text: translation.translatedText
+      text: text
     });
 
     this.emit("translation_received", translation);
@@ -228,13 +233,14 @@ export class TranslationSpeaker extends EventEmitter {
         success: true
       };
 
-      // Сохраняем результат
-      this.speechResults.unshift(result);
+      // ВАЖНО: Удаляем старые файлы перед сохранением нового
+      await this.deleteOldResults();
 
-      // Ограничиваем количество результатов в памяти
-      if (this.speechResults.length > 100) {
-        this.speechResults = this.speechResults.slice(0, 100);
-      }
+      // Сохраняем результат (только последний)
+      this.speechResults = [result]; // Заменяем весь массив
+
+      // Обновляем последний обработанный текст
+      this.lastProcessedText = text;
 
       // Обновляем статистику
       this.stats.speechCompleted++;
@@ -266,7 +272,10 @@ export class TranslationSpeaker extends EventEmitter {
         success: false
       };
 
-      this.speechResults.unshift(errorResult);
+      // Удаляем старые и сохраняем только ошибку
+      await this.deleteOldResults();
+      this.speechResults = [errorResult];
+
       this.stats.speechFailed++;
 
       await this.saveResult(errorResult);
@@ -297,6 +306,30 @@ export class TranslationSpeaker extends EventEmitter {
   }
 
   /**
+   * Удалить все старые результаты (файлы)
+   */
+  async deleteOldResults() {
+    try {
+      const files = await fs.readdir(this.dataDir);
+
+      // Удаляем все файлы (и JSON и MP3)
+      for (const file of files) {
+        try {
+          await fs.unlink(path.join(this.dataDir, file));
+        } catch (error) {
+          console.error(`Failed to delete file ${file}:`, error);
+        }
+      }
+
+      this.addLog("file", "Old results deleted");
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        console.error("Failed to delete old results:", error);
+      }
+    }
+  }
+
+  /**
    * Сохранить результат в файл (только метаданные)
    */
   async saveResult(result) {
@@ -320,26 +353,26 @@ export class TranslationSpeaker extends EventEmitter {
       const files = await fs.readdir(this.dataDir);
       const jsonFiles = files.filter(f => f.endsWith('.json'));
 
-      for (const file of jsonFiles.slice(-100)) { // Загружаем последние 100
+      // ВАЖНО: Загружаем только последний файл (должен быть только один)
+      if (jsonFiles.length > 0) {
+        // Сортируем по времени создания и берем последний
+        jsonFiles.sort();
+        const lastFile = jsonFiles[jsonFiles.length - 1];
+
         try {
-          const filepath = path.join(this.dataDir, file);
+          const filepath = path.join(this.dataDir, lastFile);
           const content = await fs.readFile(filepath, 'utf-8');
           const result = JSON.parse(content);
-          this.speechResults.push(result);
+          this.speechResults = [result]; // Только последний
 
-          // Добавляем в кэш обработанных
-          if (result.translationId) {
-            this.processedTranslations.add(result.translationId);
+          // Обновляем последний обработанный текст
+          if (result.text) {
+            this.lastProcessedText = result.text;
           }
         } catch (error) {
-          console.error(`Failed to load file ${file}:`, error);
+          console.error(`Failed to load file ${lastFile}:`, error);
         }
       }
-
-      // Сортируем по timestamp
-      this.speechResults.sort((a, b) =>
-        new Date(b.timestamp) - new Date(a.timestamp)
-      );
 
       this.addLog("info", "Data loaded", {
         resultsCount: this.speechResults.length
