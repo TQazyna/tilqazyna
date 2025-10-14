@@ -303,10 +303,21 @@ export class RTMPRealtimeRelay extends EventEmitter {
         break;
 
       case "response.output_audio.delta":
-        // Получаем аудио ответ от Realtime API (не используется для только транскрипции)
+        // Получаем аудио ответ от Realtime API
         if (event.delta) {
-          this.addLog("audio", "Audio output delta received (ignored for transcription-only mode)");
-          // Не эмитим audio_output для режима только транскрипции
+          this.addLog("audio_output", "Audio output delta received from GPT");
+
+          // Эмитим событие для GPT audio preview клиентов
+          this.emit("audio_output", {
+            audio: event.delta, // base64 PCM16 данные от GPT
+            sampleRate: 24000, // GPT Realtime API всегда возвращает 24kHz
+            channels: 1,
+            bitDepth: 16,
+            responseId: event.response_id,
+            itemId: event.item_id,
+            outputIndex: event.output_index,
+            contentIndex: event.content_index
+          });
         }
         break;
 
