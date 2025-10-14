@@ -120,7 +120,7 @@ export class RTMPRealtimeRelay extends EventEmitter {
             // Входящее аудио
             input_audio_format: "pcm16",              // 16-bit PCM
             input_audio_transcription: {
-              model: "whisper-1",
+              model: "gpt-4o-transcribe",
               language: "kk"  // Казахский язык (ISO 639-1 код)
             },
 
@@ -136,8 +136,9 @@ export class RTMPRealtimeRelay extends EventEmitter {
             // Определение конца речи
             turn_detection: {
               type: "server_vad",
-              threshold: 0.2,
-              silence_duration_ms: 100                // Пауза 500мс для определения конца речи
+              threshold: 0.5,
+              silence_duration_ms: 500                // Пауза 500мс для определения конца речи
+              
             }
           }
         };
