@@ -474,18 +474,23 @@
             };
         }
 
-        function handleWebSocketMessage(data) {
-            if (data.type === 'initial_data') {
-                updateStats(data.stats);
-                updateResults(data.results);
-                updateLogs(data.logs);
-            } else if (data.type === 'speech_completed') {
-                addResult(data.result);
-                updateStats(data.stats);
-            } else if (data.type === 'log') {
-                addLog(data.log);
-            } else if (data.type === 'stats_update') {
-                updateStats(data.stats);
+        function handleWebSocketMessage(msg) {
+            console.log('WebSocket message:', msg);
+
+            if (msg.type === 'initial_data') {
+                // Server sends data wrapped in data.data
+                updateStats(msg.data.stats);
+                updateResults(msg.data.results);
+                updateLogs(msg.data.logs);
+            } else if (msg.type === 'speech_completed') {
+                addResult(msg.data);
+                if (msg.data.stats) {
+                    updateStats(msg.data.stats);
+                }
+            } else if (msg.type === 'log') {
+                addLog(msg.data);
+            } else if (msg.type === 'stats_update') {
+                updateStats(msg.data);
             }
         }
 
@@ -721,6 +726,10 @@
 
         // Update stats
         function updateStats(stats) {
+            if (!stats) {
+                console.warn('Stats is undefined');
+                return;
+            }
             document.getElementById('statSpeechCompleted').textContent = stats.speechCompleted || 0;
             document.getElementById('statSpeechFailed').textContent = stats.speechFailed || 0;
             document.getElementById('statTotalCharacters').textContent = stats.totalCharacters || 0;
@@ -729,6 +738,10 @@
 
         // Update results
         function updateResults(results) {
+            if (!results) {
+                console.warn('Results is undefined');
+                return;
+            }
             const container = document.getElementById('resultsList');
             container.innerHTML = '';
 
@@ -743,6 +756,10 @@
         }
 
         function addResult(result) {
+            if (!result) {
+                console.warn('Result is undefined');
+                return;
+            }
             const container = document.getElementById('resultsList');
 
             // Remove empty state if exists
@@ -755,6 +772,10 @@
         }
 
         function addResultElement(container, result, prepend = false) {
+            if (!result) {
+                console.warn('Result is undefined in addResultElement');
+                return;
+            }
             const resultEl = document.createElement('div');
             resultEl.className = `result-item ${result.success ? '' : 'error'}`;
 
@@ -803,6 +824,10 @@
 
         // Update logs
         function updateLogs(logs) {
+            if (!logs) {
+                console.warn('Logs is undefined');
+                return;
+            }
             const container = document.getElementById('logsList');
             container.innerHTML = '';
 
@@ -812,6 +837,10 @@
         }
 
         function addLog(log) {
+            if (!log) {
+                console.warn('Log is undefined');
+                return;
+            }
             const container = document.getElementById('logsList');
             addLogElement(container, log, true);
 
@@ -822,6 +851,10 @@
         }
 
         function addLogElement(container, log, prepend = false) {
+            if (!log) {
+                console.warn('Log is undefined in addLogElement');
+                return;
+            }
             const logEl = document.createElement('div');
             const logType = getLogType(log.type);
             logEl.className = `log-item log-${logType}`;
