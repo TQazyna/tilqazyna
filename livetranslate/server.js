@@ -7,6 +7,7 @@ import { promises as fs } from "fs";
 import { WebSocketServer } from "ws";
 import { createServer } from "http";
 import RTMPRealtimeRelay from "./rtmp-realtime-relay.js";
+import TranscriptionNormalizer from "./transcription-normalizer.js";
 
 dotenv.config();
 
@@ -111,8 +112,14 @@ const projectsFile = path.join(__dirname, "projects.json");
 // Хранилище RTMP→Realtime ретрансляторов
 const rtmpRelays = new Map(); // relayId -> { relay, projectId, createdAt, status }
 
+// Хранилище нормализаторов транскрипций
+const normalizers = new Map(); // normalizerId -> { normalizer, relayId, createdAt, status }
+
 // Хранилище WebSocket клиентов для просмотра транскрипции
 const transcriptionClients = new Map(); // relayId -> Set of WebSocket clients
+
+// Хранилище WebSocket клиентов для просмотра нормализации
+const normalizerClients = new Map(); // normalizerId -> Set of WebSocket clients
 
 // Функция для трансляции сообщений клиентам транскрипции
 function broadcastToTranscriptionClients(relayId, message) {
@@ -716,6 +723,379 @@ app.delete("/api/rtmp-relay/:id/logs", (req, res) => {
   }
 });
 
+// ============================================
+// Transcription Normalizer API endpoints
+// ============================================
+
+// Функция для трансляции сообщений клиентам нормализатора
+function broadcastToNormalizerClients(normalizerId, message) {
+  const clients = normalizerClients.get(normalizerId);
+  if (clients) {
+    clients.forEach(client => {
+      if (client.readyState === 1) { // WebSocket.OPEN
+        try {
+          client.send(JSON.stringify(message));
+        } catch (error) {
+          console.error(`Error sending to normalizer client:`, error);
+        }
+      }
+    });
+  }
+}
+
+// Создать новый нормализатор
+app.post("/api/normalizer", express.json(), async (req, res) => {
+  try {
+    const {
+      relayId,
+      model,
+      prompt,
+      batchSize,
+      autoNormalize,
+      normalizeInterval
+    } = req.body;
+
+    if (!relayId || !rtmpRelays.has(relayId)) {
+      res.status(400).json({ error: "Valid relay ID is required" });
+      return;
+    }
+
+    if (!OPENAI_API_KEY) {
+      res.status(500).json({ error: "OpenAI API key is not configured" });
+      return;
+    }
+
+    const relayData = rtmpRelays.get(relayId);
+    const normalizerId = "normalizer-" + Date.now();
+
+    const normalizer = new TranscriptionNormalizer({
+      apiKey: OPENAI_API_KEY,
+      relayId: relayId,
+      relay: relayData.relay,
+      model: model || "gpt-4",
+      prompt: prompt,
+      batchSize: batchSize || 10,
+      autoNormalize: autoNormalize !== false,
+      normalizeInterval: normalizeInterval || 30000
+    });
+
+    // Настройка обработчиков событий
+    normalizer.on("started", () => {
+      console.log(`Normalizer ${normalizerId} started`);
+      normalizers.get(normalizerId).status = "running";
+    });
+
+    normalizer.on("stopped", () => {
+      console.log(`Normalizer ${normalizerId} stopped`);
+      normalizers.get(normalizerId).status = "stopped";
+    });
+
+    normalizer.on("error", (error) => {
+      console.error(`Normalizer ${normalizerId} error:`, error);
+      normalizers.get(normalizerId).status = "error";
+      normalizers.get(normalizerId).lastError = error.message;
+    });
+
+    normalizer.on("transcription_received", (transcription) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "transcription_received",
+        data: transcription
+      });
+    });
+
+    normalizer.on("normalization_completed", (result) => {
+      console.log(`Normalization completed for ${normalizerId}`);
+      broadcastToNormalizerClients(normalizerId, {
+        type: "normalization_completed",
+        data: result
+      });
+    });
+
+    normalizer.on("normalization_failed", (result) => {
+      console.error(`Normalization failed for ${normalizerId}`);
+      broadcastToNormalizerClients(normalizerId, {
+        type: "normalization_failed",
+        data: result
+      });
+    });
+
+    normalizer.on("log", (logEntry) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    // Сохраняем нормализатор
+    normalizers.set(normalizerId, {
+      normalizer,
+      relayId,
+      createdAt: new Date().toISOString(),
+      status: "created"
+    });
+
+    // Запускаем нормализатор
+    await normalizer.start();
+
+    res.json({
+      id: normalizerId,
+      relayId,
+      status: "running",
+      createdAt: normalizers.get(normalizerId).createdAt,
+      settings: {
+        model: normalizer.model,
+        batchSize: normalizer.batchSize,
+        autoNormalize: normalizer.autoNormalize,
+        normalizeInterval: normalizer.normalizeInterval
+      }
+    });
+
+  } catch (error) {
+    console.error("Error creating normalizer:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить список всех нормализаторов
+app.get("/api/normalizer", (_req, res) => {
+  const normalizersList = Array.from(normalizers.entries()).map(([id, data]) => ({
+    id,
+    relayId: data.relayId,
+    status: data.status,
+    createdAt: data.createdAt,
+    lastError: data.lastError || null,
+    stats: data.normalizer.getStats()
+  }));
+
+  res.json(normalizersList);
+});
+
+// Получить конкретный нормализатор
+app.get("/api/normalizer/:id", (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  res.json({
+    id,
+    relayId: normalizerData.relayId,
+    status: normalizerData.status,
+    createdAt: normalizerData.createdAt,
+    lastError: normalizerData.lastError || null,
+    stats: normalizerData.normalizer.getStats()
+  });
+});
+
+// Остановить нормализатор
+app.delete("/api/normalizer/:id", (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    normalizerData.normalizer.stop();
+    normalizers.delete(id);
+
+    res.json({ success: true, message: "Normalizer stopped and removed" });
+  } catch (error) {
+    console.error("Error stopping normalizer:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Запустить нормализацию вручную
+app.post("/api/normalizer/:id/normalize", async (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    const result = await normalizerData.normalizer.normalize();
+    res.json({ success: true, result });
+  } catch (error) {
+    console.error("Error normalizing:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить результаты нормализации
+app.get("/api/normalizer/:id/results", (req, res) => {
+  const { id } = req.params;
+  const { limit = 50 } = req.query;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    const results = normalizerData.normalizer.getResults(parseInt(limit));
+    res.json({
+      normalizerId: id,
+      count: results.length,
+      results: results
+    });
+  } catch (error) {
+    console.error("Error getting results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить конкретный результат нормализации
+app.get("/api/normalizer/:id/results/:resultId", (req, res) => {
+  const { id, resultId } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    const result = normalizerData.normalizer.getResult(resultId);
+    if (!result) {
+      res.status(404).json({ error: "Result not found" });
+      return;
+    }
+    res.json(result);
+  } catch (error) {
+    console.error("Error getting result:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить текущие транскрипции в буфере
+app.get("/api/normalizer/:id/transcriptions", (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    const transcriptions = normalizerData.normalizer.getTranscriptions();
+    res.json({
+      normalizerId: id,
+      count: transcriptions.length,
+      transcriptions: transcriptions
+    });
+  } catch (error) {
+    console.error("Error getting transcriptions:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить логи нормализатора
+app.get("/api/normalizer/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const { limit = 100, type } = req.query;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    let logs;
+    if (type) {
+      logs = normalizerData.normalizer.getLogsByType(type, parseInt(limit));
+    } else {
+      logs = normalizerData.normalizer.getLogs(parseInt(limit));
+    }
+
+    res.json({
+      normalizerId: id,
+      count: logs.length,
+      type: type || "all",
+      logs: logs
+    });
+  } catch (error) {
+    console.error("Error getting logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить результаты нормализации
+app.delete("/api/normalizer/:id/results", async (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    await normalizerData.normalizer.clearResults();
+    res.json({ success: true, message: "Results cleared" });
+  } catch (error) {
+    console.error("Error clearing results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить логи нормализатора
+app.delete("/api/normalizer/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    normalizerData.normalizer.clearLogs();
+    res.json({ success: true, message: "Logs cleared" });
+  } catch (error) {
+    console.error("Error clearing logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Обновить настройки нормализатора
+app.patch("/api/normalizer/:id/settings", express.json(), (req, res) => {
+  const { id } = req.params;
+  const normalizerData = normalizers.get(id);
+
+  if (!normalizerData) {
+    res.status(404).json({ error: "Normalizer not found" });
+    return;
+  }
+
+  try {
+    normalizerData.normalizer.updateSettings(req.body);
+    res.json({
+      success: true,
+      message: "Settings updated",
+      settings: {
+        autoNormalize: normalizerData.normalizer.autoNormalize,
+        normalizeInterval: normalizerData.normalizer.normalizeInterval,
+        batchSize: normalizerData.normalizer.batchSize
+      }
+    });
+  } catch (error) {
+    console.error("Error updating settings:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // WebSocket обработчик
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -838,6 +1218,73 @@ wss.on("connection", (ws, req) => {
         clients.delete(ws);
         if (clients.size === 0) {
           transcriptionClients.delete(relayId);
+        }
+      }
+    });
+
+  } else if (pathname === "/normalizer") {
+    // Это клиент для просмотра нормализатора
+    const normalizerId = url.searchParams.get("id");
+
+    if (!normalizerId || !normalizers.has(normalizerId)) {
+      ws.close(1008, "Invalid normalizer ID");
+      return;
+    }
+
+    console.log(`Normalizer client connected to: ${normalizerId}`);
+
+    // Добавляем клиента в список
+    if (!normalizerClients.has(normalizerId)) {
+      normalizerClients.set(normalizerId, new Set());
+    }
+    normalizerClients.get(normalizerId).add(ws);
+
+    // Отправляем текущие данные
+    const normalizerData = normalizers.get(normalizerId);
+    if (normalizerData) {
+      try {
+        const transcriptions = normalizerData.normalizer.getTranscriptions();
+        const results = normalizerData.normalizer.getResults(20);
+        const logs = normalizerData.normalizer.getLogs(50);
+        const stats = normalizerData.normalizer.getStats();
+
+        ws.send(JSON.stringify({
+          type: "initial_data",
+          data: {
+            transcriptions: transcriptions,
+            results: results,
+            logs: logs,
+            stats: stats,
+            settings: {
+              autoNormalize: normalizerData.normalizer.autoNormalize,
+              normalizeInterval: normalizerData.normalizer.normalizeInterval,
+              batchSize: normalizerData.normalizer.batchSize
+            }
+          }
+        }));
+      } catch (error) {
+        console.error("Error sending initial data:", error);
+      }
+    }
+
+    ws.on("close", () => {
+      console.log(`Normalizer client disconnected from: ${normalizerId}`);
+      const clients = normalizerClients.get(normalizerId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          normalizerClients.delete(normalizerId);
+        }
+      }
+    });
+
+    ws.on("error", (error) => {
+      console.error(`Normalizer client error:`, error);
+      const clients = normalizerClients.get(normalizerId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          normalizerClients.delete(normalizerId);
         }
       }
     });
