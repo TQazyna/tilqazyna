@@ -9,6 +9,7 @@ import { createServer } from "http";
 import RTMPRealtimeRelay from "./rtmp-realtime-relay.js";
 import TranscriptionNormalizer from "./transcription-normalizer.js";
 import TranscriptionTranslator from "./transcription-translator.js";
+import TranslationSpeaker from "./translation-speaker.js";
 
 dotenv.config();
 
@@ -119,6 +120,9 @@ const normalizers = new Map(); // normalizerId -> { normalizer, relayId, created
 // Хранилище переводчиков транскрипций
 const translators = new Map(); // translatorId -> { translator, normalizerId, createdAt, status }
 
+// Хранилище озвучивателей переводов
+const speakers = new Map(); // speakerId -> { speaker, translatorId, createdAt, status }
+
 // Хранилище WebSocket клиентов для просмотра транскрипции
 const transcriptionClients = new Map(); // relayId -> Set of WebSocket clients
 
@@ -127,6 +131,9 @@ const normalizerClients = new Map(); // normalizerId -> Set of WebSocket clients
 
 // Хранилище WebSocket клиентов для просмотра перевода
 const translatorClients = new Map(); // translatorId -> Set of WebSocket clients
+
+// Хранилище WebSocket клиентов для просмотра озвучивания
+const speakerClients = new Map(); // speakerId -> Set of WebSocket clients
 
 // Функция для трансляции сообщений клиентам транскрипции
 function broadcastToTranscriptionClients(relayId, message) {
@@ -1453,6 +1460,355 @@ app.patch("/api/translator/:id/settings", express.json(), (req, res) => {
   }
 });
 
+// ============================================
+// Translation Speaker API endpoints (TTS)
+// ============================================
+
+// Функция для трансляции сообщений клиентам озвучивателя
+function broadcastToSpeakerClients(speakerId, message) {
+  const clients = speakerClients.get(speakerId);
+  if (clients) {
+    clients.forEach(client => {
+      if (client.readyState === 1) { // WebSocket.OPEN
+        try {
+          client.send(JSON.stringify(message));
+        } catch (error) {
+          console.error(`Error sending to speaker client:`, error);
+        }
+      }
+    });
+  }
+}
+
+// Создать новый озвучиватель
+app.post("/api/speaker", express.json(), async (req, res) => {
+  try {
+    const {
+      translatorId,
+      model,
+      voice,
+      speed,
+      autoSpeak
+    } = req.body;
+
+    if (!translatorId || !translators.has(translatorId)) {
+      res.status(400).json({ error: "Valid translator ID is required" });
+      return;
+    }
+
+    if (!OPENAI_API_KEY) {
+      res.status(500).json({ error: "OpenAI API key is not configured" });
+      return;
+    }
+
+    const translatorData = translators.get(translatorId);
+    const speakerId = "speaker-" + Date.now();
+
+    const speaker = new TranslationSpeaker({
+      apiKey: OPENAI_API_KEY,
+      translatorId: translatorId,
+      translator: translatorData.translator,
+      model: model || "tts-1",
+      voice: voice || "alloy",
+      speed: speed || 1.0,
+      autoSpeak: autoSpeak !== false
+    });
+
+    // Настройка обработчиков событий
+    speaker.on("started", () => {
+      console.log(`Speaker ${speakerId} started`);
+      speakers.get(speakerId).status = "running";
+    });
+
+    speaker.on("stopped", () => {
+      console.log(`Speaker ${speakerId} stopped`);
+      speakers.get(speakerId).status = "stopped";
+    });
+
+    speaker.on("error", (error) => {
+      console.error(`Speaker ${speakerId} error:`, error);
+      speakers.get(speakerId).status = "error";
+      speakers.get(speakerId).lastError = error.message;
+    });
+
+    speaker.on("translation_received", (translation) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "translation_received",
+        data: translation
+      });
+    });
+
+    speaker.on("speech_completed", (result) => {
+      console.log(`Speech completed for ${speakerId}`);
+      broadcastToSpeakerClients(speakerId, {
+        type: "speech_completed",
+        data: result
+      });
+    });
+
+    speaker.on("speech_failed", (result) => {
+      console.error(`Speech failed for ${speakerId}`);
+      broadcastToSpeakerClients(speakerId, {
+        type: "speech_failed",
+        data: result
+      });
+    });
+
+    speaker.on("log", (logEntry) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    // Сохраняем озвучиватель
+    speakers.set(speakerId, {
+      speaker,
+      translatorId,
+      createdAt: new Date().toISOString(),
+      status: "created"
+    });
+
+    // Запускаем озвучиватель
+    await speaker.start();
+
+    res.json({
+      id: speakerId,
+      translatorId,
+      status: "running",
+      createdAt: speakers.get(speakerId).createdAt,
+      settings: {
+        model: speaker.model,
+        voice: speaker.voice,
+        speed: speaker.speed,
+        autoSpeak: speaker.autoSpeak
+      }
+    });
+
+  } catch (error) {
+    console.error("Error creating speaker:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить список всех озвучивателей
+app.get("/api/speaker", (_req, res) => {
+  const speakersList = Array.from(speakers.entries()).map(([id, data]) => ({
+    id,
+    translatorId: data.translatorId,
+    status: data.status,
+    createdAt: data.createdAt,
+    lastError: data.lastError || null,
+    stats: data.speaker.getStats()
+  }));
+
+  res.json(speakersList);
+});
+
+// Получить конкретный озвучиватель
+app.get("/api/speaker/:id", (req, res) => {
+  const { id } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  res.json({
+    id,
+    translatorId: speakerData.translatorId,
+    status: speakerData.status,
+    createdAt: speakerData.createdAt,
+    lastError: speakerData.lastError || null,
+    stats: speakerData.speaker.getStats()
+  });
+});
+
+// Остановить озвучиватель
+app.delete("/api/speaker/:id", (req, res) => {
+  const { id } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    speakerData.speaker.stop();
+    speakers.delete(id);
+
+    res.json({ success: true, message: "Speaker stopped and removed" });
+  } catch (error) {
+    console.error("Error stopping speaker:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Озвучить конкретный перевод вручную
+app.post("/api/speaker/:id/speak/:translationId", async (req, res) => {
+  const { id, translationId } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    const result = await speakerData.speaker.speakByTranslationId(translationId);
+    res.json({ success: true, result });
+  } catch (error) {
+    console.error("Error speaking:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить результаты озвучивания
+app.get("/api/speaker/:id/results", (req, res) => {
+  const { id } = req.params;
+  const { limit = 50 } = req.query;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    const results = speakerData.speaker.getResults(parseInt(limit));
+    res.json({
+      speakerId: id,
+      count: results.length,
+      results: results
+    });
+  } catch (error) {
+    console.error("Error getting results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить аудио файл озвучивания
+app.get("/api/speaker/:id/audio/:speechId", async (req, res) => {
+  const { id, speechId } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    const audioBuffer = await speakerData.speaker.getAudioFile(speechId);
+
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Content-Length', audioBuffer.length);
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.send(audioBuffer);
+  } catch (error) {
+    console.error("Error getting audio file:", error);
+    res.status(404).json({ error: "Audio file not found" });
+  }
+});
+
+// Получить логи озвучивателя
+app.get("/api/speaker/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const { limit = 100, type } = req.query;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    let logs;
+    if (type) {
+      logs = speakerData.speaker.getLogsByType(type, parseInt(limit));
+    } else {
+      logs = speakerData.speaker.getLogs(parseInt(limit));
+    }
+
+    res.json({
+      speakerId: id,
+      count: logs.length,
+      type: type || "all",
+      logs: logs
+    });
+  } catch (error) {
+    console.error("Error getting logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить результаты озвучивания
+app.delete("/api/speaker/:id/results", async (req, res) => {
+  const { id } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    await speakerData.speaker.clearResults();
+    res.json({ success: true, message: "Results cleared" });
+  } catch (error) {
+    console.error("Error clearing results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить логи озвучивателя
+app.delete("/api/speaker/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    speakerData.speaker.clearLogs();
+    res.json({ success: true, message: "Logs cleared" });
+  } catch (error) {
+    console.error("Error clearing logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Обновить настройки озвучивателя
+app.patch("/api/speaker/:id/settings", express.json(), (req, res) => {
+  const { id } = req.params;
+  const speakerData = speakers.get(id);
+
+  if (!speakerData) {
+    res.status(404).json({ error: "Speaker not found" });
+    return;
+  }
+
+  try {
+    speakerData.speaker.updateSettings(req.body);
+    res.json({
+      success: true,
+      message: "Settings updated",
+      settings: {
+        autoSpeak: speakerData.speaker.autoSpeak,
+        voice: speakerData.speaker.voice,
+        model: speakerData.speaker.model,
+        speed: speakerData.speaker.speed
+      }
+    });
+  } catch (error) {
+    console.error("Error updating settings:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // WebSocket обработчик
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -1707,6 +2063,72 @@ wss.on("connection", (ws, req) => {
         clients.delete(ws);
         if (clients.size === 0) {
           translatorClients.delete(translatorId);
+        }
+      }
+    });
+
+  } else if (pathname === "/speaker") {
+    // Это клиент для просмотра озвучивателя
+    const speakerId = url.searchParams.get("id");
+
+    if (!speakerId || !speakers.has(speakerId)) {
+      ws.close(1008, "Invalid speaker ID");
+      return;
+    }
+
+    console.log(`Speaker client connected to: ${speakerId}`);
+
+    // Добавляем клиента в список
+    if (!speakerClients.has(speakerId)) {
+      speakerClients.set(speakerId, new Set());
+    }
+    speakerClients.get(speakerId).add(ws);
+
+    // Отправляем текущие данные
+    const speakerData = speakers.get(speakerId);
+    if (speakerData) {
+      try {
+        const results = speakerData.speaker.getResults(20);
+        const logs = speakerData.speaker.getLogs(50);
+        const stats = speakerData.speaker.getStats();
+
+        ws.send(JSON.stringify({
+          type: "initial_data",
+          data: {
+            results: results,
+            logs: logs,
+            stats: stats,
+            settings: {
+              autoSpeak: speakerData.speaker.autoSpeak,
+              voice: speakerData.speaker.voice,
+              model: speakerData.speaker.model,
+              speed: speakerData.speaker.speed
+            }
+          }
+        }));
+      } catch (error) {
+        console.error("Error sending initial data:", error);
+      }
+    }
+
+    ws.on("close", () => {
+      console.log(`Speaker client disconnected from: ${speakerId}`);
+      const clients = speakerClients.get(speakerId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          speakerClients.delete(speakerId);
+        }
+      }
+    });
+
+    ws.on("error", (error) => {
+      console.error(`Speaker client error:`, error);
+      const clients = speakerClients.get(speakerId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          speakerClients.delete(speakerId);
         }
       }
     });
