@@ -505,13 +505,14 @@
         // Load translators
         async function loadTranslators() {
             try {
-                const response = await fetch('/api/translators');
+                const response = await fetch('/api/translator');
                 const data = await response.json();
 
                 const select = document.getElementById('translatorSelect');
                 select.innerHTML = '<option value="">Выберите translator</option>';
 
-                data.translators.forEach(translator => {
+                // data is an array of translators
+                data.forEach(translator => {
                     const option = document.createElement('option');
                     option.value = translator.id;
                     option.textContent = `${translator.id} (${translator.status})`;
@@ -525,11 +526,12 @@
         // Load speakers
         async function loadSpeakers() {
             try {
-                const response = await fetch('/api/speakers');
+                const response = await fetch('/api/speaker');
                 const data = await response.json();
 
                 speakers.clear();
-                data.speakers.forEach(speaker => {
+                // data is an array of speakers
+                data.forEach(speaker => {
                     speakers.set(speaker.id, speaker);
                 });
 

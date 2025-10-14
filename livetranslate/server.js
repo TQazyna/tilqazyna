@@ -1599,7 +1599,11 @@ app.get("/api/speaker", (_req, res) => {
     status: data.status,
     createdAt: data.createdAt,
     lastError: data.lastError || null,
-    stats: data.speaker.getStats()
+    stats: data.speaker.getStats(),
+    voice: data.speaker.voice,
+    model: data.speaker.model,
+    speed: data.speaker.speed,
+    isRunning: data.speaker.isRunning
   }));
 
   res.json(speakersList);
