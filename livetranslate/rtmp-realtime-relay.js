@@ -130,13 +130,14 @@ export class RTMPRealtimeRelay extends EventEmitter {
 
             // Инструкции и модальности
             instructions: this.instructions,
+            temperature: 0.7,
             modalities: ["text", "audio"],            // Включаем текст И аудио
 
             // Определение конца речи
             turn_detection: {
               type: "server_vad",
-              threshold: 0.5,
-              silence_duration_ms: 500                // Пауза 500мс для определения конца речи
+              threshold: 0.2,
+              silence_duration_ms: 100                // Пауза 500мс для определения конца речи
             }
           }
         };

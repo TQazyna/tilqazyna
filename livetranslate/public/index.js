@@ -418,4 +418,101 @@
         } else {
           showMessage("projectDefault", "info");
         }
+
+        // Автовещание TTS (Speaker): как только включится speaker, начинаем играть звук без лишней информации
+        startAutoSpeakerListen();
       });
+
+      // ==========================
+      // Автопрослушивание Speaker
+      // ==========================
+      let speakerWs = null;
+      let currentSpeakerId = null;
+      const speakerAudio = (() => {
+        const audio = document.getElementById('audioPlayer');
+        let activeSpeechId = null;
+        let collecting = false;
+        let buffers = [];
+
+        function start(meta) {
+          activeSpeechId = meta && meta.speechId ? meta.speechId : null;
+          buffers = [];
+          collecting = true;
+        }
+
+        function appendChunk(data) {
+          if (!collecting) return;
+          if (activeSpeechId && data.speechId && data.speechId !== activeSpeechId) return;
+          try {
+            const binary = atob(data.chunkBase64);
+            const len = binary.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+            buffers.push(bytes);
+          } catch (e) {
+            // Игнорируем ошибку декодирования
+          }
+        }
+
+        function end(info) {
+          if (!collecting) return;
+          if (activeSpeechId && info.speechId && info.speechId !== activeSpeechId) return;
+          collecting = false;
+          const totalLen = buffers.reduce((acc, b) => acc + b.byteLength, 0);
+          const out = new Uint8Array(totalLen);
+          let offset = 0;
+          buffers.forEach(b => { out.set(b, offset); offset += b.byteLength; });
+          const blob = new Blob([out], { type: 'audio/mpeg' });
+          const url = URL.createObjectURL(blob);
+          audio.src = url;
+          audio.play().catch(() => {});
+          buffers = [];
+        }
+
+        return { start, appendChunk, end };
+      })();
+
+      async function connectSpeakerWebSocket(id) {
+        if (speakerWs) {
+          try { speakerWs.close(); } catch (_) {}
+          speakerWs = null;
+        }
+        currentSpeakerId = id;
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/speaker?id=${id}`;
+        speakerWs = new WebSocket(wsUrl);
+        speakerWs.onmessage = (evt) => {
+          try {
+            const msg = JSON.parse(evt.data);
+            if (msg.type === 'audio_start') speakerAudio.start(msg.data);
+            else if (msg.type === 'audio_chunk') speakerAudio.appendChunk(msg.data);
+            else if (msg.type === 'audio_end') speakerAudio.end(msg.data);
+          } catch (_) {}
+        };
+        speakerWs.onclose = () => {
+          speakerWs = null;
+        };
+        speakerWs.onerror = () => {
+          try { speakerWs.close(); } catch (_) {}
+          speakerWs = null;
+        };
+      }
+
+      async function startAutoSpeakerListen() {
+        // Периодически ищем активный speaker и подключаемся к нему
+        async function tick() {
+          try {
+            const resp = await fetch('/api/speaker');
+            if (!resp.ok) return;
+            const list = await resp.json();
+            const running = list.find(s => s.isRunning === true) || list[0];
+            if (running && running.id && running.id !== currentSpeakerId) {
+              await connectSpeakerWebSocket(running.id);
+            }
+          } catch (_) {}
+        }
+        // Первый запуск сразу
+        tick();
+        // Затем каждые 3 секунды
+        setInterval(tick, 3000);
+      }
