@@ -1835,6 +1835,505 @@ app.patch("/api/speaker/:id/settings", express.json(), (req, res) => {
   }
 });
 
+// ============================================
+// Workflow API - Автоматическое создание полного pipeline
+// ============================================
+
+// Создать полный workflow одной кнопкой
+app.post("/api/workflow/start", express.json(), async (req, res) => {
+  try {
+    const {
+      rtmpUrl,
+      projectId,
+      normalizerInterval,
+      speakerSpeed,
+      speakerModel
+    } = req.body;
+
+    // Используем настройки по умолчанию или переданные
+    const config = {
+      rtmpUrl: rtmpUrl || "rtmp://talksync.tilqazyna.kz:1935/steppe-games",
+      projectId: projectId || "steppe-games",
+      model: "gpt-realtime",
+      voice: "verse",
+      normalizerInterval: normalizerInterval || 10000, // 10 секунд
+      speakerSpeed: speakerSpeed || 1.3,
+      speakerModel: speakerModel || "tts-1-hd"
+    };
+
+    if (!OPENAI_API_KEY) {
+      res.status(500).json({ error: "OpenAI API key is not configured" });
+      return;
+    }
+
+    const workflowId = `workflow-${Date.now()}`;
+    const results = {
+      workflowId,
+      timestamp: new Date().toISOString(),
+      config,
+      steps: {}
+    };
+
+    // Шаг 1: Создать RTMP Relay
+    console.log(`[Workflow ${workflowId}] Step 1: Creating RTMP Relay...`);
+    const relayId = "relay-" + Date.now();
+    const relay = new RTMPRealtimeRelay({
+      apiKey: OPENAI_API_KEY,
+      rtmpUrl: config.rtmpUrl,
+      model: config.model,
+      voice: config.voice,
+      instructions: "Ты синхронный переводчик с казахского на русский язык. Слушай казахскую речь и сразу озвучивай её дословный перевод на русском языке. Говори четко и естественно."
+    });
+
+    relay.on("started", () => {
+      console.log(`[Workflow ${workflowId}] RTMP relay ${relayId} started`);
+      rtmpRelays.get(relayId).status = "running";
+    });
+
+    relay.on("stopped", () => {
+      console.log(`[Workflow ${workflowId}] RTMP relay ${relayId} stopped`);
+      rtmpRelays.get(relayId).status = "stopped";
+    });
+
+    relay.on("error", (error) => {
+      console.error(`[Workflow ${workflowId}] RTMP relay ${relayId} error:`, error);
+      rtmpRelays.get(relayId).status = "error";
+      rtmpRelays.get(relayId).lastError = error.message;
+    });
+
+    relay.on("transcription_completed", (transcription) => {
+      broadcastToTranscriptionClients(relayId, {
+        type: "transcription",
+        data: transcription
+      });
+    });
+
+    relay.on("log", (logEntry) => {
+      broadcastToTranscriptionClients(relayId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    relay.on("audio_chunk", (audioData) => {
+      broadcastToTranscriptionClients(relayId, {
+        type: "audio_chunk",
+        data: audioData
+      });
+    });
+
+    relay.on("audio_output", (audioData) => {
+      broadcastToTranscriptionClients(relayId, {
+        type: "audio_output",
+        data: audioData
+      });
+    });
+
+    relay.on("gpt_transcript", (transcriptData) => {
+      broadcastToTranscriptionClients(relayId, {
+        type: "gpt_transcript",
+        data: transcriptData
+      });
+    });
+
+    rtmpRelays.set(relayId, {
+      relay,
+      projectId: config.projectId,
+      createdAt: new Date().toISOString(),
+      status: "created",
+      rtmpUrl: config.rtmpUrl,
+      model: config.model,
+      voice: config.voice,
+      workflowId
+    });
+
+    await relay.start();
+    results.steps.relay = { id: relayId, status: "running" };
+
+    // Небольшая задержка для стабилизации relay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Шаг 2: Создать Normalizer
+    console.log(`[Workflow ${workflowId}] Step 2: Creating Normalizer...`);
+    const normalizerId = "normalizer-" + Date.now();
+    const normalizer = new TranscriptionNormalizer({
+      apiKey: OPENAI_API_KEY,
+      relayId: relayId,
+      relay: relay,
+      model: "gpt-4o",
+      batchSize: 10,
+      autoNormalize: true,
+      normalizeInterval: config.normalizerInterval
+    });
+
+    normalizer.on("started", () => {
+      console.log(`[Workflow ${workflowId}] Normalizer ${normalizerId} started`);
+      normalizers.get(normalizerId).status = "running";
+    });
+
+    normalizer.on("stopped", () => {
+      console.log(`[Workflow ${workflowId}] Normalizer ${normalizerId} stopped`);
+      normalizers.get(normalizerId).status = "stopped";
+    });
+
+    normalizer.on("error", (error) => {
+      console.error(`[Workflow ${workflowId}] Normalizer ${normalizerId} error:`, error);
+      normalizers.get(normalizerId).status = "error";
+      normalizers.get(normalizerId).lastError = error.message;
+    });
+
+    normalizer.on("transcription_received", (transcription) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "transcription_received",
+        data: transcription
+      });
+    });
+
+    normalizer.on("normalization_completed", (result) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "normalization_completed",
+        data: result
+      });
+    });
+
+    normalizer.on("normalization_failed", (result) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "normalization_failed",
+        data: result
+      });
+    });
+
+    normalizer.on("log", (logEntry) => {
+      broadcastToNormalizerClients(normalizerId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    normalizers.set(normalizerId, {
+      normalizer,
+      relayId,
+      createdAt: new Date().toISOString(),
+      status: "created",
+      workflowId
+    });
+
+    await normalizer.start();
+    results.steps.normalizer = { id: normalizerId, status: "running" };
+
+    // Небольшая задержка
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Шаг 3: Создать Translator
+    console.log(`[Workflow ${workflowId}] Step 3: Creating Translator...`);
+    const translatorId = "translator-" + Date.now();
+    const translator = new TranscriptionTranslator({
+      apiKey: OPENAI_API_KEY,
+      normalizerId: normalizerId,
+      normalizer: normalizer,
+      model: "gpt-4o",
+      autoTranslate: true,
+      targetLanguage: "russian",
+      sourceLanguage: "kazakh"
+    });
+
+    translator.on("started", () => {
+      console.log(`[Workflow ${workflowId}] Translator ${translatorId} started`);
+      translators.get(translatorId).status = "running";
+    });
+
+    translator.on("stopped", () => {
+      console.log(`[Workflow ${workflowId}] Translator ${translatorId} stopped`);
+      translators.get(translatorId).status = "stopped";
+    });
+
+    translator.on("error", (error) => {
+      console.error(`[Workflow ${workflowId}] Translator ${translatorId} error:`, error);
+      translators.get(translatorId).status = "error";
+      translators.get(translatorId).lastError = error.message;
+    });
+
+    translator.on("normalization_received", (normalization) => {
+      broadcastToTranslatorClients(translatorId, {
+        type: "normalization_received",
+        data: normalization
+      });
+    });
+
+    translator.on("translation_completed", (result) => {
+      broadcastToTranslatorClients(translatorId, {
+        type: "translation_completed",
+        data: result
+      });
+    });
+
+    translator.on("translation_failed", (result) => {
+      broadcastToTranslatorClients(translatorId, {
+        type: "translation_failed",
+        data: result
+      });
+    });
+
+    translator.on("log", (logEntry) => {
+      broadcastToTranslatorClients(translatorId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    translators.set(translatorId, {
+      translator,
+      normalizerId,
+      createdAt: new Date().toISOString(),
+      status: "created",
+      workflowId
+    });
+
+    await translator.start();
+    results.steps.translator = { id: translatorId, status: "running" };
+
+    // Небольшая задержка
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Шаг 4: Создать Speaker (TTS)
+    console.log(`[Workflow ${workflowId}] Step 4: Creating Speaker...`);
+    const speakerId = "speaker-" + Date.now();
+    const speaker = new TranslationSpeaker({
+      apiKey: OPENAI_API_KEY,
+      translatorId: translatorId,
+      translator: translator,
+      model: config.speakerModel,
+      voice: "alloy",
+      speed: config.speakerSpeed,
+      autoSpeak: true
+    });
+
+    speaker.on("started", () => {
+      console.log(`[Workflow ${workflowId}] Speaker ${speakerId} started`);
+      speakers.get(speakerId).status = "running";
+    });
+
+    speaker.on("stopped", () => {
+      console.log(`[Workflow ${workflowId}] Speaker ${speakerId} stopped`);
+      speakers.get(speakerId).status = "stopped";
+    });
+
+    speaker.on("error", (error) => {
+      console.error(`[Workflow ${workflowId}] Speaker ${speakerId} error:`, error);
+      speakers.get(speakerId).status = "error";
+      speakers.get(speakerId).lastError = error.message;
+    });
+
+    speaker.on("translation_received", (translation) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "translation_received",
+        data: translation
+      });
+    });
+
+    speaker.on("speech_completed", (result) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "speech_completed",
+        data: result
+      });
+    });
+
+    speaker.on("speech_failed", (result) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "speech_failed",
+        data: result
+      });
+    });
+
+    speaker.on("log", (logEntry) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    speaker.on("audio_start", (meta) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_start",
+        data: meta
+      });
+    });
+
+    speaker.on("audio_chunk", (chunk) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_chunk",
+        data: chunk
+      });
+    });
+
+    speaker.on("audio_end", (info) => {
+      broadcastToSpeakerClients(speakerId, {
+        type: "audio_end",
+        data: info
+      });
+    });
+
+    speakers.set(speakerId, {
+      speaker,
+      translatorId,
+      createdAt: new Date().toISOString(),
+      status: "created",
+      workflowId
+    });
+
+    await speaker.start();
+    results.steps.speaker = { id: speakerId, status: "running" };
+
+    console.log(`[Workflow ${workflowId}] All steps completed successfully!`);
+
+    res.json({
+      success: true,
+      message: "Workflow created successfully",
+      workflow: results
+    });
+
+  } catch (error) {
+    console.error("Error creating workflow:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Получить статус всех workflows
+app.get("/api/workflow/status", (_req, res) => {
+  const workflows = [];
+
+  // Собираем информацию о всех компонентах с workflowId
+  rtmpRelays.forEach((data, id) => {
+    if (data.workflowId) {
+      let workflow = workflows.find(w => w.id === data.workflowId);
+      if (!workflow) {
+        workflow = {
+          id: data.workflowId,
+          createdAt: data.createdAt,
+          components: {}
+        };
+        workflows.push(workflow);
+      }
+      workflow.components.relay = {
+        id,
+        status: data.status,
+        rtmpUrl: data.rtmpUrl
+      };
+    }
+  });
+
+  normalizers.forEach((data, id) => {
+    if (data.workflowId) {
+      let workflow = workflows.find(w => w.id === data.workflowId);
+      if (!workflow) {
+        workflow = {
+          id: data.workflowId,
+          createdAt: data.createdAt,
+          components: {}
+        };
+        workflows.push(workflow);
+      }
+      workflow.components.normalizer = {
+        id,
+        status: data.status,
+        stats: data.normalizer.getStats()
+      };
+    }
+  });
+
+  translators.forEach((data, id) => {
+    if (data.workflowId) {
+      let workflow = workflows.find(w => w.id === data.workflowId);
+      if (!workflow) {
+        workflow = {
+          id: data.workflowId,
+          createdAt: data.createdAt,
+          components: {}
+        };
+        workflows.push(workflow);
+      }
+      workflow.components.translator = {
+        id,
+        status: data.status,
+        stats: data.translator.getStats()
+      };
+    }
+  });
+
+  speakers.forEach((data, id) => {
+    if (data.workflowId) {
+      let workflow = workflows.find(w => w.id === data.workflowId);
+      if (!workflow) {
+        workflow = {
+          id: data.workflowId,
+          createdAt: data.createdAt,
+          components: {}
+        };
+        workflows.push(workflow);
+      }
+      workflow.components.speaker = {
+        id,
+        status: data.status,
+        stats: data.speaker.getStats()
+      };
+    }
+  });
+
+  res.json({ workflows });
+});
+
+// Остановить весь workflow
+app.delete("/api/workflow/:workflowId", (req, res) => {
+  const { workflowId } = req.params;
+  let stoppedComponents = 0;
+
+  try {
+    // Останавливаем все компоненты этого workflow
+    speakers.forEach((data, id) => {
+      if (data.workflowId === workflowId) {
+        data.speaker.stop();
+        speakers.delete(id);
+        stoppedComponents++;
+      }
+    });
+
+    translators.forEach((data, id) => {
+      if (data.workflowId === workflowId) {
+        data.translator.stop();
+        translators.delete(id);
+        stoppedComponents++;
+      }
+    });
+
+    normalizers.forEach((data, id) => {
+      if (data.workflowId === workflowId) {
+        data.normalizer.stop();
+        normalizers.delete(id);
+        stoppedComponents++;
+      }
+    });
+
+    rtmpRelays.forEach((data, id) => {
+      if (data.workflowId === workflowId) {
+        data.relay.stop();
+        rtmpRelays.delete(id);
+        stoppedComponents++;
+      }
+    });
+
+    res.json({
+      success: true,
+      message: `Workflow stopped, ${stoppedComponents} components removed`
+    });
+  } catch (error) {
+    console.error("Error stopping workflow:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // WebSocket обработчик
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url, `http://${req.headers.host}`);

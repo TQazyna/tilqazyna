@@ -3,589 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTMP → Realtime Relay Manager</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Times New Roman", Times, serif;
-            background: #ffffff;
-            color: #000;
-            line-height: 1.6;
-            font-size: 14px;
-            padding: 10px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-        }
-
-        .header {
-            background: #ffffff;
-            color: #000;
-            padding: 10px 0;
-            border-bottom: 1px solid #000;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-            font-weight: normal;
-            color: #00009c;
-        }
-
-        .header p {
-            font-size: 13px;
-            color: #555;
-        }
-
-        .content {
-            padding: 0;
-        }
-
-        .form-section {
-            background: #f8f8f8;
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-section h2 {
-            color: #000;
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #000;
-            font-size: 13px;
-        }
-
-        input, select, textarea {
-            padding: 5px;
-            border: 1px solid #aaa;
-            font-size: 13px;
-            background: #fff;
-            font-family: Arial, sans-serif;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: 1px solid #00009c;
-            border-color: #00009c;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
-
-        .btn {
-            background: #00009c;
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            font-size: 13px;
-            font-weight: normal;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: #0000ff;
-        }
-
-        .btn:disabled {
-            background: #999;
-            cursor: not-allowed;
-        }
-
-        .btn-danger {
-            background: #cc0000;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #ff0000;
-        }
-
-        .btn-success {
-            background: #008000;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #00a000;
-        }
-
-        .relays-section {
-            margin-top: 30px;
-        }
-
-        .relays-section > h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        .relay-card {
-            background: #f8f8f8;
-            border: 1px solid #ccc;
-            padding: 12px;
-            margin-bottom: 15px;
-        }
-
-        .relay-card:hover {
-            background: #f0f0f0;
-        }
-
-        .relay-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .relay-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #00009c;
-        }
-
-        .relay-status {
-            padding: 2px 8px;
-            font-size: 11px;
-            font-weight: bold;
-            border: 1px solid #666;
-        }
-
-        .status-running {
-            background: #d4edda;
-            color: #155724;
-            border-color: #155724;
-        }
-
-        .status-stopped {
-            background: #f8d7da;
-            color: #721c24;
-            border-color: #721c24;
-        }
-
-        .status-error {
-            background: #fff3cd;
-            color: #856404;
-            border-color: #856404;
-        }
-
-        .relay-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 13px;
-        }
-
-        .relay-detail {
-            font-size: 13px;
-        }
-
-        .relay-detail strong {
-            color: #000;
-            display: inline;
-            margin-right: 5px;
-        }
-
-        .relay-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #ccc;
-            border-top-color: #00009c;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #f5c6cb;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #c3e6cb;
-        }
-
-        .empty-state {
-            padding: 40px 20px;
-            color: #666;
-            background: #f8f8f8;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-
-        .empty-state h3 {
-            margin-bottom: 8px;
-            color: #000;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .empty-state p {
-            font-size: 13px;
-            color: #555;
-        }
-
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .relay-details {
-                grid-template-columns: 1fr;
-            }
-            
-            .relay-actions {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <title>RTMP Relay - TalkSync</title>
+    <link rel="stylesheet" href="/dash/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>RTMP → Realtime Transcription</h1>
-            <p>Управление транскрипцией RTMP потоков через OpenAI Realtime API</p>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-logo">TalkSync</h1>
+            <p class="sidebar-subtitle">RTMP Relay</p>
         </div>
 
-        <div class="content">
-            <!-- Форма создания ретранслятора -->
-            <div class="form-section">
-                <h2>Создать новый ретранслятор</h2>
-                <form id="relayForm">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="rtmpUrl">RTMP URL *</label>
-                            <input type="url" id="rtmpUrl" name="rtmpUrl" 
-                                   placeholder="rtmp://localhost:1935/live/stream" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="projectId">Проект *</label>
-                            <select id="projectId" name="projectId" required>
-                                <option value="">Выберите проект...</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="model">Модель</label>
-                            <select id="model" name="model">
-                                <option value="gpt-realtime">gpt-realtime</option>
-                                <option value="whisper-1">whisper-1</option>
-                                <option value="gpt-4o-transcribe">gpt-4o-transcribe</option>
-                                <option value="gpt-4o-realtime-preview-2025-06-03">gpt-4o-realtime-preview-2025-06-03</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="voice">Голос</label>
-                            <select id="voice" name="voice">
-                                <option value="verse">verse</option>
-                                <option value="nova">nova</option>
-                                <option value="shimmer">shimmer</option>
-                                <option value="alloy">alloy</option>
-                                <option value="echo">echo</option>
-                                <option value="fable">fable</option>
-                                <option value="onyx">onyx</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="instructions">Инструкции для AI (используются для генерации голосовых ответов)</label>
-                        <textarea id="instructions" name="instructions"
-                                  placeholder="Ты синхронный переводчик с казахского на русский язык. Слушай казахскую речь и сразу озвучивай её дословный перевод на русском языке. Говори четко и естественно."></textarea>
-                    </div>
-                    <button type="submit" class="btn" id="createBtn">
-                        <span id="createBtnText">Создать ретранслятор</span>
-                        <div class="loading" id="createLoading" style="display: none;"></div>
-                    </button>
-                </form>
+        <nav class="sidebar-nav">
+            <a href="/dash" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <span>Обзор</span>
+            </a>
+
+            <a href="/rtmp-relay" class="nav-item active">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 4V16M10 16L6 12M10 16L14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>RTMP Relay</span>
+            </a>
+
+            <a href="/transcription-normalizer" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M4 6H16M4 10H16M4 14H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Normalizer</span>
+            </a>
+
+            <a href="/transcription-translator" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 5H11M9 3V5M5.5 5C5.5 9 7 13 10 15M6 8L8 10M3 15L5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13 9L17 15M17 9L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Translator</span>
+            </a>
+
+            <a href="/translation-speaker" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M6 7L11 4V16L6 13H4C3.44772 13 3 12.5523 3 12V8C3 7.44772 3.44772 7 4 7H6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M14 7C15.1046 8.10457 15.1046 9.89543 14 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M16 5C17.6569 6.65685 17.6569 11.3431 16 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Speaker</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10H17M17 10L13 6M17 10L13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Слушать перевод</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-left">
+                <h1 class="page-title">RTMP → Realtime Relay</h1>
+                <p class="page-description">Управление транскрипцией RTMP потоков через OpenAI Realtime API</p>
             </div>
+            <div class="header-right">
+                <button class="btn btn-ghost btn-sm" onclick="relayManager.loadRelays()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M14 4L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Обновить
+                </button>
+                <button class="btn btn-primary" onclick="toggleCreateForm()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>Создать Relay</span>
+                </button>
+            </div>
+        </header>
 
-            <!-- Сообщения -->
-            <div id="messages"></div>
+        <!-- Create Form (Hidden by default) -->
+        <div id="createFormSection" class="form-section" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Создать новый RTMP Relay</h2>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleCreateForm()">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <form id="relayForm" class="relay-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="rtmpUrl">RTMP URL *</label>
+                                <input type="url" id="rtmpUrl" name="rtmpUrl"
+                                       placeholder="rtmp://localhost:1935/live/stream" required>
+                            </div>
 
-            <!-- Список ретрансляторов -->
-            <div class="relays-section">
-                <h2>Активные ретрансляторы</h2>
-                <div id="relaysList">
-                    <div class="empty-state">
-                        <h3>Нет активных ретрансляторов</h3>
-                        <p>Создайте новый ретранслятор для начала работы</p>
-                    </div>
+                            <div class="form-group">
+                                <label for="projectId">Проект *</label>
+                                <select id="projectId" name="projectId" required>
+                                    <option value="">Выберите проект...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="model">Модель</label>
+                                <select id="model" name="model">
+                                    <option value="gpt-realtime">gpt-realtime</option>
+                                    <option value="whisper-1">whisper-1</option>
+                                    <option value="gpt-4o-transcribe">gpt-4o-transcribe</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="voice">Голос</label>
+                                <select id="voice" name="voice">
+                                    <option value="verse">verse</option>
+                                    <option value="nova">nova</option>
+                                    <option value="shimmer">shimmer</option>
+                                    <option value="alloy">alloy</option>
+                                    <option value="echo">echo</option>
+                                    <option value="fable">fable</option>
+                                    <option value="onyx">onyx</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group form-group-full">
+                                <label for="instructions">Инструкции для AI</label>
+                                <textarea id="instructions" name="instructions" rows="3"
+                                          placeholder="Ты синхронный переводчик с казахского на русский язык..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-ghost" onclick="toggleCreateForm()">Отмена</button>
+                            <button type="submit" class="btn btn-primary" id="createBtn">
+                                <span id="createBtnText">Создать Relay</span>
+                                <div class="spinner" id="createLoading" style="display: none;"></div>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        class RTMPRelayManager {
-            constructor() {
-                this.relays = [];
-                this.projects = [];
-                this.init();
-            }
-
-            async init() {
-                await this.loadProjects();
-                await this.loadRelays();
-                this.setupEventListeners();
-            }
-
-            async loadProjects() {
-                try {
-                    const response = await fetch('/api/projects');
-                    this.projects = await response.json();
-                    
-                    const projectSelect = document.getElementById('projectId');
-                    projectSelect.innerHTML = '<option value="">Выберите проект...</option>';
-                    
-                    this.projects.forEach(project => {
-                        const option = document.createElement('option');
-                        option.value = project.id;
-                        option.textContent = `${project.name} (${project.isLive ? 'Live' : 'Offline'})`;
-                        projectSelect.appendChild(option);
-                    });
-                } catch (error) {
-                    this.showMessage('Ошибка загрузки проектов: ' + error.message, 'error');
-                }
-            }
-
-            async loadRelays() {
-                try {
-                    const response = await fetch('/api/rtmp-relay');
-                    this.relays = await response.json();
-                    this.renderRelays();
-                } catch (error) {
-                    this.showMessage('Ошибка загрузки ретрансляторов: ' + error.message, 'error');
-                }
-            }
-
-            setupEventListeners() {
-                document.getElementById('relayForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.createRelay();
-                });
-            }
-
-            async createRelay() {
-                const formData = new FormData(document.getElementById('relayForm'));
-                const data = Object.fromEntries(formData.entries());
-
-                const createBtn = document.getElementById('createBtn');
-                const createBtnText = document.getElementById('createBtnText');
-                const createLoading = document.getElementById('createLoading');
-
-                createBtn.disabled = true;
-                createBtnText.style.display = 'none';
-                createLoading.style.display = 'inline-block';
-
-                try {
-                    const response = await fetch('/api/rtmp-relay', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.error || 'Ошибка создания ретранслятора');
-                    }
-
-                    const result = await response.json();
-                    this.showMessage(`Ретранслятор ${result.id} успешно создан`, 'success');
-                    document.getElementById('relayForm').reset();
-                    await this.loadRelays();
-
-                } catch (error) {
-                    this.showMessage('Ошибка создания ретранслятора: ' + error.message, 'error');
-                } finally {
-                    createBtn.disabled = false;
-                    createBtnText.style.display = 'inline';
-                    createLoading.style.display = 'none';
-                }
-            }
-
-            async deleteRelay(relayId) {
-                if (!confirm('Вы уверены, что хотите удалить этот ретранслятор?')) {
-                    return;
-                }
-
-                try {
-                    const response = await fetch(`/api/rtmp-relay/${relayId}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.error || 'Ошибка удаления ретранслятора');
-                    }
-
-                    this.showMessage('Ретранслятор успешно удален', 'success');
-                    await this.loadRelays();
-
-                } catch (error) {
-                    this.showMessage('Ошибка удаления ретранслятора: ' + error.message, 'error');
-                }
-            }
-
-            async restartRelay(relayId) {
-                try {
-                    const response = await fetch(`/api/rtmp-relay/${relayId}/restart`, {
-                        method: 'POST'
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.error || 'Ошибка перезапуска ретранслятора');
-                    }
-
-                    this.showMessage('Ретранслятор успешно перезапущен', 'success');
-                    await this.loadRelays();
-
-                } catch (error) {
-                    this.showMessage('Ошибка перезапуска ретранслятора: ' + error.message, 'error');
-                }
-            }
-
-            renderRelays() {
-                const container = document.getElementById('relaysList');
-                
-                if (this.relays.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <h3>Нет активных ретрансляторов</h3>
-                            <p>Создайте новый ретранслятор для начала работы</p>
+        <!-- Relays Table -->
+        <div class="relays-container">
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Активные Relays</h2>
+                    <div class="relay-count">
+                        <span id="relayCount">0</span> активных
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div id="relaysList" class="table-container">
+                        <div class="loading-container">
+                            <div class="spinner"></div>
+                            <p>Загрузка релеев...</p>
                         </div>
-                    `;
-                    return;
-                }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-                container.innerHTML = this.relays.map(relay => {
-                    const project = this.projects.find(p => p.id === relay.projectId);
-                    const projectName = project ? project.name : 'Неизвестный проект';
-                    
-                    return `
-                        <div class="relay-card">
-                            <div class="relay-header">
-                                <div class="relay-title">${relay.id}</div>
-                                <div class="relay-status status-${relay.status}">${relay.status}</div>
-                            </div>
-                            <div class="relay-details">
-                                <div class="relay-detail">
-                                    <strong>Проект:</strong>
-                                    ${projectName}
-                                </div>
-                                <div class="relay-detail">
-                                    <strong>RTMP URL:</strong>
-                                    ${relay.rtmpUrl}
-                                </div>
-                                <div class="relay-detail">
-                                    <strong>Модель:</strong>
-                                    ${relay.model}
-                                </div>
-                                <div class="relay-detail">
-                                    <strong>Голос:</strong>
-                                    ${relay.voice}
-                                </div>
-                                <div class="relay-detail">
-                                    <strong>Создан:</strong>
-                                    ${new Date(relay.createdAt).toLocaleString('ru-RU')}
-                                </div>
-                                ${relay.lastError ? `
-                                    <div class="relay-detail">
-                                        <strong>Последняя ошибка:</strong>
-                                        <span style="color: #cc0000;">${relay.lastError}</span>
-                                    </div>
-                                ` : ''}
-                            </div>
-                            <div class="relay-actions">
-                                <button class="btn btn-success" onclick="relayManager.restartRelay('${relay.id}')">
-                                    Перезапустить
-                                </button>
-                                <button class="btn btn-danger" onclick="relayManager.deleteRelay('${relay.id}')">
-                                    Удалить
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
-            showMessage(message, type = 'info') {
-                const messagesContainer = document.getElementById('messages');
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `${type}-message`;
-                messageDiv.textContent = message;
-                
-                messagesContainer.appendChild(messageDiv);
-                
-                setTimeout(() => {
-                    messageDiv.remove();
-                }, 5000);
-            }
-        }
-
-        // Инициализация менеджера
-        const relayManager = new RTMPRelayManager();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

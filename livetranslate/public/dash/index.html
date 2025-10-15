@@ -3,60 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        body {
-            background: #fff;
-            color: #000;
-            font-family: sans-serif;
-            margin: 0;
-            padding: 16px;
-        }
-        h1 {
-            text-align: center;
-            font-size: 1.5em;
-            margin: 24px 0 16px 0;
-            font-weight: bold;
-        }
-        ul {
-            padding-left: 20px;
-            margin: 0 auto;
-            max-width: 380px;
-        }
-        li {
-            margin-bottom: 10px;
-            list-style: disc;
-        }
-        a {
-            color: #000;
-            text-decoration: underline;
-        }
-        a:hover {
-            color: #222;
-        }
-        p {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #000;
-            font-size: 1em;
-        }
-    </style>
+    <title>TalkSync Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <ul>
-        <li><a href="/" target="_blank" rel="noopener">Home</a></li>
-        <li><a href="/rtmp-relay" target="_blank" rel="noopener">RTMP Relay</a></li>
-        <li><a href="/transcription-normalizer" target="_blank" rel="noopener">Transcription Normalizer</a></li>
-        <li><a href="/transcription-translator" target="_blank" rel="noopener">Transcription Translator</a></li>
-        <li><a href="/translation-speaker" target="_blank" rel="noopener">Translation Speaker (TTS)</a></li>
-        <li><a href="/audio-preview" target="_blank" rel="noopener">Audio Preview</a></li>
-        <li><a href="/gpt-audio" target="_blank" rel="noopener">GPT Audio</a></li>
-        <li><a href="/deprecated/transcription-viewer" target="_blank" rel="noopener">Transcription Viewer (Deprecated)</a></li>
-        <li><a href="/deprecated/pub" target="_blank" rel="noopener">Publish (Deprecated)</a></li>
-        <li><a href="/deprecated/publisher" target="_blank" rel="noopener">Pubisher (Deprecated)</a></li>
-        <li><a href="/deprecated/sub" target="_blank" rel="noopener">Subscribe (Deprecated)</a></li>
-        <li><a href="/deprecated/status" target="_blank" rel="noopener">Status (Deprecated)</a></li>
-    </ul>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-logo">TalkSync</h1>
+            <p class="sidebar-subtitle">Dashboard</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <span>Обзор</span>
+            </a>
+
+            <a href="/rtmp-relay" class="nav-item" target="_blank">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 4V16M10 16L6 12M10 16L14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>RTMP Relay</span>
+            </a>
+
+            <a href="/transcription-normalizer" class="nav-item" target="_blank">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M4 6H16M4 10H16M4 14H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Normalizer</span>
+            </a>
+
+            <a href="/transcription-translator" class="nav-item" target="_blank">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 5H11M9 3V5M5.5 5C5.5 9 7 13 10 15M6 8L8 10M3 15L5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13 9L17 15M17 9L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Translator</span>
+            </a>
+
+            <a href="/translation-speaker" class="nav-item" target="_blank">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M6 7L11 4V16L6 13H4C3.44772 13 3 12.5523 3 12V8C3 7.44772 3.44772 7 4 7H6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M14 7C15.1046 8.10457 15.1046 9.89543 14 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M16 5C17.6569 6.65685 17.6569 11.3431 16 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Speaker</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/" class="nav-item" target="_blank">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10H17M17 10L13 6M17 10L13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Слушать перевод</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-left">
+                <h1 class="page-title">Обзор</h1>
+                <p class="page-description">Управление системой синхронного перевода</p>
+            </div>
+            <div class="header-right">
+                <button id="startWorkflow" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M5 3L11 8L5 13V3Z" fill="currentColor"/>
+                    </svg>
+                    <span id="btnText">Запустить трансляцию</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Активные трансляции</span>
+                    <svg class="stat-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/>
+                        <circle cx="10" cy="10" r="3" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="stat-value" id="statActiveWorkflows">0</div>
+                <div class="stat-change positive">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>В работе</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Обработано сообщений</span>
+                    <svg class="stat-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 6H16M4 10H16M4 14H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat-value" id="statNormalizations">0</div>
+                <div class="stat-change">
+                    <span>Нормализаций</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Переведено</span>
+                    <svg class="stat-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5H11M9 3V5M5.5 5C5.5 9 7 13 10 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat-value" id="statTranslations">0</div>
+                <div class="stat-change">
+                    <span>Текстов</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Озвучено</span>
+                    <svg class="stat-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M6 7L11 4V16L6 13H4C3.44772 13 3 12.5523 3 12V8C3 7.44772 3.44772 7 4 7H6Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="stat-value" id="statSpeech">0</div>
+                <div class="stat-change">
+                    <span>Аудио</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="dashboard-grid">
+            <!-- Active Workflows -->
+            <section class="card card-span-2">
+                <div class="card-header">
+                    <h2 class="card-title">Активные трансляции</h2>
+                    <button class="btn btn-ghost btn-sm" onclick="loadWorkflows()">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M14 4L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Обновить
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div id="workflowsTable" class="table-container">
+                        <!-- Loading State -->
+                        <div class="loading-container">
+                            <div class="spinner"></div>
+                            <p>Загрузка трансляций...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Конфигурация</h2>
+                </div>
+                <div class="card-content">
+                    <div class="config-list">
+                        <div class="config-item">
+                            <div class="config-label">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3 5H13M3 8H13M3 11H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                RTMP URL
+                            </div>
+                            <div class="config-value">steppe-games</div>
+                        </div>
+
+                        <div class="config-item">
+                            <div class="config-label">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 5V8L10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Интервал
+                            </div>
+                            <div class="config-value">10 сек</div>
+                        </div>
+
+                        <div class="config-item">
+                            <div class="config-label">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Скорость
+                            </div>
+                            <div class="config-value">1.3x</div>
+                        </div>
+
+                        <div class="config-item">
+                            <div class="config-label">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M2 8H6L8 5V11L10 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Модель TTS
+                            </div>
+                            <div class="config-value">tts-1-hd</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Status -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Статус системы</h2>
+                </div>
+                <div class="card-content">
+                    <div class="status-list">
+                        <div class="status-item">
+                            <div class="status-indicator status-success"></div>
+                            <div class="status-info">
+                                <div class="status-name">RTMP Server</div>
+                                <div class="status-detail">Готов к приему</div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-indicator status-success"></div>
+                            <div class="status-info">
+                                <div class="status-name">OpenAI API</div>
+                                <div class="status-detail">Подключено</div>
+                            </div>
+                        </div>
+
+                        <div class="status-item">
+                            <div class="status-indicator status-success"></div>
+                            <div class="status-info">
+                                <div class="status-name">WebSocket</div>
+                                <div class="status-detail">Активен</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="card card-span-2">
+                <div class="card-header">
+                    <h2 class="card-title">Последняя активность</h2>
+                </div>
+                <div class="card-content">
+                    <div id="activityLog" class="activity-list">
+                        <div class="empty-state-small">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                                <path d="M24 16V24L30 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+                            </svg>
+                            <p>Нет активности</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal" style="display: none;">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-content modal-loading">
+            <div class="modal-body">
+                <div class="spinner-lg"></div>
+                <h3 class="modal-title">Создание трансляции</h3>
+                <p class="modal-description">Инициализация компонентов...</p>
+
+                <div class="progress-steps">
+                    <div class="progress-step" id="step1">
+                        <div class="progress-step-icon"></div>
+                        <span class="progress-step-label">RTMP Relay</span>
+                    </div>
+                    <div class="progress-step" id="step2">
+                        <div class="progress-step-icon"></div>
+                        <span class="progress-step-label">Normalizer</span>
+                    </div>
+                    <div class="progress-step" id="step3">
+                        <div class="progress-step-icon"></div>
+                        <span class="progress-step-label">Translator</span>
+                    </div>
+                    <div class="progress-step" id="step4">
+                        <div class="progress-step-icon"></div>
+                        <span class="progress-step-label">Speaker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
