@@ -1,0 +1,358 @@
+{
+    "meta": {
+      "name": "TalkSync Dashboard Style",
+      "version": "1.0.0",
+      "source": "public/dash/style.css",
+      "updated": "2025-10-20"
+    },
+    "theme": {
+      "colors": {
+        "background": "hsl(0 0% 100%)",
+        "foreground": "hsl(222.2 84% 4.9%)",
+        "card": "hsl(0 0% 100%)",
+        "cardForeground": "hsl(222.2 84% 4.9%)",
+        "popover": "hsl(0 0% 100%)",
+        "popoverForeground": "hsl(222.2 84% 4.9%)",
+        "primary": "hsl(221.2 83.2% 53.3%)",
+        "primaryForeground": "hsl(210 40% 98%)",
+        "secondary": "hsl(210 40% 96.1%)",
+        "secondaryForeground": "hsl(222.2 47.4% 11.2%)",
+        "muted": "hsl(210 40% 96.1%)",
+        "mutedForeground": "hsl(215.4 16.3% 46.9%)",
+        "accent": "hsl(210 40% 96.1%)",
+        "accentForeground": "hsl(222.2 47.4% 11.2%)",
+        "destructive": "hsl(0 84.2% 60.2%)",
+        "destructiveForeground": "hsl(210 40% 98%)",
+        "border": "hsl(214.3 31.8% 91.4%)",
+        "input": "hsl(214.3 31.8% 91.4%)",
+        "ring": "hsl(221.2 83.2% 53.3%)",
+        "success": "hsl(142.1 76.2% 36.3%)",
+        "warning": "hsl(38 92% 50%)"
+      },
+      "radii": {
+        "base": "0.5rem",
+        "modal": "calc(0.5rem * 2)",
+        "pill": "9999px"
+      },
+      "shadows": {
+        "cardHover": "0 2px 8px rgba(0,0,0,0.05)",
+        "modal": "0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+        "toast": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)"
+      },
+      "typography": {
+        "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "sizes": {
+          "base": "14px",
+          "sm": "13px",
+          "h1": "28px",
+          "stat": "32px",
+          "cardTitle": "16px"
+        },
+        "weights": {
+          "regular": 400,
+          "medium": 500,
+          "semibold": 600,
+          "bold": 700
+        },
+        "lineHeight": "1.5"
+      },
+      "spacing": {
+        "xxs": "2px",
+        "xs": "4px",
+        "sm": "6px",
+        "md": "8px",
+        "md2": "10px",
+        "md3": "12px",
+        "md4": "16px",
+        "lg": "20px",
+        "xl": "24px",
+        "xxl": "32px",
+        "xxxl": "40px",
+        "pagePaddingDesktop": "32px",
+        "pagePaddingMobile": "20px",
+        "gap": "20px"
+      },
+      "breakpoints": {
+        "md": "1024px",
+        "sm": "768px"
+      },
+      "zIndex": {
+        "modal": 50,
+        "toast": 100
+      },
+      "motion": {
+        "durations": {
+          "fast": "0.2s",
+          "normal": "0.3s",
+          "slow": "0.8s",
+          "pulse": "2s"
+        },
+        "easings": {
+          "standard": "ease",
+          "linear": "linear"
+        }
+      }
+    },
+    "components": {
+      "sidebar": {
+        "width": "240px",
+        "bg": "colors.card",
+        "borderRight": "1px solid colors.border",
+        "logo": {
+          "size": "20px",
+          "weight": "700"
+        },
+        "subtitle": {
+          "size": "13px",
+          "color": "colors.mutedForeground"
+        }
+      },
+      "navItem": {
+        "gap": "12px",
+        "padding": "10px 12px",
+        "radius": "radii.base",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "color": "colors.mutedForeground",
+        "hover": {
+          "bg": "colors.accent",
+          "color": "colors.accentForeground"
+        },
+        "active": {
+          "bg": "colors.primary",
+          "color": "colors.primaryForeground"
+        }
+      },
+      "pageHeader": {
+        "padding": "32px 32px 24px",
+        "borderBottom": "1px solid colors.border"
+      },
+      "buttons": {
+        "base": {
+          "gap": "8px",
+          "padding": "10px 16px",
+          "radius": "radii.base",
+          "fontSize": "14px",
+          "fontWeight": "500"
+        },
+        "primary": {
+          "bg": "colors.primary",
+          "color": "colors.primaryForeground",
+          "hoverBg": "hsl(221.2 83.2% 53.3% / 0.9)"
+        },
+        "ghost": {
+          "bg": "transparent",
+          "color": "colors.foreground",
+          "hoverBg": "colors.accent"
+        },
+        "danger": {
+          "bg": "colors.destructive",
+          "color": "colors.destructiveForeground",
+          "hoverBg": "hsl(0 84.2% 60.2% / 0.9)"
+        },
+        "sm": {
+          "padding": "6px 12px",
+          "fontSize": "13px"
+        },
+        "disabled": {
+          "opacity": 0.5,
+          "cursor": "not-allowed"
+        }
+      },
+      "statsCard": {
+        "padding": "20px",
+        "radius": "radii.base",
+        "bg": "colors.card",
+        "border": "1px solid colors.border",
+        "hoverShadow": "shadows.cardHover",
+        "label": {
+          "size": "13px",
+          "weight": "500",
+          "color": "colors.mutedForeground"
+        },
+        "value": {
+          "size": "32px",
+          "weight": "700",
+          "letterSpacing": "-1px"
+        },
+        "positiveColor": "colors.success"
+      },
+      "grid": {
+        "dashboard": {
+          "columnsDesktop": 3,
+          "gap": "20px",
+          "padding": "0 32px 32px",
+          "columnsMobile": 1,
+          "paddingMobile": "0 20px 20px"
+        },
+        "stats": {
+          "minCol": "240px",
+          "gap": "20px",
+          "padding": "24px 32px",
+          "paddingMobile": "20px"
+        }
+      },
+      "card": {
+        "bg": "colors.card",
+        "border": "1px solid colors.border",
+        "radius": "radii.base",
+        "headerPadding": "20px",
+        "contentPadding": "20px",
+        "titleSize": "16px",
+        "titleWeight": "600",
+        "span2Desktop": true
+      },
+      "table": {
+        "th": {
+          "size": "13px",
+          "weight": "500",
+          "color": "colors.mutedForeground",
+          "padding": "12px",
+          "borderBottom": "1px solid colors.border"
+        },
+        "td": {
+          "size": "14px",
+          "padding": "12px",
+          "borderBottom": "1px solid colors.border"
+        }
+      },
+      "badge": {
+        "base": {
+          "padding": "4px 10px",
+          "radius": "radii.pill",
+          "size": "12px",
+          "weight": "500"
+        },
+        "success": {
+          "bg": "hsl(142.1 76.2% 36.3% / 0.1)",
+          "color": "colors.success"
+        },
+        "error": {
+          "bg": "hsl(0 84.2% 60.2% / 0.1)",
+          "color": "colors.destructive"
+        },
+        "warning": {
+          "bg": "hsl(38 92% 50% / 0.1)",
+          "color": "colors.warning"
+        }
+      },
+      "configItem": {
+        "padding": "12px",
+        "bg": "hsl(210 40% 96.1% / 0.3)",
+        "radius": "radii.base",
+        "label": {
+          "size": "14px",
+          "weight": "500",
+          "color": "colors.mutedForeground",
+          "iconColor": "colors.primary"
+        },
+        "value": {
+          "size": "14px",
+          "weight": "500",
+          "fontFamily": "ui-monospace, monospace",
+          "color": "colors.foreground"
+        }
+      },
+      "statusItem": {
+        "padding": "12px",
+        "bg": "hsl(210 40% 96.1% / 0.3)",
+        "radius": "radii.base",
+        "indicator": {
+          "size": "8px",
+          "success": "colors.success",
+          "error": "colors.destructive"
+        },
+        "name": {
+          "size": "14px",
+          "weight": "500"
+        },
+        "detail": {
+          "size": "13px",
+          "color": "colors.mutedForeground"
+        }
+      },
+      "activityItem": {
+        "padding": "12px",
+        "bg": "hsl(210 40% 96.1% / 0.3)",
+        "radius": "radii.base",
+        "icon": {
+          "size": "32px",
+          "radius": "50%",
+          "bg": "hsl(221.2 83.2% 53.3% / 0.1)",
+          "color": "colors.primary"
+        },
+        "title": {
+          "size": "14px",
+          "weight": "500"
+        },
+        "time": {
+          "size": "13px",
+          "color": "colors.mutedForeground"
+        }
+      },
+      "modal": {
+        "radius": "radii.modal",
+        "maxWidth": "500px",
+        "width": "90%",
+        "backdrop": "rgba(0,0,0,0.5)",
+        "bodyPadding": "40px 32px",
+        "titleSize": "20px",
+        "titleWeight": "600",
+        "descriptionSize": "14px",
+        "descriptionColor": "colors.mutedForeground",
+        "animations": {
+          "enter": "slideUp 0.3s",
+          "backdrop": "fadeIn 0.2s"
+        }
+      },
+      "progressStep": {
+        "icon": {
+          "size": "40px",
+          "border": "2px solid colors.border",
+          "bg": "colors.background",
+          "activeBorder": "colors.primary",
+          "activeBg": "hsl(221.2 83.2% 53.3% / 0.1)",
+          "completedBg": "colors.success",
+          "checkmark": "#ffffff"
+        },
+        "label": {
+          "size": "13px",
+          "weight": "500",
+          "color": "colors.mutedForeground"
+        },
+        "pulse": "2s ease-in-out infinite"
+      },
+      "toast": {
+        "container": {
+          "position": "fixed",
+          "bottom": "24px",
+          "right": "24px",
+          "gap": "12px",
+          "zIndex": 100
+        },
+        "base": {
+          "bg": "colors.card",
+          "border": "1px solid colors.border",
+          "radius": "radii.base",
+          "padding": "16px",
+          "minWidth": "300px",
+          "shadow": "shadows.toast",
+          "enter": "slideInRight 0.3s"
+        },
+        "success": {
+          "borderColor": "colors.success",
+          "bg": "hsl(142.1 76.2% 36.3% / 0.05)"
+        },
+        "error": {
+          "borderColor": "colors.destructive",
+          "bg": "hsl(0 84.2% 60.2% / 0.05)"
+        }
+      }
+    },
+    "usage": {
+      "cssVariables": "Colors are defined as HSL components; in CSS use hsl(var(--token)) or literal HSL from this file.",
+      "naming": "Follow class names from public/dash/style.css; consume tokens for colors, spacing, radius, shadows.",
+      "accessibility": "Keep sufficient contrast for text and primary actions; avoid sizes below 13px on mobile.",
+      "responsive": "<=1024px stack dashboard cards; <=768px hide sidebar; use mobile paddings from tokens."
+    }
+  }

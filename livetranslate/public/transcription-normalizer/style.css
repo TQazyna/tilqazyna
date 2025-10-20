@@ -1,0 +1,223 @@
+/* Transcription Normalizer - page specific styles (uses shared tokens) */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-full {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* Lists */
+.normalizer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: hsl(var(--muted) / 0.3);
+  border-radius: var(--radius);
+}
+
+.normalizer-item + .normalizer-item {
+  margin-top: 8px;
+}
+
+.normalizer-item.active {
+  outline: 2px solid hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary) / 0.05);
+}
+
+.normalizer-id {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.normalizer-stats {
+  font-size: 13px;
+  color: hsl(var(--muted-foreground));
+}
+
+.normalizer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Transcriptions */
+.transcription-item {
+  background: hsl(var(--muted) / 0.3);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.transcription-item + .transcription-item {
+  margin-top: 8px;
+}
+
+.transcription-item.latest {
+  outline: 2px solid hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary) / 0.05);
+}
+
+.transcription-time {
+  font-size: 13px;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.transcription-text {
+  font-size: 14px;
+  color: hsl(var(--foreground));
+}
+
+/* Normalized results */
+.normalized-item {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.normalized-item + .normalized-item {
+  margin-top: 10px;
+}
+
+.normalized-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.normalized-time {
+  font-size: 13px;
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+.normalized-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.normalized-status.success {
+  background: hsl(var(--success) / 0.1);
+  color: hsl(var(--success));
+}
+
+.normalized-status.error {
+  background: hsl(var(--destructive) / 0.1);
+  color: hsl(var(--destructive));
+}
+
+.normalized-text {
+  font-size: 14px;
+  color: hsl(var(--foreground));
+  padding: 10px;
+  background: hsl(var(--muted) / 0.3);
+  border-radius: var(--radius);
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.normalized-meta {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  margin-top: 6px;
+}
+
+.normalized-error {
+  font-size: 13px;
+  color: hsl(var(--destructive));
+  font-style: italic;
+}
+
+/* Logs */
+.log-item {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 10px;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.log-item + .log-item {
+  margin-top: 6px;
+}
+
+.log-timestamp {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.log-type {
+  color: hsl(var(--primary));
+  font-weight: 600;
+  margin: 0 8px;
+}
+
+.log-message {
+  color: hsl(var(--foreground));
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group-full { grid-column: span 1; }
+}
+
+@media (max-width: 768px) {
+  .normalizer-actions { flex-direction: column; }
+}
+
+
