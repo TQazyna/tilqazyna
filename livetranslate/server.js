@@ -10,6 +10,7 @@ import RTMPRealtimeRelay from "./rtmp-realtime-relay.js";
 import TranscriptionNormalizer from "./transcription-normalizer.js";
 import TranscriptionTranslator from "./transcription-translator.js";
 import TranslationSpeaker from "./translation-speaker.js";
+import ReplicateWhisperXRelay from "./replicate-whisperx-relay.js";
 
 dotenv.config();
 
@@ -19,10 +20,15 @@ const wss = new WebSocketServer({ server });
 
 const port = process.env.PORT ?? 3000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
 const MAX_LISTENERS_PER_PROJECT = parseInt(process.env.MAX_LISTENERS_PER_PROJECT ?? "100");
 
 if (!OPENAI_API_KEY) {
   console.warn("OPENAI_API_KEY is not set. Remember to configure your .env file.");
+}
+
+if (!REPLICATE_API_TOKEN) {
+  console.warn("REPLICATE_API_TOKEN is not set. WhisperX service will not be available.");
 }
 
 const __filename = fileURLToPath(import.meta.url);
@@ -123,8 +129,14 @@ const translators = new Map(); // translatorId -> { translator, normalizerId, cr
 // Хранилище озвучивателей переводов
 const speakers = new Map(); // speakerId -> { speaker, translatorId, createdAt, status }
 
+// Хранилище Replicate WhisperX ретрансляторов
+const whisperxRelays = new Map(); // whisperxId -> { relay, projectId, createdAt, status }
+
 // Хранилище WebSocket клиентов для просмотра транскрипции
 const transcriptionClients = new Map(); // relayId -> Set of WebSocket clients
+
+// Хранилище WebSocket клиентов для WhisperX транскрипции
+const whisperxClients = new Map(); // whisperxId -> Set of WebSocket clients
 
 // Хранилище WebSocket клиентов для просмотра нормализации
 const normalizerClients = new Map(); // normalizerId -> Set of WebSocket clients
@@ -1836,6 +1848,299 @@ app.patch("/api/speaker/:id/settings", express.json(), (req, res) => {
 });
 
 // ============================================
+// Replicate WhisperX API endpoints
+// ============================================
+
+// Функция для трансляции сообщений клиентам WhisperX
+function broadcastToWhisperXClients(whisperxId, message) {
+  const clients = whisperxClients.get(whisperxId);
+  if (clients) {
+    clients.forEach(client => {
+      if (client.readyState === 1) { // WebSocket.OPEN
+        try {
+          client.send(JSON.stringify(message));
+        } catch (error) {
+          console.error(`Error sending to WhisperX client:`, error);
+        }
+      }
+    });
+  }
+}
+
+// Создать новый WhisperX ретранслятор
+app.post("/api/whisperx-relay", express.json(), async (req, res) => {
+  try {
+    const { rtmpUrl, projectId, language, chunkDuration, batchSize, model } = req.body;
+
+    if (!rtmpUrl) {
+      res.status(400).json({ error: "RTMP URL is required" });
+      return;
+    }
+
+    if (!REPLICATE_API_TOKEN) {
+      res.status(500).json({ error: "Replicate API token is not configured" });
+      return;
+    }
+
+    const whisperxId = "whisperx-" + Date.now();
+
+    const relay = new ReplicateWhisperXRelay({
+      apiToken: REPLICATE_API_TOKEN,
+      rtmpUrl,
+      language: language || "kk",
+      chunkDuration: chunkDuration || 10,
+      batchSize: batchSize || 8,
+      model: model || "whisperx"
+    });
+
+    // Настройка обработчиков событий
+    relay.on("started", () => {
+      console.log(`WhisperX relay ${whisperxId} started`);
+      whisperxRelays.get(whisperxId).status = "running";
+    });
+
+    relay.on("stopped", () => {
+      console.log(`WhisperX relay ${whisperxId} stopped`);
+      whisperxRelays.get(whisperxId).status = "stopped";
+    });
+
+    relay.on("error", (error) => {
+      console.error(`WhisperX relay ${whisperxId} error:`, error);
+      whisperxRelays.get(whisperxId).status = "error";
+      whisperxRelays.get(whisperxId).lastError = error.message;
+    });
+
+    relay.on("transcription_completed", (transcription) => {
+      console.log(`WhisperX transcription for ${whisperxId}:`, transcription.fullText);
+      broadcastToWhisperXClients(whisperxId, {
+        type: "transcription_completed",
+        data: transcription
+      });
+    });
+
+    relay.on("word", (word) => {
+      // Стримим слова в реальном времени
+      broadcastToWhisperXClients(whisperxId, {
+        type: "word",
+        data: word
+      });
+    });
+
+    relay.on("char", (char) => {
+      // Стримим символы в реальном времени
+      broadcastToWhisperXClients(whisperxId, {
+        type: "char",
+        data: char
+      });
+    });
+
+    relay.on("log", (logEntry) => {
+      broadcastToWhisperXClients(whisperxId, {
+        type: "log",
+        data: logEntry
+      });
+    });
+
+    relay.on("transcription_start", (data) => {
+      broadcastToWhisperXClients(whisperxId, {
+        type: "transcription_start",
+        data
+      });
+    });
+
+    relay.on("transcription_failed", (error) => {
+      broadcastToWhisperXClients(whisperxId, {
+        type: "transcription_failed",
+        data: error
+      });
+    });
+
+    // Сохраняем ретранслятор
+    whisperxRelays.set(whisperxId, {
+      relay,
+      projectId: projectId || null,
+      createdAt: new Date().toISOString(),
+      status: "created",
+      rtmpUrl,
+      language: language || "kk",
+      model: model || "whisperx"
+    });
+
+    // Запускаем ретранслятор
+    await relay.start();
+
+    res.json({
+      id: whisperxId,
+      projectId: projectId || null,
+      rtmpUrl,
+      language: language || "kk",
+      chunkDuration: chunkDuration || 10,
+      batchSize: batchSize || 8,
+      model: model || "whisperx",
+      status: "running",
+      createdAt: whisperxRelays.get(whisperxId).createdAt
+    });
+
+  } catch (error) {
+    console.error("Error creating WhisperX relay:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить список всех WhisperX ретрансляторов
+app.get("/api/whisperx-relay", (_req, res) => {
+  const relays = Array.from(whisperxRelays.entries()).map(([id, data]) => ({
+    id,
+    projectId: data.projectId,
+    rtmpUrl: data.rtmpUrl,
+    language: data.language,
+    status: data.status,
+    createdAt: data.createdAt,
+    lastError: data.lastError || null
+  }));
+
+  res.json(relays);
+});
+
+// Получить статус конкретного WhisperX ретранслятора
+app.get("/api/whisperx-relay/:id", (req, res) => {
+  const { id } = req.params;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  const status = relayData.relay.getStatus();
+
+  res.json({
+    id,
+    projectId: relayData.projectId,
+    rtmpUrl: relayData.rtmpUrl,
+    language: relayData.language,
+    status: relayData.status,
+    createdAt: relayData.createdAt,
+    lastError: relayData.lastError || null,
+    details: status
+  });
+});
+
+// Остановить WhisperX ретранслятор
+app.delete("/api/whisperx-relay/:id", (req, res) => {
+  const { id } = req.params;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  try {
+    relayData.relay.stop();
+    whisperxRelays.delete(id);
+
+    res.json({ success: true, message: "WhisperX relay stopped and removed" });
+  } catch (error) {
+    console.error("Error stopping WhisperX relay:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить результаты транскрипции WhisperX
+app.get("/api/whisperx-relay/:id/transcription", (req, res) => {
+  const { id } = req.params;
+  const { limit = 50 } = req.query;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  try {
+    const results = relayData.relay.getTranscriptionResults(parseInt(limit));
+    res.json({
+      whisperxId: id,
+      count: results.length,
+      results: results
+    });
+  } catch (error) {
+    console.error("Error getting transcription results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Получить логи WhisperX ретранслятора
+app.get("/api/whisperx-relay/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const { limit = 100, type } = req.query;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  try {
+    let logs;
+    if (type) {
+      logs = relayData.relay.getLogsByType(type, parseInt(limit));
+    } else {
+      logs = relayData.relay.getLogs(parseInt(limit));
+    }
+
+    res.json({
+      whisperxId: id,
+      count: logs.length,
+      type: type || "all",
+      logs: logs
+    });
+  } catch (error) {
+    console.error("Error getting logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить результаты транскрипции WhisperX
+app.delete("/api/whisperx-relay/:id/transcription", (req, res) => {
+  const { id } = req.params;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  try {
+    relayData.relay.clearTranscriptionResults();
+    res.json({ success: true, message: "Transcription results cleared" });
+  } catch (error) {
+    console.error("Error clearing transcription results:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Очистить логи WhisperX ретранслятора
+app.delete("/api/whisperx-relay/:id/logs", (req, res) => {
+  const { id } = req.params;
+  const relayData = whisperxRelays.get(id);
+
+  if (!relayData) {
+    res.status(404).json({ error: "WhisperX relay not found" });
+    return;
+  }
+
+  try {
+    relayData.relay.clearLogs();
+    res.json({ success: true, message: "Logs cleared" });
+  } catch (error) {
+    console.error("Error clearing logs:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================
 // Workflow API - Автоматическое создание полного pipeline
 // ============================================
 
@@ -2654,6 +2959,66 @@ wss.on("connection", (ws, req) => {
         clients.delete(ws);
         if (clients.size === 0) {
           speakerClients.delete(speakerId);
+        }
+      }
+    });
+
+  } else if (pathname === "/whisperx") {
+    // Это клиент для просмотра WhisperX транскрипции
+    const whisperxId = url.searchParams.get("id");
+
+    if (!whisperxId || !whisperxRelays.has(whisperxId)) {
+      ws.close(1008, "Invalid WhisperX relay ID");
+      return;
+    }
+
+    console.log(`WhisperX client connected to: ${whisperxId}`);
+
+    // Добавляем клиента в список
+    if (!whisperxClients.has(whisperxId)) {
+      whisperxClients.set(whisperxId, new Set());
+    }
+    whisperxClients.get(whisperxId).add(ws);
+
+    // Отправляем текущие данные
+    const relayData = whisperxRelays.get(whisperxId);
+    if (relayData) {
+      try {
+        const transcriptionResults = relayData.relay.getTranscriptionResults(20);
+        const logs = relayData.relay.getLogs(50);
+        const status = relayData.relay.getStatus();
+
+        ws.send(JSON.stringify({
+          type: "initial_data",
+          data: {
+            transcription: transcriptionResults,
+            logs: logs,
+            status: status
+          }
+        }));
+      } catch (error) {
+        console.error("Error sending initial data:", error);
+      }
+    }
+
+    ws.on("close", () => {
+      console.log(`WhisperX client disconnected from: ${whisperxId}`);
+      const clients = whisperxClients.get(whisperxId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          whisperxClients.delete(whisperxId);
+        }
+      }
+    });
+
+    ws.on("error", (error) => {
+      console.error(`WhisperX client error:`, error);
+      const clients = whisperxClients.get(whisperxId);
+      if (clients) {
+        clients.delete(ws);
+        if (clients.size === 0) {
+          whisperxClients.delete(whisperxId);
         }
       }
     });

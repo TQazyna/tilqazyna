@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhisperX Relay - Live Transcription</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎙️ WhisperX Live Transcription</h1>
+            <p class="subtitle">Replicate WhisperX RTMP Stream Transcription</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="form-group">
+                <label for="rtmpUrl">RTMP URL:</label>
+                <input
+                    type="text"
+                    id="rtmpUrl"
+                    placeholder="rtmp://talksync.tilqazyna.kz:1935/steppe-games"
+                    value="rtmp://talksync.tilqazyna.kz:1935/steppe-games"
+                >
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <select id="model">
+                        <option value="whisperx" selected>WhisperX (victor-upmeet)</option>
+                        <option value="whisperx-a100">WhisperX A100 80GB</option>
+                        <option value="fast-whisper">Faster Whisper (vaibhavs10)</option>
+                        <option value="openai-whisper">OpenAI Whisper (Replicate)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="language">Language:</label>
+                    <select id="language">
+                        <option value="kk" selected>Kazakh (kk)</option>
+                        <option value="ru">Russian (ru)</option>
+                        <option value="en">English (en)</option>
+                        <option value="zh">Chinese (zh)</option>
+                        <option value="es">Spanish (es)</option>
+                        <option value="fr">French (fr)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="chunkDuration">Chunk Duration (sec):</label>
+                    <input type="number" id="chunkDuration" value="10" min="5" max="30">
+                </div>
+
+                <div class="form-group">
+                    <label for="batchSize">Batch Size:</label>
+                    <input type="number" id="batchSize" value="8" min="1" max="16">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="startBtn" class="btn btn-primary">Start Transcription</button>
+                <button id="stopBtn" class="btn btn-danger" disabled>Stop</button>
+                <button id="clearBtn" class="btn btn-secondary">Clear Results</button>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-panel">
+            <div class="status-item">
+                <span class="status-label">Status:</span>
+                <span id="status" class="status-value">Not Connected</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Relay ID:</span>
+                <span id="relayId" class="status-value">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Chunks Processed:</span>
+                <span id="chunksProcessed" class="status-value">0</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Queue Length:</span>
+                <span id="queueLength" class="status-value">0</span>
+            </div>
+        </div>
+
+        <!-- Live Transcription Display -->
+        <div class="transcription-panel">
+            <div class="panel-header">
+                <h2>📝 Live Transcription</h2>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>LIVE</span>
+                </div>
+            </div>
+
+            <!-- Real-time text display -->
+            <div class="live-text-container">
+                <div id="liveText" class="live-text"></div>
+            </div>
+
+            <!-- Word-by-word display -->
+            <div class="words-container">
+                <h3>Words Stream:</h3>
+                <div id="wordsDisplay" class="words-display"></div>
+            </div>
+        </div>
+
+        <!-- Transcription Results -->
+        <div class="results-panel">
+            <div class="panel-header">
+                <h2>📊 Transcription Results</h2>
+                <span id="resultsCount" class="badge">0</span>
+            </div>
+            <div id="resultsContainer" class="results-container"></div>
+        </div>
+
+        <!-- Logs Panel -->
+        <div class="logs-panel">
+            <div class="panel-header">
+                <h2>📋 Logs</h2>
+                <button id="clearLogsBtn" class="btn btn-sm">Clear Logs</button>
+            </div>
+            <div id="logsContainer" class="logs-container"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

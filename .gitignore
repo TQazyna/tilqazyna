@@ -13,3 +13,4 @@ livetranslate/server.key
 livetranslate/translator-data/*
 livetranslate/speaker-data/*
 livetranslate/normalizer-data/*
+livetranslate/temp-whisperx/*

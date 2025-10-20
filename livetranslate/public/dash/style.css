@@ -126,6 +126,12 @@ body {
     opacity: 0.8;
 }
 
+.nav-divider {
+    height: 1px;
+    background: hsl(var(--border));
+    margin: 8px 0;
+}
+
 /* ============================================
    Main Content
    ============================================ */
