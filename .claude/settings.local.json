@@ -3,7 +3,9 @@
     "allow": [
       "Bash(dir:*)",
       "Bash(findstr /v node_modules)",
-      "Bash(findstr /v \".git\")"
+      "Bash(findstr /v \".git\")",
+      "Bash(cat:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []

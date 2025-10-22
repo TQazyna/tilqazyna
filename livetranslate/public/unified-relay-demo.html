@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unified Relay Demo - LiveTranslate</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .relay-type-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .relay-type-option {
+      padding: 20px;
+      border: 3px solid #e1e8ed;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .relay-type-option:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .relay-type-option.active {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .relay-type-option h3 {
+      margin-bottom: 10px;
+      color: #667eea;
+    }
+
+    .relay-type-option p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .conditional-fields {
+      display: none;
+    }
+
+    .conditional-fields.active {
+      display: block;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button.danger {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .status {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .status.idle {
+      background: #f0f4ff;
+      color: #667eea;
+    }
+
+    .status.running {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .relay-info {
+      display: none;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .relay-info.active {
+      display: block;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #e1e8ed;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #666;
+    }
+
+    .info-value {
+      color: #333;
+    }
+
+    .transcription-box {
+      display: none;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .transcription-box.active {
+      display: block;
+    }
+
+    .transcription-item {
+      padding: 15px;
+      background: white;
+      border-left: 4px solid #667eea;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .transcription-item .timestamp {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+
+    .transcription-item .text {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .transcription-item .metadata {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #e1e8ed;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+
+    .badge.openai {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge.whisperx {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .badge.gpt {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .capabilities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .capability-item {
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .capability-item.active {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .capability-item.inactive {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ Unified Relay Demo</h1>
+
+    <!-- Создание релея -->
+    <div class="card">
+      <h2>Создать новый релей</h2>
+
+      <!-- Выбор типа релея -->
+      <div class="relay-type-selector">
+        <div class="relay-type-option active" data-type="openai-realtime">
+          <h3>⚡ OpenAI Realtime</h3>
+          <p>Real-time streaming, &lt; 100ms latency</p>
+          <p>Bidirectional audio, TTS support</p>
+        </div>
+        <div class="relay-type-option" data-type="whisperx">
+          <h3>🎯 WhisperX</h3>
+          <p>High accuracy, 2-10s latency</p>
+          <p>Word-level timing, multiple models</p>
+        </div>
+      </div>
+
+      <!-- Общие поля -->
+      <div class="form-group">
+        <label>RTMP URL</label>
+        <input type="text" id="rtmpUrl" placeholder="rtmp://example.com/stream" value="rtmp://talksync.tilqazyna.kz:1935/steppe-games">
+      </div>
+
+      <div class="form-group">
+        <label>Project ID (опционально)</label>
+        <input type="text" id="projectId" placeholder="my-project">
+      </div>
+
+      <!-- OpenAI Realtime поля -->
+      <div id="openai-fields" class="conditional-fields active">
+        <div class="form-group">
+          <label>Model</label>
+          <select id="model">
+            <option value="gpt-realtime">gpt-realtime</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Voice</label>
+          <select id="voice">
+            <option value="alloy">Alloy</option>
+            <option value="echo">Echo</option>
+            <option value="fable">Fable</option>
+            <option value="onyx">Onyx</option>
+            <option value="shimmer">Shimmer</option>
+            <option value="verse" selected>Verse</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Instructions (системный промпт)</label>
+          <textarea id="instructions" rows="3" placeholder="Ты синхронный переводчик...">Ты синхронный переводчик с казахского на русский язык. Слушай казахскую речь и сразу озвучивай её дословный перевод на русском языке. Говори четко и естественно.</textarea>
+        </div>
+      </div>
+
+      <!-- WhisperX поля -->
+      <div id="whisperx-fields" class="conditional-fields">
+        <div class="form-group">
+          <label>Language (ISO 639-1)</label>
+          <input type="text" id="language" placeholder="kk" value="kk">
+        </div>
+
+        <div class="form-group">
+          <label>Chunk Duration (секунды)</label>
+          <input type="number" id="chunkDuration" placeholder="10" value="10">
+        </div>
+
+        <div class="form-group">
+          <label>Batch Size</label>
+          <input type="number" id="batchSize" placeholder="8" value="8">
+        </div>
+
+        <div class="form-group">
+          <label>Whisper Model</label>
+          <select id="whisperModel">
+            <option value="whisperx">WhisperX</option>
+            <option value="whisperx-a100">WhisperX A100</option>
+            <option value="fast-whisper">Fast Whisper</option>
+            <option value="openai-whisper">OpenAI Whisper</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="createBtn">Создать релей</button>
+    </div>
+
+    <!-- Статус релея -->
+    <div id="statusCard" class="card" style="display: none;">
+      <h2>Статус релея</h2>
+
+      <div id="status" class="status idle">Ожидание...</div>
+
+      <div id="relayInfo" class="relay-info">
+        <div class="info-row">
+          <span class="info-label">ID:</span>
+          <span class="info-value" id="relayId">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Тип:</span>
+          <span class="info-value" id="relayType">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Создан:</span>
+          <span class="info-value" id="createdAt">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Транскрипций:</span>
+          <span class="info-value" id="transcriptionCount">0</span>
+        </div>
+
+        <h3 style="margin-top: 20px; margin-bottom: 10px;">Возможности:</h3>
+        <div class="capabilities" id="capabilities"></div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+        <button id="stopBtn" class="danger">Остановить релей</button>
+        <button id="restartBtn">Перезапустить</button>
+      </div>
+    </div>
+
+    <!-- Транскрипции -->
+    <div id="transcriptionCard" class="card" style="display: none;">
+      <h2>Транскрипции (real-time)</h2>
+      <div id="transcriptions" class="transcription-box"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentRelayId = null;
+    let currentType = 'openai-realtime';
+    let ws = null;
+
+    // Переключение типа релея
+    document.querySelectorAll('.relay-type-option').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('.relay-type-option').forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+        currentType = option.dataset.type;
+
+        document.querySelectorAll('.conditional-fields').forEach(f => f.classList.remove('active'));
+        if (currentType === 'openai-realtime') {
+          document.getElementById('openai-fields').classList.add('active');
+        } else {
+          document.getElementById('whisperx-fields').classList.add('active');
+        }
+      });
+    });
+
+    // Создание релея
+    document.getElementById('createBtn').addEventListener('click', async () => {
+      const rtmpUrl = document.getElementById('rtmpUrl').value;
+      const projectId = document.getElementById('projectId').value;
+
+      if (!rtmpUrl) {
+        alert('Введите RTMP URL');
+        return;
+      }
+
+      const config = {
+        type: currentType,
+        rtmpUrl,
+        projectId: projectId || undefined
+      };
+
+      if (currentType === 'openai-realtime') {
+        config.model = document.getElementById('model').value;
+        config.voice = document.getElementById('voice').value;
+        config.instructions = document.getElementById('instructions').value;
+      } else {
+        config.language = document.getElementById('language').value;
+        config.chunkDuration = parseInt(document.getElementById('chunkDuration').value);
+        config.batchSize = parseInt(document.getElementById('batchSize').value);
+        config.whisperModel = document.getElementById('whisperModel').value;
+      }
+
+      try {
+        document.getElementById('createBtn').disabled = true;
+        document.getElementById('createBtn').textContent = 'Создание...';
+
+        const response = await fetch('/api/unified-relay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(config)
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Ошибка создания релея');
+        }
+
+        const data = await response.json();
+        currentRelayId = data.id;
+
+        updateRelayInfo(data);
+        connectWebSocket(data.id);
+
+        document.getElementById('statusCard').style.display = 'block';
+        document.getElementById('transcriptionCard').style.display = 'block';
+
+      } catch (error) {
+        alert('Ошибка: ' + error.message);
+      } finally {
+        document.getElementById('createBtn').disabled = false;
+        document.getElementById('createBtn').textContent = 'Создать релей';
+      }
+    });
+
+    // Обновление информации о релее
+    function updateRelayInfo(data) {
+      document.getElementById('status').className = 'status running';
+      document.getElementById('status').textContent = 'Релей запущен ✅';
+      document.getElementById('relayInfo').classList.add('active');
+
+      document.getElementById('relayId').textContent = data.id;
+      document.getElementById('relayType').textContent = data.type;
+      document.getElementById('createdAt').textContent = new Date(data.createdAt).toLocaleString('ru');
+
+      // Capabilities
+      const capabilitiesEl = document.getElementById('capabilities');
+      capabilitiesEl.innerHTML = '';
+
+      const caps = data.capabilities;
+
+      const items = [
+        { label: 'Audio Output', value: caps.audioOutput },
+        { label: 'Word Timing', value: caps.wordTiming },
+        { label: 'Real-time', value: caps.realtime },
+        { label: 'Bidirectional', value: caps.bidirectional }
+      ];
+
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = `capability-item ${item.value ? 'active' : 'inactive'}`;
+        div.textContent = `${item.label}: ${item.value ? '✅' : '❌'}`;
+        capabilitiesEl.appendChild(div);
+      });
+    }
+
+    // WebSocket подключение
+    function connectWebSocket(relayId) {
+      if (ws) {
+        ws.close();
+      }
+
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      ws = new WebSocket(`${protocol}//${window.location.host}/unified?id=${relayId}`);
+
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+
+        switch (message.type) {
+          case 'transcription':
+            addTranscription(message.data);
+            break;
+          case 'log':
+            console.log('[Log]', message.data);
+            break;
+          case 'word':
+            console.log('[Word]', message.data);
+            break;
+        }
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+
+      ws.onclose = () => {
+        console.log('WebSocket closed');
+      };
+    }
+
+    // Добавление транскрипции
+    function addTranscription(data) {
+      const transcriptionsEl = document.getElementById('transcriptions');
+      transcriptionsEl.classList.add('active');
+
+      const item = document.createElement('div');
+      item.className = 'transcription-item';
+
+      const timestamp = new Date(data.timestamp).toLocaleTimeString('ru');
+      const badgeClass = data.type === 'openai-realtime' ? 'openai' : 'whisperx';
+      const gptBadge = data.isGPTResponse ? '<span class="badge gpt">GPT Response</span>' : '';
+
+      item.innerHTML = `
+        <div class="timestamp">${timestamp}</div>
+        <div class="text">${data.text}</div>
+        <div class="metadata">
+          <span class="badge ${badgeClass}">${data.type}</span>
+          ${gptBadge}
+          ${data.metadata.confidence ? `Confidence: ${(data.metadata.confidence * 100).toFixed(1)}%` : ''}
+        </div>
+      `;
+
+      transcriptionsEl.insertBefore(item, transcriptionsEl.firstChild);
+
+      // Ограничение количества отображаемых элементов
+      while (transcriptionsEl.children.length > 50) {
+        transcriptionsEl.removeChild(transcriptionsEl.lastChild);
+      }
+
+      // Обновление счетчика
+      const count = transcriptionsEl.children.length;
+      document.getElementById('transcriptionCount').textContent = count;
+    }
+
+    // Остановка релея
+    document.getElementById('stopBtn').addEventListener('click', async () => {
+      if (!currentRelayId) return;
+
+      if (!confirm('Вы уверены, что хотите остановить релей?')) return;
+
+      try {
+        const response = await fetch(`/api/unified-relay/${currentRelayId}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          throw new Error('Ошибка остановки релея');
+        }
+
+        document.getElementById('status').className = 'status idle';
+        document.getElementById('status').textContent = 'Релей остановлен';
+
+        if (ws) {
+          ws.close();
+          ws = null;
+        }
+
+        currentRelayId = null;
+
+      } catch (error) {
+        alert('Ошибка: ' + error.message);
+      }
+    });
+
+    // Перезапуск релея
+    document.getElementById('restartBtn').addEventListener('click', async () => {
+      if (!currentRelayId) return;
+
+      try {
+        document.getElementById('restartBtn').disabled = true;
+        document.getElementById('restartBtn').textContent = 'Перезапуск...';
+
+        const response = await fetch(`/api/unified-relay/${currentRelayId}/restart`, {
+          method: 'POST'
+        });
+
+        if (!response.ok) {
+          throw new Error('Ошибка перезапуска релея');
+        }
+
+        alert('Релей успешно перезапущен');
+
+      } catch (error) {
+        alert('Ошибка: ' + error.message);
+      } finally {
+        document.getElementById('restartBtn').disabled = false;
+        document.getElementById('restartBtn').textContent = 'Перезапустить';
+      }
+    });
+  </script>
+</body>
+</html>
