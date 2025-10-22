@@ -9,12 +9,14 @@ export function registerWebSocketHandlers(ctx) {
     speakers,
     whisperxRelays,
     unifiedRelays,
+    seamlessSpeechServices,
     transcriptionClients,
     normalizerClients,
     translatorClients,
     speakerClients,
     whisperxClients,
-    unifiedClients
+    unifiedClients,
+    seamlessSpeechClients
   } = ctx;
 
   // WebSocket обработчик
@@ -460,6 +462,66 @@ export function registerWebSocketHandlers(ctx) {
           clients.delete(ws);
           if (clients.size === 0) {
             unifiedClients.delete(unifiedId);
+          }
+        }
+      });
+
+    } else if (pathname === "/seamless-speech") {
+      // Это клиент для просмотра SeamlessSpeech
+      const serviceId = url.searchParams.get("id");
+
+      if (!serviceId || !seamlessSpeechServices.has(serviceId)) {
+        ws.close(1008, "Invalid SeamlessSpeech service ID");
+        return;
+      }
+
+      console.log(`SeamlessSpeech client connected to: ${serviceId}`);
+
+      // Добавляем клиента в список
+      if (!seamlessSpeechClients.has(serviceId)) {
+        seamlessSpeechClients.set(serviceId, new Set());
+      }
+      seamlessSpeechClients.get(serviceId).add(ws);
+
+      // Отправляем текущие данные
+      const serviceData = seamlessSpeechServices.get(serviceId);
+      if (serviceData) {
+        try {
+          const status = serviceData.service.getStatus();
+          const results = serviceData.service.getTranslationResults(20);
+          const logs = serviceData.service.getLogs(50);
+
+          ws.send(JSON.stringify({
+            type: "initial_data",
+            data: {
+              status: status,
+              results: results,
+              logs: logs
+            }
+          }));
+        } catch (error) {
+          console.error("Error sending initial data:", error);
+        }
+      }
+
+      ws.on("close", () => {
+        console.log(`SeamlessSpeech client disconnected from: ${serviceId}`);
+        const clients = seamlessSpeechClients.get(serviceId);
+        if (clients) {
+          clients.delete(ws);
+          if (clients.size === 0) {
+            seamlessSpeechClients.delete(serviceId);
+          }
+        }
+      });
+
+      ws.on("error", (error) => {
+        console.error(`SeamlessSpeech client error:`, error);
+        const clients = seamlessSpeechClients.get(serviceId);
+        if (clients) {
+          clients.delete(ws);
+          if (clients.size === 0) {
+            seamlessSpeechClients.delete(serviceId);
           }
         }
       });

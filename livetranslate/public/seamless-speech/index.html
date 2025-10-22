@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamless Speech Translation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎙️ Seamless Speech Translation</h1>
+      <p class="subtitle">Перевод речи казахский → русский через SeamlessM4T</p>
+    </header>
+
+    <div class="controls-section">
+      <div class="card">
+        <h2>Управление сервисом</h2>
+
+        <div class="form-group">
+          <label for="whisperx-select">WhisperX Relay:</label>
+          <select id="whisperx-select">
+            <option value="">Загрузка...</option>
+          </select>
+          <button id="refresh-whisperx-btn" class="btn btn-secondary">🔄 Обновить</button>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="auto-translate-checkbox" checked>
+            Автоматический перевод
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Языки перевода:</label>
+          <div style="padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+            <strong>Казахский (Kazakh) → Русский (Russian)</strong>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button id="create-service-btn" class="btn btn-primary">▶️ Создать сервис</button>
+          <button id="stop-service-btn" class="btn btn-danger" disabled>⏹️ Остановить</button>
+          <button id="delete-service-btn" class="btn btn-danger" disabled>🗑️ Удалить</button>
+        </div>
+      </div>
+
+      <div class="card status-card">
+        <h2>Статус</h2>
+        <div id="status-display">
+          <p>Сервис не запущен</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Результаты перевода</h2>
+      <div class="results-controls">
+        <button id="clear-results-btn" class="btn btn-secondary">🧹 Очистить результаты</button>
+        <label>
+          <input type="checkbox" id="auto-play-checkbox" checked>
+          Автовоспроизведение
+        </label>
+      </div>
+      <div id="results-container" class="results-container">
+        <p class="empty-state">Результаты появятся здесь после перевода</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Тестирование</h2>
+      <div class="form-group">
+        <label for="test-text">Введите текст для перевода:</label>
+        <textarea id="test-text" rows="3" placeholder="Сәлем, қалайсың?"></textarea>
+      </div>
+      <button id="manual-translate-btn" class="btn btn-primary" disabled>🔄 Перевести</button>
+    </div>
+
+    <div class="card">
+      <h2>Логи</h2>
+      <div class="log-controls">
+        <button id="clear-logs-btn" class="btn btn-secondary">🧹 Очистить логи</button>
+        <label>
+          <input type="checkbox" id="auto-scroll-checkbox" checked>
+          Автопрокрутка
+        </label>
+      </div>
+      <div id="logs-container" class="logs-container"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно для воспроизведения аудио -->
+  <div id="audio-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>🔊 Воспроизведение перевода</h2>
+      <div id="audio-player-container">
+        <p id="audio-text"></p>
+        <audio id="audio-player" controls></audio>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

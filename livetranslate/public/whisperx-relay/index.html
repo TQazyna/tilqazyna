@@ -92,10 +92,10 @@
                     <div class="form-group">
                         <label for="model">Model</label>
                         <select id="model">
-                            <option value="whisperx" selected>WhisperX (victor-upmeet)</option>
+                            <option value="whisperx">WhisperX (victor-upmeet)</option>
                             <option value="whisperx-a100">WhisperX A100 80GB</option>
                             <option value="fast-whisper">Faster Whisper (vaibhavs10)</option>
-                            <option value="openai-whisper">OpenAI Whisper (Replicate)</option>
+                            <option value="openai-whisper" selected>OpenAI Whisper (Replicate)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -111,11 +111,11 @@
                     </div>
                     <div class="form-group">
                         <label for="chunkDuration">Chunk Duration (sec)</label>
-                        <input type="number" id="chunkDuration" value="10" min="5" max="30">
+                        <input type="number" id="chunkDuration" value="3" min="3" max="30">
                     </div>
                     <div class="form-group">
                         <label for="batchSize">Batch Size</label>
-                        <input type="number" id="batchSize" value="8" min="1" max="16">
+                        <input type="number" id="batchSize" value="6" min="1" max="16">
                     </div>
                 </div>
                 <div class="form-actions">

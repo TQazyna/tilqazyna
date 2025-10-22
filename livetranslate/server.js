@@ -13,6 +13,7 @@ import TranslationSpeaker from "./translation-speaker.js";
 import ReplicateWhisperXRelay from "./replicate-whisperx-relay.js";
 import UnifiedRelay from "./unified-relay.js";
 import ReplicateTranslation from "./replicate-translation.js";
+import SeamlessSpeechTranslation from "./seamless-speech-translation.js";
 import { registerMediaMtxRoutes } from "./routes/mediamtxRoutes.js";
 import { registerRtmpRelayRoutes } from "./routes/rtmpRelayRoutes.js";
 import { registerSessionRoutes } from "./routes/sessionRoutes.js";
@@ -22,6 +23,7 @@ import { registerTranslatorRoutes } from "./routes/translatorRoutes.js";
 import { registerSpeakerRoutes } from "./routes/speakerRoutes.js";
 import { registerWhisperxRoutes } from "./routes/whisperxRoutes.js";
 import { registerReplicateTranslationRoutes } from "./routes/replicateTranslationRoutes.js";
+import { registerSeamlessSpeechRoutes } from "./routes/seamlessSpeechRoutes.js";
 import { registerUnifiedRelayRoutes } from "./routes/unifiedRelayRoutes.js";
 import { registerWorkflowRoutes } from "./routes/workflowRoutes.js";
 import { registerWebSocketHandlers } from "./routes/websocketHandlers.js";
@@ -29,6 +31,8 @@ import { registerWebSocketHandlers } from "./routes/websocketHandlers.js";
 dotenv.config();
 
 const app = express();
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true }));
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
 
@@ -78,6 +82,9 @@ const unifiedRelays = new Map(); // unifiedId -> { relay, projectId, createdAt, 
 // Хранилище Replicate Translation сервисов
 const replicateTranslators = new Map(); // replicateTranslatorId -> { translator, whisperxId, createdAt, status }
 
+// Хранилище SeamlessSpeech сервисов
+const seamlessSpeechServices = new Map(); // seamlessSpeechId -> { service, whisperxId, createdAt, status }
+
 // Хранилище WebSocket клиентов для просмотра транскрипции
 const transcriptionClients = new Map(); // relayId -> Set of WebSocket clients
 
@@ -98,6 +105,9 @@ const speakerClients = new Map(); // speakerId -> Set of WebSocket clients
 
 // Хранилище WebSocket клиентов для просмотра Replicate Translation
 const replicateTranslatorClients = new Map(); // replicateTranslatorId -> Set of WebSocket clients
+
+// Хранилище WebSocket клиентов для просмотра SeamlessSpeech
+const seamlessSpeechClients = new Map(); // seamlessSpeechId -> Set of WebSocket clients
 
 // Функция для трансляции сообщений клиентам транскрипции
 function broadcastToTranscriptionClients(relayId, message) {
@@ -197,9 +207,10 @@ registerTranslatorRoutes({ app, translators, normalizers, OPENAI_API_KEY, Transc
 registerSpeakerRoutes({ app, speakers, translators, OPENAI_API_KEY, TranslationSpeaker, broadcastToSpeakerClients });
 registerWhisperxRoutes({ app, whisperxRelays, REPLICATE_API_TOKEN, ReplicateWhisperXRelay, broadcastToWhisperXClients });
 registerReplicateTranslationRoutes({ app, replicateTranslators, whisperxRelays, REPLICATE_API_TOKEN, ReplicateTranslation, broadcastToReplicateTranslatorClients });
+registerSeamlessSpeechRoutes({ app, seamlessSpeechServices, whisperxRelays, REPLICATE_API_TOKEN, SeamlessSpeechTranslation, broadcastToSeamlessSpeechClients });
 registerUnifiedRelayRoutes({ app, unifiedRelays, OPENAI_API_KEY, REPLICATE_API_TOKEN, UnifiedRelay, broadcastToUnifiedClients });
 registerWorkflowRoutes({ app, OPENAI_API_KEY, RTMPRealtimeRelay, TranscriptionNormalizer, TranscriptionTranslator, TranslationSpeaker, rtmpRelays, normalizers, translators, speakers, broadcastToTranscriptionClients, broadcastToNormalizerClients, broadcastToTranslatorClients, broadcastToSpeakerClients });
-registerWebSocketHandlers({ wss, projects, MAX_LISTENERS_PER_PROJECT, rtmpRelays, normalizers, translators, speakers, whisperxRelays, unifiedRelays, transcriptionClients, normalizerClients, translatorClients, speakerClients, whisperxClients, unifiedClients });
+registerWebSocketHandlers({ wss, projects, MAX_LISTENERS_PER_PROJECT, rtmpRelays, normalizers, translators, speakers, whisperxRelays, unifiedRelays, seamlessSpeechServices, transcriptionClients, normalizerClients, translatorClients, speakerClients, whisperxClients, unifiedClients, seamlessSpeechClients });
 
 // ============================================
 // Transcription Normalizer API endpoints
@@ -293,6 +304,22 @@ function broadcastToReplicateTranslatorClients(translatorId, message) {
           client.send(JSON.stringify(message));
         } catch (error) {
           console.error(`Error sending to Replicate Translator client:`, error);
+        }
+      }
+    });
+  }
+}
+
+// Функция для трансляции сообщений клиентам SeamlessSpeech
+function broadcastToSeamlessSpeechClients(serviceId, message) {
+  const clients = seamlessSpeechClients.get(serviceId);
+  if (clients) {
+    clients.forEach(client => {
+      if (client.readyState === 1) { // WebSocket.OPEN
+        try {
+          client.send(JSON.stringify(message));
+        } catch (error) {
+          console.error(`Error sending to SeamlessSpeech client:`, error);
         }
       }
     });

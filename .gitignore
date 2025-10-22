@@ -15,3 +15,4 @@ livetranslate/speaker-data/*
 livetranslate/normalizer-data/*
 livetranslate/temp-whisperx/*
 livetranslate/replicate-translation-data/*
+livetranslate/seamless-speech-data/*
