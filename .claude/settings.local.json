@@ -5,7 +5,8 @@
       "Bash(findstr /v node_modules)",
       "Bash(findstr /v \".git\")",
       "Bash(cat:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(node --check:*)"
     ],
     "deny": [],
     "ask": []

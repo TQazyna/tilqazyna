@@ -1,0 +1,319 @@
+/* Replicate Translation Specific Styles */
+
+.translations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.translation-item {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--surface);
+    border-left: 3px solid var(--primary);
+    animation: slideInRight 0.3s ease-out;
+}
+
+.translation-item.new {
+    animation: slideInRight 0.3s ease-out, pulse 0.5s ease-out;
+    border-left-color: var(--success);
+}
+
+.translation-item.error {
+    border-left-color: var(--danger);
+    background: color-mix(in srgb, var(--danger) 5%, var(--surface));
+}
+
+.translation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.translation-id {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    background: var(--background);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.translation-timestamp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.translation-duration {
+    background: var(--surface-variant);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.translation-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.translation-text-box {
+    padding: 0.75rem;
+    border-radius: 6px;
+    background: var(--background);
+    border: 1px solid var(--border);
+}
+
+.translation-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.translation-text {
+    color: var(--text-primary);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.translation-original {
+    border-left: 3px solid var(--warning);
+}
+
+.translation-translated {
+    border-left: 3px solid var(--success);
+}
+
+.translation-text.original {
+    font-style: italic;
+}
+
+.translation-text.translated {
+    font-weight: 500;
+}
+
+/* Context List */
+.context-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.context-item {
+    padding: 0.75rem;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.context-timestamp {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.context-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.context-original,
+.context-translation {
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.context-original {
+    background: color-mix(in srgb, var(--warning) 10%, var(--surface));
+    border-left: 2px solid var(--warning);
+}
+
+.context-translation {
+    background: color-mix(in srgb, var(--success) 10%, var(--surface));
+    border-left: 2px solid var(--success);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Logs List */
+.logs-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-timestamp {
+    font-family: 'Courier New', monospace;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.log-type {
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.log-type.info {
+    background: color-mix(in srgb, var(--info) 20%, transparent);
+    color: var(--info);
+}
+
+.log-type.translation_start {
+    background: color-mix(in srgb, var(--primary) 20%, transparent);
+    color: var(--primary);
+}
+
+.log-type.translation_success {
+    background: color-mix(in srgb, var(--success) 20%, transparent);
+    color: var(--success);
+}
+
+.log-type.error {
+    background: color-mix(in srgb, var(--danger) 20%, transparent);
+    color: var(--danger);
+}
+
+.log-type.warning {
+    background: color-mix(in srgb, var(--warning) 20%, transparent);
+    color: var(--warning);
+}
+
+.log-message {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+/* Empty states */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.3;
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    margin: 0;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 40%, transparent);
+    }
+    50% {
+        box-shadow: 0 0 0 10px color-mix(in srgb, var(--success) 0%, transparent);
+    }
+}
+
+/* Form controls small */
+.form-control-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+.form-control-sm:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Scrollbar styles */
+.translations-list::-webkit-scrollbar,
+.context-list::-webkit-scrollbar,
+.logs-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.translations-list::-webkit-scrollbar-track,
+.context-list::-webkit-scrollbar-track,
+.logs-list::-webkit-scrollbar-track {
+    background: var(--surface);
+    border-radius: 4px;
+}
+
+.translations-list::-webkit-scrollbar-thumb,
+.context-list::-webkit-scrollbar-thumb,
+.logs-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.translations-list::-webkit-scrollbar-thumb:hover,
+.context-list::-webkit-scrollbar-thumb:hover,
+.logs-list::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--text-secondary) 50%, transparent);
+}

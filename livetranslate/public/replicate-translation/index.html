@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replicate Translation - TalkSync</title>
+    <link rel="stylesheet" href="/dash/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-logo">TalkSync</h1>
+            <p class="sidebar-subtitle">Replicate Translation</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dash" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <span>Обзор</span>
+            </a>
+            <a href="/rtmp-relay" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 4V16M10 16L6 12M10 16L14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>RTMP Relay</span>
+            </a>
+            <a href="/whisperx-relay" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 2C10 2 8 4 8 7C8 10 10 12 10 12M10 2C10 2 12 4 12 7C12 10 10 12 10 12M10 2V12M10 12V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="10" cy="18" r="1" fill="currentColor"/>
+                </svg>
+                <span>WhisperX Relay</span>
+            </a>
+            <a href="/replicate-translation" class="nav-item active">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 5H11M9 3V5M5.5 5C5.5 9 7 13 10 15M6 8L8 10M3 15L5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13 9L17 15M17 9L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Replicate Translation</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/" class="nav-item">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10H17M17 10L13 6M17 10L13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Слушать перевод</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div class="header-left">
+                <h1 class="page-title">🌐 Replicate Translation</h1>
+                <p class="page-description">Перевод с казахского на русский через GPT-OSS-20B</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-ghost btn-sm" onclick="clearLogs()">Очистить логи</button>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Параметры</h2>
+            </div>
+            <div class="card-content">
+                <div class="form-group">
+                    <label for="whisperxId">WhisperX Relay</label>
+                    <select id="whisperxId">
+                        <option value="">Выберите WhisperX relay...</option>
+                    </select>
+                    <small>Выберите активный WhisperX relay для перевода транскрипций</small>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" value="openai/gpt-oss-20b" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="contextSize">Context Size</label>
+                        <input type="number" id="contextSize" value="10" min="1" max="20">
+                        <small>Количество предыдущих сообщений для контекста</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="temperature">Temperature</label>
+                        <input type="number" id="temperature" value="0.3" min="0" max="1" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxTokens">Max Tokens</label>
+                        <input type="number" id="maxTokens" value="2000" min="500" max="4000" step="100">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="autoTranslate" checked>
+                        Автоматически переводить новые транскрипции
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button id="startBtn" class="btn btn-primary">Начать перевод</button>
+                    <button id="stopBtn" class="btn btn-ghost btn-danger" disabled>Остановить</button>
+                    <button id="clearBtn" class="btn btn-ghost">Очистить результаты</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Статус</h2>
+                </div>
+                <div class="card-content">
+                    <div class="status-list">
+                        <div class="status-item">
+                            <div class="status-indicator" id="statusDot"></div>
+                            <div class="status-info">
+                                <div class="status-name">Status</div>
+                                <div class="status-detail"><span id="status">Not Connected</span></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator"></div>
+                            <div class="status-info">
+                                <div class="status-name">Translator ID</div>
+                                <div class="status-detail"><span id="translatorId">-</span></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator"></div>
+                            <div class="status-info">
+                                <div class="status-name">WhisperX Relay</div>
+                                <div class="status-detail"><span id="connectedWhisperx">-</span></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator"></div>
+                            <div class="status-info">
+                                <div class="status-name">Переведено</div>
+                                <div class="status-detail"><span id="translationCount">0</span></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator"></div>
+                            <div class="status-info">
+                                <div class="status-name">Контекст</div>
+                                <div class="status-detail"><span id="contextCount">0</span></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator"></div>
+                            <div class="status-info">
+                                <div class="status-name">Avg Latency</div>
+                                <div class="status-detail"><span id="avgLatency">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Статистика</h2>
+                </div>
+                <div class="card-content">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="translationsCompleted">0</div>
+                            <div class="stat-label">Успешных переводов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="translationsFailed">0</div>
+                            <div class="stat-label">Ошибок</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalTokens">0</div>
+                            <div class="stat-label">Токенов использовано</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Переводы в реальном времени</h2>
+                <button class="btn btn-ghost btn-sm" onclick="clearTranslations()">Очистить</button>
+            </div>
+            <div class="card-content">
+                <div id="translationsList" class="translations-list"></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">История контекста</h2>
+            </div>
+            <div class="card-content">
+                <div id="contextList" class="context-list"></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Логи</h2>
+                <select id="logTypeFilter" class="form-control-sm" onchange="filterLogs()">
+                    <option value="">Все типы</option>
+                    <option value="info">Info</option>
+                    <option value="translation_start">Translation Start</option>
+                    <option value="translation_success">Translation Success</option>
+                    <option value="error">Error</option>
+                    <option value="warning">Warning</option>
+                </select>
+            </div>
+            <div class="card-content">
+                <div id="logsList" class="logs-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
